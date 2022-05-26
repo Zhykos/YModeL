@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import fr.zhykos.ymodel.business.model.Classs;
 import fr.zhykos.ymodel.business.model.MetaModel;
 import fr.zhykos.ymodel.business.model.Method;
-import fr.zhykos.ymodel.business.model.MethodParam;
+import fr.zhykos.ymodel.business.model.MethodParameter;
 import fr.zhykos.ymodel.business.service.ParsingException;
 import fr.zhykos.ymodel.business.service.impl.ParsingService;
 import io.quarkus.test.junit.QuarkusTest;
@@ -34,11 +34,11 @@ class ParsingServiceTests {
         Assertions.assertEquals("void", method01.getReturns());
         Assertions.assertEquals(2, method01.getParams().size());
 
-        final MethodParam param01 = method01.getParams().get(0);
+        final MethodParameter param01 = method01.getParams().get(0);
         Assertions.assertEquals("param01", param01.getName());
         Assertions.assertEquals("int", param01.getType());
 
-        final MethodParam param02 = method01.getParams().get(1);
+        final MethodParameter param02 = method01.getParams().get(1);
         Assertions.assertEquals("param02", param02.getName());
         Assertions.assertEquals("string", param02.getType());
 
@@ -58,7 +58,7 @@ class ParsingServiceTests {
         Assertions.assertEquals("char", method03.getReturns());
         Assertions.assertEquals(1, method03.getParams().size());
 
-        final MethodParam param03 = method03.getParams().get(0);
+        final MethodParameter param03 = method03.getParams().get(0);
         Assertions.assertEquals("param03", param03.getName());
         Assertions.assertEquals("int", param03.getType());
     }

@@ -2,7 +2,7 @@ package fr.zhykos.ymodel.business.model;
 
 import lombok.Getter;
 
-public class MethodParam {
+public class MethodParameter {
 
     @Getter
     private String name;

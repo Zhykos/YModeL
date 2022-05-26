@@ -14,6 +14,6 @@ public class Method {
     private String returns;
 
     @Getter
-    private List<MethodParam> params = new ArrayList<>();
+    private List<MethodParameter> params = new ArrayList<>();
 
 }
