@@ -9,6 +9,7 @@ import lombok.Setter;
 public class Classs {
 
     @Getter
+    @Setter
     private String name;
 
     @Getter
