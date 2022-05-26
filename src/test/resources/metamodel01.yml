@@ -1,0 +1,21 @@
+metamodel:
+  classes:
+    - name: Class01
+      methods:
+        - name: method01
+          params:
+            - name: param01
+              type: int
+            - name: param02
+              type: string
+          returns: void
+        - name: method02
+          returns: float
+    - name: Class02
+      inherits: Class01
+      methods:
+        - name: method03
+          params:
+            - name: param03
+              type: int
+          returns: char
