@@ -1,9 +1,39 @@
 <?xml version="1.0"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>fr.zhykos</groupId>
     <artifactId>ymodel</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
+    <url>https://github.com/Zhykos/YModeL</url>
+    <name>YModeL</name>
+    <description>
+		Generate a metamodel base code from a YML file description.
+	</description>
+    <inceptionYear>2022</inceptionYear>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <organization>
+        <name>Zhykos.fr</name>
+        <url>https://www.zhykos.fr</url>
+    </organization>
+    <developers>
+        <developer>
+            <name>Thomas "Zhykos" Cicognani</name>
+            <email>github@tomtom.email</email>
+        </developer>
+    </developers>
+    <scm>
+        <tag>GitHub</tag>
+        <url>https://github.com/Zhykos/YModeL</url>
+    </scm>
+
     <properties>
         <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <failsafe.useModulePath>false</failsafe.useModulePath>
@@ -22,7 +52,30 @@
         <com.fasterxml.jackson.dataformat.jackson-dataformat-yaml.version>2.13.3</com.fasterxml.jackson.dataformat.jackson-dataformat-yaml.version>
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
         <com.fasterxml.jackson.core.jackson-databind.version>2.13.3</com.fasterxml.jackson.core.jackson-databind.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-checkstyle-plugin -->
+        <org.apache.maven.plugins.maven-checkstyle-plugin.version>3.1.2</org.apache.maven.plugins.maven-checkstyle-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-site-plugin -->
+        <org.apache.maven.plugins.maven-site-plugin.version>3.9.1</org.apache.maven.plugins.maven-site-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-project-info-reports-plugin -->
+        <org.apache.maven.plugins.maven-project-info-reports-plugin.version>3.1.2</org.apache.maven.plugins.maven-project-info-reports-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.owasp/dependency-check-maven -->
+        <org.owasp.dependency-check-maven.version>6.5.1</org.owasp.dependency-check-maven.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-pmd-plugin -->
+        <org.apache.maven.plugins.maven-pmd-plugin.version>3.15.0</org.apache.maven.plugins.maven-pmd-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.ow2.asm/asm -->
+        <org.ow2.asm.asm.version>9.2</org.ow2.asm.asm.version>
+        <!-- https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs-maven-plugin -->
+        <com.github.spotbugs.spotbugs-maven-plugin.version>4.5.2.0</com.github.spotbugs.spotbugs-maven-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+        <org.jacoco.jacoco-maven-plugin.version>0.8.7</org.jacoco.jacoco-maven-plugin.version>
+        <!-- https://mvnrepository.com/artifact/com.mycila/license-maven-plugin -->
+        <com.mycila.license-maven-plugin.version>4.1</com.mycila.license-maven-plugin.version>
+        <!-- https://mvnrepository.com/artifact/net.revelc.code.formatter/formatter-maven-plugin -->
+        <net.revelc.code.formatter.formatter-maven-plugin.version>2.17.1</net.revelc.code.formatter.formatter-maven-plugin.version>
+        <!-- https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle -->
+        <com.puppycrawl.tools.checkstyle.version>9.3</com.puppycrawl.tools.checkstyle.version>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -34,6 +87,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -71,6 +125,7 @@
             <version>${com.fasterxml.jackson.core.jackson-databind.version}</version>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -107,8 +162,183 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${org.apache.maven.plugins.maven-checkstyle-plugin.version}</version>
+                <configuration>
+                    <configLocation>resources/quality/checkstyle.xml</configLocation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${org.apache.maven.plugins.maven-site-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${org.apache.maven.plugins.maven-project-info-reports-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${org.owasp.dependency-check-maven.version}</version>
+                <configuration>
+                    <failBuildOnCVSS>8</failBuildOnCVSS>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${org.apache.maven.plugins.maven-pmd-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm</artifactId>
+                        <version>${org.ow2.asm.asm.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>cpd-check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${com.github.spotbugs.spotbugs-maven-plugin.version}</version>
+                <configuration>
+                    <excludeFilterFile>resources/quality/spotbugs-security-exclude.xml</excludeFilterFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${org.jacoco.jacoco-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>coverage-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>coverage-report</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>coverage-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>INSTRUCTION</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${bundle.coverage.ratio}</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>CLASS</counter>
+                                            <value>MISSEDCOUNT</value>
+                                            <maximum>0</maximum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${com.mycila.license-maven-plugin.version}</version>
+                <configuration>
+                    <properties>
+                        <owner>Thomas "Zhykos" Cicognani</owner>
+                        <email>github@tomtom.email</email>
+                    </properties>
+                    <!-- <licenseSets>
+						<licenseSet>
+							<header>com/mycila/maven/plugin/license/templates/AGPL-3.txt</header>
+							<excludes>
+								<exclude>**/README</exclude>
+								<exclude>src/test/resources/**</exclude>
+								<exclude>src/main/resources/**</exclude>
+								<exclude>resources/tests/**</exclude>
+								<exclude>pc-zhykos-env/**</exclude>
+								<exclude>working-dir-RxJava/**</exclude>
+								<exclude>src/site/resources/**</exclude>
+							</excludes>
+						</licenseSet>
+					</licenseSets> -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>net.revelc.code.formatter</groupId>
+                <artifactId>formatter-maven-plugin</artifactId>
+                <version>${net.revelc.code.formatter.formatter-maven-plugin.version}</version>
+                <configuration>
+                    <configFile>${project.basedir}/resources/quality/format-java.xml</configFile>
+                </configuration>
+            </plugin>
         </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${org.apache.maven.plugins.maven-checkstyle-plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>${com.puppycrawl.tools.checkstyle.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
+
     <profiles>
         <profile>
             <id>native</id>
@@ -145,4 +375,132 @@
             </properties>
         </profile>
     </profiles>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${org.apache.maven.plugins.maven-checkstyle-plugin.version}</version>
+                <configuration>
+                    <configLocation>resources/quality/checkstyle.xml</configLocation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>${org.owasp.dependency-check-maven.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${org.apache.maven.plugins.maven-pmd-plugin.version}</version>
+                <configuration>
+                    <linkXref>false</linkXref>
+                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>${maven.compiler.target}</targetJdk>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>pmd</report>
+                            <report>cpd</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet>
+                        <id>aggregate</id>
+                        <inherited>false</inherited>
+                        <reports>
+                            <report>aggregate-pmd</report>
+                            <report>aggregate-cpd</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>${org.apache.maven.plugins.maven-jxr-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${com.github.spotbugs.spotbugs-maven-plugin.version}</version>
+                <configuration>
+                    <excludeFilterFile>resources/quality/spotbugs-security-exclude.xml</excludeFilterFile>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${org.apache.maven.plugins.maven-surefire-report-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${org.codehaus.mojo.versions-maven-plugin.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependency-updates-report</report>
+                            <report>plugin-updates-report</report>
+                            <report>property-updates-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+                <version>${org.codehaus.mojo.taglist-maven-plugin.version}</version>
+                <configuration>
+                    <tagListOptions>
+                        <tagClasses>
+                            <tagClass>
+                                <displayName>Todos</displayName>
+                                <tags>
+                                    <tag>
+                                        <matchString>TODO</matchString>
+                                        <matchType>exact</matchType>
+                                    </tag>
+                                    <tag>
+                                        <matchString>FIXME</matchString>
+                                        <matchType>exact</matchType>
+                                    </tag>
+                                    <tag>
+                                        <matchString>XXX</matchString>
+                                        <matchType>exact</matchType>
+                                    </tag>
+                                    <tag>
+                                        <matchString>@Deprecated</matchString>
+                                        <matchType>exact</matchType>
+                                    </tag>
+                                </tags>
+                            </tagClass>
+                        </tagClasses>
+                    </tagListOptions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
 </project>
