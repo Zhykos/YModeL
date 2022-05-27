@@ -13,4 +13,9 @@ public class MethodParameter {
     @Setter
     private String type;
 
+    @Override
+    public String toString() {
+        return "{ name: '%s', type: '%s' }".formatted(this.name, this.type);
+    }
+
 }

@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.model;
+package fr.zhykos.ymodel.business.model.templates.typescript;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Method {
+public class TypescriptMethod {
 
     @Getter
     @Setter
@@ -18,7 +18,7 @@ public class Method {
     private String returns;
 
     @Getter
-    private List<MethodParameter> params = new ArrayList<>();
+    private List<TypescriptMethodParameter> params = new ArrayList<>();
 
     @Override
     public String toString() {

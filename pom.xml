@@ -74,6 +74,12 @@
         <net.revelc.code.formatter.formatter-maven-plugin.version>2.17.1</net.revelc.code.formatter.formatter-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle -->
         <com.puppycrawl.tools.checkstyle.version>9.3</com.puppycrawl.tools.checkstyle.version>
+        <!-- https://mvnrepository.com/artifact/com.github.spullara.mustache.java/compiler -->
+        <com.github.spullara.mustache.java.compiler.version>0.9.10</com.github.spullara.mustache.java.compiler.version>
+        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
+        <org.mapstruct.mapstruct.version>1.5.0.RC1</org.mapstruct.mapstruct.version>
+        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor -->
+        <org.mapstruct.mapstruct-processor.version>1.5.0.RC1</org.mapstruct.mapstruct-processor.version>
     </properties>
 
     <dependencyManagement>
@@ -124,6 +130,16 @@
             <artifactId>jackson-databind</artifactId>
             <version>${com.fasterxml.jackson.core.jackson-databind.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.spullara.mustache.java</groupId>
+            <artifactId>compiler</artifactId>
+            <version>${com.github.spullara.mustache.java.compiler.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${org.mapstruct.mapstruct.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -150,6 +166,18 @@
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${org.projectlombok.lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.mapstruct-processor.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>

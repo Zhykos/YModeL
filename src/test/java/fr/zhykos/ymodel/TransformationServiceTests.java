@@ -13,6 +13,7 @@ import fr.zhykos.ymodel.business.model.MetaModel;
 import fr.zhykos.ymodel.business.model.Method;
 import fr.zhykos.ymodel.business.model.MethodParameter;
 import fr.zhykos.ymodel.business.service.ETargetLanguage;
+import fr.zhykos.ymodel.business.service.Returns;
 import fr.zhykos.ymodel.business.service.impl.TransformationService;
 
 class TransformationServiceTests {
@@ -22,14 +23,18 @@ class TransformationServiceTests {
         final MetaModel metaModel = createMetaModel();
 
         final List<String> transformations = new TransformationService().transform(metaModel,
-                ETargetLanguage.TYPESCRIPT);
+                ETargetLanguage.TYPESCRIPT).stream().map(Returns::then).toList();
         Assertions.assertEquals(2, transformations.size());
 
-        final String expectedTypescript01 = Files.readString(Path.of("src/test/resources/expectedTypescript01.ts"));
-        final String expectedTypescript02 = Files.readString(Path.of("src/test/resources/expectedTypescript02.ts"));
+        final String expectedTypescript01 = Files.readString(Path.of("src/test/resources/expected-typescript/Class01.ts"));
+        final String expectedTypescript02 = Files.readString(Path.of("src/test/resources/expected-typescript/Class02.ts"));
 
-        Assertions.assertEquals(expectedTypescript01, transformations.get(0));
-        Assertions.assertEquals(expectedTypescript02, transformations.get(1));
+        final String transformation01 = transformations.get(0);
+        final String transformation02 = transformations.get(1);
+        Assertions.assertNotEquals("", transformation01);
+        Assertions.assertNotEquals("", transformation02);
+        Assertions.assertEquals(expectedTypescript01, transformation01);
+        Assertions.assertEquals(expectedTypescript02, transformation02);
     }
 
     private static MetaModel createMetaModel() {
