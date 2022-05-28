@@ -10,6 +10,10 @@ import { {{inherits}} } from "./{{.}}";
 
 export abstract class {{name}}{{#inherits}} extends {{inherits}}{{/inherits}} {
 
+    {{#fields}}
+    {{name}}: {{type}};
+
+    {{/fields}}
     {{#methods}}
     abstract {{name}}({{#params}}{{name}}: {{type}}{{^lastParam}}, {{/lastParam}}{{/params}}): {{returns}};
 

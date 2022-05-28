@@ -41,6 +41,8 @@ public class TransformationService implements ITransformationService {
                     }
                     method.setReturns(mapTypescriptType(method.getReturns()));
                 });
+        typescriptClass.getFields()
+                .forEach(field -> field.setType(mapTypescriptType(field.getType())));
         if (classs.getInheritsClass() != null) {
             typescriptClass.setInherits(classs.getInheritsClass().getName());
         }
