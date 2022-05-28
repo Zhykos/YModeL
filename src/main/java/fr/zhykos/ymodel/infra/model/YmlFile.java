@@ -1,11 +1,11 @@
 package fr.zhykos.ymodel.infra.model;
 
-import fr.zhykos.ymodel.business.model.MetaModel;
+import fr.zhykos.ymodel.business.model.yml.YmlMetaModel;
 import lombok.Getter;
 
 public class YmlFile {
 
     @Getter
-    private MetaModel metamodel;
+    private YmlMetaModel metamodel;
 
 }

@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.model.templates.typescript;
+package fr.zhykos.ymodel.business.model.yml;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,21 +7,20 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 
-public class TypescriptClass {
+public class YmlClass {
 
     @Getter
     @Setter
     private String name;
 
     @Getter
-    @Setter
     private String inherits;
 
     @Getter
-    private List<TypescriptField> fields = new ArrayList<>();
+    private List<YmlField> fields = new ArrayList<>();
 
     @Getter
-    private List<TypescriptMethod> methods = new ArrayList<>();
+    private List<YmlMethod> methods = new ArrayList<>();
 
     @Override
     public String toString() {

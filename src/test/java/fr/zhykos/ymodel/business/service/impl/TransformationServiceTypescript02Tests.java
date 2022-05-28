@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import fr.zhykos.ymodel.business.model.Classs;
-import fr.zhykos.ymodel.business.model.Field;
-import fr.zhykos.ymodel.business.model.MetaModel;
+import fr.zhykos.ymodel.business.model.yml.YmlClass;
+import fr.zhykos.ymodel.business.model.yml.YmlField;
+import fr.zhykos.ymodel.business.model.yml.YmlMetaModel;
 import fr.zhykos.ymodel.business.service.ETargetLanguage;
 import fr.zhykos.ymodel.business.service.Returns;
 
@@ -20,7 +20,7 @@ class TransformationServiceTypescript02Tests {
     @Test
     @DisplayName("Transform a metamodel into Typescript then verify if fields are generated")
     void transformIntoTypescript() throws IOException {
-        final MetaModel metaModel = createMetaModel();
+        final YmlMetaModel metaModel = createMetaModel();
 
         final List<String> transformations = new TransformationService().transform(metaModel,
                 ETargetLanguage.TYPESCRIPT).stream().map(Returns::then).toList();
@@ -34,14 +34,14 @@ class TransformationServiceTypescript02Tests {
         Assertions.assertEquals(expectedTypescript, transformation);
     }
 
-    private static MetaModel createMetaModel() {
-        final Classs classs = new Classs();
+    private static YmlMetaModel createMetaModel() {
+        final YmlClass classs = new YmlClass();
         classs.setName("Class03");
 
-        final Field field01 = new Field("field01", "int");
-        final Field field02 = new Field("field02", "string");
+        final YmlField field01 = new YmlField("field01", "int");
+        final YmlField field02 = new YmlField("field02", "string");
 
-        final MetaModel metaModel = new MetaModel();
+        final YmlMetaModel metaModel = new YmlMetaModel();
         metaModel.getClasses().add(classs);
         classs.getFields().add(field01);
         classs.getFields().add(field02);

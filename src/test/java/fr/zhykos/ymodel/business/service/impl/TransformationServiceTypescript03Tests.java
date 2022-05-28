@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import fr.zhykos.ymodel.business.model.Classs;
-import fr.zhykos.ymodel.business.model.Field;
-import fr.zhykos.ymodel.business.model.MetaModel;
-import fr.zhykos.ymodel.business.model.Method;
-import fr.zhykos.ymodel.business.model.MethodParameter;
+import fr.zhykos.ymodel.business.model.yml.YmlClass;
+import fr.zhykos.ymodel.business.model.yml.YmlField;
+import fr.zhykos.ymodel.business.model.yml.YmlMetaModel;
+import fr.zhykos.ymodel.business.model.yml.YmlMethod;
+import fr.zhykos.ymodel.business.model.yml.YmlMethodParameter;
 import fr.zhykos.ymodel.business.service.ETargetLanguage;
 import fr.zhykos.ymodel.business.service.Returns;
 
@@ -22,7 +22,7 @@ class TransformationServiceTypescript03Tests {
     @Test
     @DisplayName("Transform a metamodel into Typescript then verify if fields and methods are generated")
     void transformIntoTypescript() throws IOException {
-        final MetaModel metaModel = createMetaModel();
+        final YmlMetaModel metaModel = createMetaModel();
 
         final List<String> transformations = new TransformationService().transform(metaModel,
                 ETargetLanguage.TYPESCRIPT).stream().map(Returns::then).toList();
@@ -36,25 +36,25 @@ class TransformationServiceTypescript03Tests {
         Assertions.assertEquals(expectedTypescript, transformation);
     }
 
-    private static MetaModel createMetaModel() {
-        final Classs classs = new Classs();
+    private static YmlMetaModel createMetaModel() {
+        final YmlClass classs = new YmlClass();
         classs.setName("Class04");
 
-        final Field field = new Field("field01", "int");
+        final YmlField field = new YmlField("field01", "int");
 
-        final Method method = new Method();
+        final YmlMethod method = new YmlMethod();
         method.setName("method01");
         method.setReturns("string");
 
-        final MethodParameter methodParameter = new MethodParameter();
+        final YmlMethodParameter methodParameter = new YmlMethodParameter();
         methodParameter.setName("param01");
         methodParameter.setType("float");
 
-        final MetaModel metaModel = new MetaModel();
+        final YmlMetaModel metaModel = new YmlMetaModel();
         metaModel.getClasses().add(classs);
         classs.getFields().add(field);
         classs.getMethods().add(method);
-        method.getParams().add(methodParameter);
+        method.getParameters().add(methodParameter);
         return metaModel;
     }
 

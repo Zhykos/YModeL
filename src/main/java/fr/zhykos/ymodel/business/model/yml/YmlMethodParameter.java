@@ -1,9 +1,9 @@
-package fr.zhykos.ymodel.business.model;
+package fr.zhykos.ymodel.business.model.yml;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public class MethodParameter {
+public class YmlMethodParameter {
 
     @Getter
     @Setter

@@ -2,10 +2,10 @@ package fr.zhykos.ymodel.business.service;
 
 import java.io.File;
 
-import fr.zhykos.ymodel.business.model.MetaModel;
+import fr.zhykos.ymodel.business.model.yml.YmlMetaModel;
 
 public interface IParsingService {
 
-    MetaModel parse(File yamlFile) throws ParsingException;
+    YmlMetaModel parse(File yamlFile) throws ParsingException;
 
 }

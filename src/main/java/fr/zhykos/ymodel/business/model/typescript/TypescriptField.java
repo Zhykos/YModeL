@@ -1,11 +1,9 @@
-package fr.zhykos.ymodel.business.model;
+package fr.zhykos.ymodel.business.model.typescript;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
-public class Field {
+public class TypescriptField {
 
     @Getter
     @Setter

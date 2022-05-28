@@ -3,7 +3,7 @@ metamodel:
     - name: Class01
       methods:
         - name: method01
-          params:
+          parameters:
             - name: param01
               type: int
             - name: param02
@@ -15,7 +15,7 @@ metamodel:
       inherits: Class01
       methods:
         - name: method03
-          params:
+          parameters:
             - name: param03
               type: int
           returns: char

@@ -1,9 +1,11 @@
-package fr.zhykos.ymodel.business.model.templates.typescript;
+package fr.zhykos.ymodel.business.model.yml;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-public class TypescriptField {
+@AllArgsConstructor
+public class YmlField {
 
     @Getter
     @Setter

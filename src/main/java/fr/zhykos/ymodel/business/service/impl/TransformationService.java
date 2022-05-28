@@ -10,10 +10,10 @@ import com.github.mustachejava.MustacheFactory;
 
 import org.mapstruct.factory.Mappers;
 
-import fr.zhykos.ymodel.business.model.Classs;
-import fr.zhykos.ymodel.business.model.MetaModel;
-import fr.zhykos.ymodel.business.model.templates.typescript.TypescriptClass;
-import fr.zhykos.ymodel.business.model.templates.typescript.TypescriptMapper;
+import fr.zhykos.ymodel.business.model.typescript.TypescriptClass;
+import fr.zhykos.ymodel.business.model.typescript.TypescriptMapper;
+import fr.zhykos.ymodel.business.model.yml.YmlClass;
+import fr.zhykos.ymodel.business.model.yml.YmlMetaModel;
 import fr.zhykos.ymodel.business.service.ETargetLanguage;
 import fr.zhykos.ymodel.business.service.ITransformationService;
 import fr.zhykos.ymodel.business.service.Returns;
@@ -21,16 +21,16 @@ import fr.zhykos.ymodel.business.service.Returns;
 public class TransformationService implements ITransformationService {
 
     @Override
-    public List<Returns<String, IOException>> transform(final MetaModel metaModel,
+    public List<Returns<String, IOException>> transform(final YmlMetaModel metaModel,
             final ETargetLanguage targetLanguage) {
         return transformIntoTypescript(metaModel);
     }
 
-    private static List<Returns<String, IOException>> transformIntoTypescript(final MetaModel metaModel) {
+    private static List<Returns<String, IOException>> transformIntoTypescript(final YmlMetaModel metaModel) {
         return metaModel.getClasses().stream().map(TransformationService::transformIntoTypescript).toList();
     }
 
-    private static Returns<String, IOException> transformIntoTypescript(final Classs classs) {
+    private static Returns<String, IOException> transformIntoTypescript(final YmlClass classs) {
         final TypescriptMapper mapper = Mappers.getMapper(TypescriptMapper.class);
         final TypescriptClass typescriptClass = mapper.map(classs);
         typescriptClass.getMethods()
@@ -43,9 +43,9 @@ public class TransformationService implements ITransformationService {
                 });
         typescriptClass.getFields()
                 .forEach(field -> field.setType(mapTypescriptType(field.getType())));
-        if (classs.getInheritsClass() != null) {
-            typescriptClass.setInherits(classs.getInheritsClass().getName());
-        }
+        // if (classs.getInheritsClass() != null) {
+        //     typescriptClass.setInherits(classs.getInheritsClass().getName());
+        // }
         return executeTemplate(typescriptClass, ETargetLanguage.TYPESCRIPT.name().toLowerCase());
     }
 
