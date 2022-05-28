@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.service.impl;
+package fr.zhykos.ymodel.infra.services;
 
 import java.io.File;
 
@@ -6,14 +6,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import fr.zhykos.ymodel.business.model.yml.YmlMetaModel;
-import fr.zhykos.ymodel.business.service.IParsingService;
-import fr.zhykos.ymodel.business.service.ParsingException;
 import fr.zhykos.ymodel.infra.model.YmlFile;
 
-public class ParsingService implements IParsingService {
+public final class ParsingService {
 
-    @Override
-    public YmlMetaModel parse(final File yamlFile) throws ParsingException {
+    private ParsingService() {
+        // Do nothing
+    }
+
+    public static YmlMetaModel parse(final File yamlFile) throws ParsingException {
         final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         try {
             final YmlFile file = mapper.readValue(yamlFile, YmlFile.class);

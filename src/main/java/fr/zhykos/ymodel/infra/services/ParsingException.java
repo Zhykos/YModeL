@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.service;
+package fr.zhykos.ymodel.infra.services;
 
 public class ParsingException extends Exception {
 

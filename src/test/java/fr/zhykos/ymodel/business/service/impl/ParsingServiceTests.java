@@ -9,14 +9,15 @@ import fr.zhykos.ymodel.business.model.yml.YmlClass;
 import fr.zhykos.ymodel.business.model.yml.YmlMetaModel;
 import fr.zhykos.ymodel.business.model.yml.YmlMethod;
 import fr.zhykos.ymodel.business.model.yml.YmlMethodParameter;
-import fr.zhykos.ymodel.business.service.ParsingException;
+import fr.zhykos.ymodel.infra.services.ParsingException;
+import fr.zhykos.ymodel.infra.services.ParsingService;
 
 class ParsingServiceTests {
 
     @Test
     void parse() throws ParsingException {
         final File yamlFile = new File("src/test/resources/metamodel01.yml");
-        final YmlMetaModel metaModel = new ParsingService().parse(yamlFile);
+        final YmlMetaModel metaModel = ParsingService.parse(yamlFile);
 
         Assertions.assertEquals(2, metaModel.getClasses().size());
 
