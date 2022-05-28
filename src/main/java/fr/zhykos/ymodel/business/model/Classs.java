@@ -21,11 +21,16 @@ public class Classs {
     private Classs inheritsClass;
 
     @Getter
+    private List<Field> fields = new ArrayList<>();
+
+    @Getter
     private List<Method> methods = new ArrayList<>();
 
     @Override
     public String toString() {
-        return "{ name: '%s', inherits: '%s', methods: [%s]".formatted(this.name, this.inherits,
+        return "{ name: '%s', inherits: '%s', fields: [%s], methods: [%s]".formatted(this.name, this.inherits,
+                this.fields.stream().map(Object::toString).collect(Collectors.joining(", ")),
                 this.methods.stream().map(Object::toString).collect(Collectors.joining(", ")));
     }
+
 }
