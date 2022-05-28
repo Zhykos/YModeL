@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel;
+package fr.zhykos.ymodel.business.service.impl;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,7 +14,6 @@ import fr.zhykos.ymodel.business.model.Method;
 import fr.zhykos.ymodel.business.model.MethodParameter;
 import fr.zhykos.ymodel.business.service.ETargetLanguage;
 import fr.zhykos.ymodel.business.service.Returns;
-import fr.zhykos.ymodel.business.service.impl.TransformationService;
 
 class TransformationServiceTests {
 
@@ -26,8 +25,10 @@ class TransformationServiceTests {
                 ETargetLanguage.TYPESCRIPT).stream().map(Returns::then).toList();
         Assertions.assertEquals(2, transformations.size());
 
-        final String expectedTypescript01 = Files.readString(Path.of("src/test/resources/expected-typescript/Class01.ts"));
-        final String expectedTypescript02 = Files.readString(Path.of("src/test/resources/expected-typescript/Class02.ts"));
+        final String expectedTypescript01 = Files
+                .readString(Path.of("src/test/resources/expected-typescript/Class01.ts"));
+        final String expectedTypescript02 = Files
+                .readString(Path.of("src/test/resources/expected-typescript/Class02.ts"));
 
         final String transformation01 = transformations.get(0);
         final String transformation02 = transformations.get(1);

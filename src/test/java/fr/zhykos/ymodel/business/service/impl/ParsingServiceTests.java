@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel;
+package fr.zhykos.ymodel.business.service.impl;
 
 import java.io.File;
 
@@ -10,7 +10,6 @@ import fr.zhykos.ymodel.business.model.MetaModel;
 import fr.zhykos.ymodel.business.model.Method;
 import fr.zhykos.ymodel.business.model.MethodParameter;
 import fr.zhykos.ymodel.business.service.ParsingException;
-import fr.zhykos.ymodel.business.service.impl.ParsingService;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
