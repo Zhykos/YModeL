@@ -15,7 +15,7 @@ import fr.zhykos.ymodel.business.model.MethodParameter;
 import fr.zhykos.ymodel.business.service.ETargetLanguage;
 import fr.zhykos.ymodel.business.service.Returns;
 
-class TransformationServiceTests {
+class TransformationServiceTypescript01Tests {
 
     @Test
     void transformIntoTypescript() throws IOException {
