@@ -14,9 +14,7 @@ import fr.zhykos.ymodel.business.model.Field;
 import fr.zhykos.ymodel.business.model.MetaModel;
 import fr.zhykos.ymodel.business.service.ETargetLanguage;
 import fr.zhykos.ymodel.business.service.Returns;
-import io.quarkus.test.junit.QuarkusTest;
 
-@QuarkusTest
 class TransformationServiceTypescript02Tests {
 
     @Test

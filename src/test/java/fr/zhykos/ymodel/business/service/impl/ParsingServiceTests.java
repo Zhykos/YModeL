@@ -10,9 +10,7 @@ import fr.zhykos.ymodel.business.model.MetaModel;
 import fr.zhykos.ymodel.business.model.Method;
 import fr.zhykos.ymodel.business.model.MethodParameter;
 import fr.zhykos.ymodel.business.service.ParsingException;
-import io.quarkus.test.junit.QuarkusTest;
 
-@QuarkusTest
 class ParsingServiceTests {
 
     @Test
