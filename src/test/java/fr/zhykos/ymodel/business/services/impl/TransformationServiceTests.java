@@ -25,9 +25,9 @@ class TransformationServiceTests {
         final EClass class01 = eClasses.get(0);
         Assertions.assertEquals(0, class01.getESuperTypes().size());
         Assertions.assertEquals("Class01", class01.getName());
-        Assertions.assertEquals(2, class01.getOperationCount());
+        Assertions.assertEquals(2, class01.getEOperations().size());
 
-        final EOperation method01 = class01.getEOperation(0);
+        final EOperation method01 = class01.getEOperations().get(0);
         Assertions.assertEquals("method01", method01.getName());
         Assertions.assertEquals("void", method01.getEType().getName());
         Assertions.assertEquals(2, method01.getEParameters().size());
@@ -40,7 +40,7 @@ class TransformationServiceTests {
         Assertions.assertEquals("param02", param02.getName());
         Assertions.assertEquals("string", param02.getEType().getName());
 
-        final EOperation method02 = class01.getEOperation(1);
+        final EOperation method02 = class01.getEOperations().get(1);
         Assertions.assertEquals("method02", method02.getName());
         Assertions.assertEquals("float", method02.getEType().getName());
         Assertions.assertEquals(0, method02.getEParameters().size());
@@ -49,9 +49,9 @@ class TransformationServiceTests {
         Assertions.assertEquals(1, class02.getESuperTypes().size());
         Assertions.assertEquals(class01, class02.getESuperTypes().get(0));
         Assertions.assertEquals("Class02", class02.getName());
-        Assertions.assertEquals(1, class02.getOperationCount());
+        Assertions.assertEquals(1, class02.getEOperations().size());
 
-        final EOperation method03 = class02.getEOperation(0);
+        final EOperation method03 = class02.getEOperations().get(0);
         Assertions.assertEquals("method03", method03.getName());
         Assertions.assertEquals("char", method03.getEType().getName());
         Assertions.assertEquals(1, method03.getEParameters().size());
