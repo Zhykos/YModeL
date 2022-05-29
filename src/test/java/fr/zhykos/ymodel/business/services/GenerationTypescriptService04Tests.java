@@ -3,58 +3,64 @@ package fr.zhykos.ymodel.business.services;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EParameter;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import fr.zhykos.ymodel.infra.Returns;
-import fr.zhykos.ymodel.infra.models.yml.YmlClass;
-import fr.zhykos.ymodel.infra.models.yml.YmlField;
-import fr.zhykos.ymodel.infra.models.yml.YmlMetaModel;
-import fr.zhykos.ymodel.infra.models.yml.YmlMethod;
-import fr.zhykos.ymodel.infra.models.yml.YmlMethodParameter;
 
 class GenerationTypescriptService04Tests {
 
     @Test
-    @DisplayName("Transform a metamodel into Typescript then verify external classes references")
-    void transformIntoTypescript() throws IOException {
-        final YmlMetaModel metaModel = createMetaModel();
+    @DisplayName("Generate a metamodel into Typescript then verify external classes references")
+    void generate() throws IOException {
+        final EClass eClass = createEClass();
 
-        final List<String> transformations = new GenerationTypescriptService().generate(metaModel).stream()
-                .map(Returns::then).toList();
-        Assertions.assertEquals(1, transformations.size());
+        final Returns<String, IOException> generation = new GenerationTypescriptService().generate(eClass);
 
         final String expectedTypescript = Files
                 .readString(Path.of("src/test/resources/expected-typescript/Class05.ts"));
 
-        final String transformation = transformations.get(0);
-        Assertions.assertNotEquals("", transformation);
-        Assertions.assertEquals(expectedTypescript, transformation);
+        final String typescript = generation.then();
+        Assertions.assertNotEquals("", typescript);
+        Assertions.assertEquals(expectedTypescript, typescript);
     }
 
-    private static YmlMetaModel createMetaModel() {
-        final YmlClass classs = new YmlClass();
+    private static EClass createEClass() {
+        final EClass classs = EcoreFactory.eINSTANCE.createEClass();
         classs.setName("Class05");
 
-        final YmlField field = new YmlField("field01", "$Class02");
+        final EAttribute field = EcoreFactory.eINSTANCE.createEAttribute();
+        field.setName("field01");
 
-        final YmlMethod method = new YmlMethod();
+        final EClass type01 = EcoreFactory.eINSTANCE.createEClass();
+        type01.setName("Class02");
+
+        final EOperation method = EcoreFactory.eINSTANCE.createEOperation();
         method.setName("method01");
-        method.setReturns("$Class01");
 
-        final YmlMethodParameter methodParameter = new YmlMethodParameter();
+        final EClass type02 = EcoreFactory.eINSTANCE.createEClass();
+        type02.setName("Class01");
+
+        final EParameter methodParameter = EcoreFactory.eINSTANCE.createEParameter();
         methodParameter.setName("param01");
-        methodParameter.setType("$Class03");
 
-        final YmlMetaModel metaModel = new YmlMetaModel();
-        metaModel.getClasses().add(classs);
-        classs.getFields().add(field);
-        classs.getMethods().add(method);
-        method.getParameters().add(methodParameter);
-        return metaModel;
+        final EClass type03 = EcoreFactory.eINSTANCE.createEClass();
+        type03.setName("Class03");
+
+        classs.getEAttributes().add(field);
+        classs.getEOperations().add(method);
+        method.getEParameters().add(methodParameter);
+        field.setEType(type01);
+        method.setEType(type02);
+        methodParameter.setEType(type03);
+        return classs;
     }
 
 }
