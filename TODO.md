@@ -1,1 +1,2 @@
-- class attributes
+- api
+- checks avec maven (qualité, jacoco, etc.)

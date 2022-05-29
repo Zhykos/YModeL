@@ -1,26 +1,24 @@
 package fr.zhykos.ymodel.infra.services;
 
 import java.io.File;
+import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
+import fr.zhykos.ymodel.infra.Returns;
 import fr.zhykos.ymodel.infra.models.yml.YmlFile;
 import fr.zhykos.ymodel.infra.models.yml.YmlMetaModel;
 
-public final class ParsingService {
+public class ParsingService {
 
-    private ParsingService() {
-        // Do nothing
-    }
-
-    public static YmlMetaModel parse(final File yamlFile) throws ParsingException {
-        final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+    public Returns<YmlMetaModel, IOException> parse(final File yamlFile) {
         try {
+            final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             final YmlFile file = mapper.readValue(yamlFile, YmlFile.class);
-            return file.getMetamodel();
-        } catch (Exception e) {
-            throw new ParsingException(e);
+            return Returns.resolve(file.getMetamodel());
+        } catch (IOException e) {
+            return Returns.reject(e);
         }
     }
 

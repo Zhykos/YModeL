@@ -1,10 +1,13 @@
 package fr.zhykos.ymodel.infra.services;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import fr.zhykos.ymodel.infra.Returns;
 import fr.zhykos.ymodel.infra.models.yml.YmlClass;
 import fr.zhykos.ymodel.infra.models.yml.YmlMetaModel;
 import fr.zhykos.ymodel.infra.models.yml.YmlMethod;
@@ -13,9 +16,11 @@ import fr.zhykos.ymodel.infra.models.yml.YmlMethodParameter;
 class ParsingServiceTests {
 
     @Test
-    void parse() throws ParsingException {
+    @DisplayName("Parse a YML metamodel declaration file")
+    void parse() {
         final File yamlFile = new File("src/test/resources/metamodel01.yml");
-        final YmlMetaModel metaModel = ParsingService.parse(yamlFile);
+        final Returns<YmlMetaModel, IOException> parseReturns = new ParsingService().parse(yamlFile);
+        final YmlMetaModel metaModel = parseReturns.then();
 
         Assertions.assertEquals(2, metaModel.getClasses().size());
 
