@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.services.impl;
+package fr.zhykos.ymodel.business.services;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,10 +16,10 @@ import fr.zhykos.ymodel.infra.models.yml.YmlMetaModel;
 import fr.zhykos.ymodel.infra.models.yml.YmlMethod;
 import fr.zhykos.ymodel.infra.models.yml.YmlMethodParameter;
 
-class GenerationTypescriptService04Tests {
+class GenerationTypescriptService03Tests {
 
     @Test
-    @DisplayName("Transform a metamodel into Typescript then verify external classes references")
+    @DisplayName("Transform a metamodel into Typescript then verify if fields and methods are generated")
     void transformIntoTypescript() throws IOException {
         final YmlMetaModel metaModel = createMetaModel();
 
@@ -28,7 +28,7 @@ class GenerationTypescriptService04Tests {
         Assertions.assertEquals(1, transformations.size());
 
         final String expectedTypescript = Files
-                .readString(Path.of("src/test/resources/expected-typescript/Class05.ts"));
+                .readString(Path.of("src/test/resources/expected-typescript/Class04.ts"));
 
         final String transformation = transformations.get(0);
         Assertions.assertNotEquals("", transformation);
@@ -37,17 +37,17 @@ class GenerationTypescriptService04Tests {
 
     private static YmlMetaModel createMetaModel() {
         final YmlClass classs = new YmlClass();
-        classs.setName("Class05");
+        classs.setName("Class04");
 
-        final YmlField field = new YmlField("field01", "$Class02");
+        final YmlField field = new YmlField("field01", "int");
 
         final YmlMethod method = new YmlMethod();
         method.setName("method01");
-        method.setReturns("$Class01");
+        method.setReturns("string");
 
         final YmlMethodParameter methodParameter = new YmlMethodParameter();
         methodParameter.setName("param01");
-        methodParameter.setType("$Class03");
+        methodParameter.setType("float");
 
         final YmlMetaModel metaModel = new YmlMetaModel();
         metaModel.getClasses().add(classs);
