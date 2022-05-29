@@ -54,7 +54,7 @@ class GenerationTypescriptService04Tests {
         final EClass type03 = EcoreFactory.eINSTANCE.createEClass();
         type03.setName("Class03");
 
-        classs.getEAttributes().add(field);
+        classs.getEStructuralFeatures().add(field);
         classs.getEOperations().add(method);
         method.getEParameters().add(methodParameter);
         field.setEType(type01);

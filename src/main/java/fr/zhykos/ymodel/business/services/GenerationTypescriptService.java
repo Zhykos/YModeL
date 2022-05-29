@@ -3,50 +3,79 @@ package fr.zhykos.ymodel.business.services;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.SortedSet;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 
-import org.mapstruct.factory.Mappers;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 
 import fr.zhykos.ymodel.business.models.typescript.TypescriptClass;
-import fr.zhykos.ymodel.business.models.typescript.TypescriptMapper;
+import fr.zhykos.ymodel.business.models.typescript.TypescriptField;
+import fr.zhykos.ymodel.business.models.typescript.TypescriptMethod;
+import fr.zhykos.ymodel.business.models.typescript.TypescriptMethodParameter;
 import fr.zhykos.ymodel.infra.Returns;
-import fr.zhykos.ymodel.infra.models.yml.YmlClass;
-import fr.zhykos.ymodel.infra.models.yml.YmlMetaModel;
 
 public class GenerationTypescriptService {
 
-    public List<Returns<String, IOException>> generate(final YmlMetaModel metaModel) {
-        return metaModel.getClasses().stream().map(GenerationTypescriptService::transformIntoTypescript).toList();
+    public List<Returns<String, IOException>> generate(final List<EClass> eClasses) {
+        return eClasses.stream().map(this::generate).toList();
     }
 
-    private static Returns<String, IOException> transformIntoTypescript(final YmlClass classs) {
-        final TypescriptMapper mapper = Mappers.getMapper(TypescriptMapper.class);
-        final TypescriptClass typescriptClass = mapper.map(classs);
-        typescriptClass.getMethods()
-                .forEach(method -> {
-                    if (!method.getParams().isEmpty()) {
-                        method.getParams().get(method.getParams().size() - 1).setLastParam(true);
-                        method.getParams().forEach(param -> param.setType(mapTypescriptType(param.getType())));
+    public Returns<String, IOException> generate(final EClass classs) {
+        final TypescriptClass typescriptClass = new TypescriptClass();
+        typescriptClass.setName(classs.getName());
+        if (!classs.getESuperTypes().isEmpty()) {
+            final String inherits = classs.getESuperTypes().get(0).getName();
+            typescriptClass.setInherits(inherits);
+            typescriptClass.getImports().add(inherits);
+        }
+        classs.getEOperations()
+                .forEach(operation -> {
+                    final TypescriptMethod typescriptMethod = new TypescriptMethod();
+                    typescriptMethod.setName(operation.getName());
+                    typescriptMethod.setReturns(mapTypescriptType(operation.getEType(), typescriptClass.getImports()));
+                    typescriptClass.getMethods().add(typescriptMethod);
+
+                    operation.getEParameters().forEach(parameter -> {
+                        final TypescriptMethodParameter typescriptMethodParameter = new TypescriptMethodParameter();
+                        typescriptMethodParameter.setName(parameter.getName());
+                        typescriptMethodParameter
+                                .setType(mapTypescriptType(parameter.getEType(), typescriptClass.getImports()));
+                        typescriptMethod.getParameters().add(typescriptMethodParameter);
+                    });
+
+                    if (!typescriptMethod.getParameters().isEmpty()) {
+                        typescriptMethod.getParameters().get(typescriptMethod.getParameters().size() - 1)
+                                .setLast(true);
                     }
-                    method.setReturns(mapTypescriptType(method.getReturns()));
                 });
-        typescriptClass.getFields()
-                .forEach(field -> field.setType(mapTypescriptType(field.getType())));
-        // if (classs.getInheritsClass() != null) {
-        // typescriptClass.setInherits(classs.getInheritsClass().getName());
-        // }
+        classs.getEAttributes()
+                .forEach(attribute -> {
+                    final TypescriptField typescriptMethod = new TypescriptField();
+                    typescriptMethod.setName(attribute.getName());
+                    typescriptMethod.setType(mapTypescriptType(attribute.getEType(), typescriptClass.getImports()));
+                    typescriptClass.getFields().add(typescriptMethod);
+                });
         return executeTemplate(typescriptClass, "typescript");
     }
 
-    private static String mapTypescriptType(final String type) {
-        return switch (type) {
+    private static String mapTypescriptType(final EClassifier type, final SortedSet<String> imports) {
+        return switch (type.getName()) {
             case "int", "float" -> "number";
-            case "char" -> "string";
-            default -> type;
+            case "char", "string" -> "string";
+            default -> mapTypescriptType(type.getName(), imports);
         };
+    }
+
+    private static String mapTypescriptType(final String type, final SortedSet<String> imports) {
+        final List<String> dontImport = List.of("void");
+        if (!dontImport.contains(type)) {
+            imports.add(type);
+        }
+        return type;
     }
 
     private static Returns<String, IOException> executeTemplate(final TypescriptClass templateModel,

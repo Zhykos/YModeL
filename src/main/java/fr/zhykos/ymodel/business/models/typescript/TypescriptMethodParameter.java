@@ -15,11 +15,11 @@ public class TypescriptMethodParameter {
 
     @Getter
     @Setter
-    private boolean lastParam;
+    private boolean last;
 
     @Override
     public String toString() {
-        return "{ name: '%s', type: '%s', lastParam: %s }".formatted(this.name, this.type, this.lastParam);
+        return "{ name: '%s', type: '%s', last: %s }".formatted(this.name, this.type, this.last);
     }
 
 }

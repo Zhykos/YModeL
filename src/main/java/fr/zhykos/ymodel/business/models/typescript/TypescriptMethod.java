@@ -18,12 +18,12 @@ public class TypescriptMethod {
     private String returns;
 
     @Getter
-    private List<TypescriptMethodParameter> params = new ArrayList<>();
+    private List<TypescriptMethodParameter> parameters = new ArrayList<>();
 
     @Override
     public String toString() {
         return "{ name: '%s', returns: '%s', params: [%s]".formatted(this.name, this.returns,
-                this.params.stream().map(Object::toString).collect(Collectors.joining(", ")));
+                this.parameters.stream().map(Object::toString).collect(Collectors.joining(", ")));
     }
 
 }

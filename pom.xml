@@ -76,10 +76,6 @@
         <com.puppycrawl.tools.checkstyle.version>9.3</com.puppycrawl.tools.checkstyle.version>
         <!-- https://mvnrepository.com/artifact/com.github.spullara.mustache.java/compiler -->
         <com.github.spullara.mustache.java.compiler.version>0.9.10</com.github.spullara.mustache.java.compiler.version>
-        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
-        <org.mapstruct.mapstruct.version>1.5.0.RC1</org.mapstruct.mapstruct.version>
-        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor -->
-        <org.mapstruct.mapstruct-processor.version>1.5.0.RC1</org.mapstruct.mapstruct-processor.version>
         <!-- https://mvnrepository.com/artifact/org.eclipse.emf/org.eclipse.emf.common -->
         <org.eclipse.emf.org.eclipse.emf.common.version>2.24.0</org.eclipse.emf.org.eclipse.emf.common.version>
         <!-- https://mvnrepository.com/artifact/org.eclipse.emf/org.eclipse.emf.ecore -->
@@ -140,11 +136,6 @@
             <version>${com.github.spullara.mustache.java.compiler.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${org.mapstruct.mapstruct.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.eclipse.emf</groupId>
             <artifactId>org.eclipse.emf.common</artifactId>
             <version>${org.eclipse.emf.org.eclipse.emf.common.version}</version>
@@ -185,11 +176,6 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>${org.projectlombok.lombok.version}</version>
-                        </path>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${org.mapstruct.mapstruct-processor.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

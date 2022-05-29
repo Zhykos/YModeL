@@ -55,7 +55,7 @@ class GenerationTypescriptService03Tests {
         final EDataType type03 = EcoreFactory.eINSTANCE.createEDataType();
         type03.setName("float");
 
-        classs.getEAttributes().add(field);
+        classs.getEStructuralFeatures().add(field);
         classs.getEOperations().add(method);
         method.getEParameters().add(methodParameter);
         field.setEType(type01);

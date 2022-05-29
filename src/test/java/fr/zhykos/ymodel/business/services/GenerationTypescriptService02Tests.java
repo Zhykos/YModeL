@@ -42,7 +42,7 @@ class GenerationTypescriptService02Tests {
         type01.setName("int");
 
         final EAttribute field02 = EcoreFactory.eINSTANCE.createEAttribute();
-        field01.setName("field02");
+        field02.setName("field02");
 
         final EDataType type02 = EcoreFactory.eINSTANCE.createEDataType();
         type02.setName("string");
