@@ -43,7 +43,7 @@ class ParsingServiceTests {
         Assertions.assertEquals(0, method02.getParameters().size());
 
         final YmlClass class02 = metaModel.getClasses().get(1);
-        Assertions.assertEquals("Class01", class02.getInherits());
+        Assertions.assertEquals("$Class01", class02.getInherits());
         Assertions.assertEquals("Class02", class02.getName());
         Assertions.assertEquals(1, class02.getMethods().size());
 

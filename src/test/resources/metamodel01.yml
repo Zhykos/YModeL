@@ -12,7 +12,7 @@ metamodel:
         - name: method02
           returns: float
     - name: Class02
-      inherits: Class01
+      inherits: $Class01
       methods:
         - name: method03
           parameters:
