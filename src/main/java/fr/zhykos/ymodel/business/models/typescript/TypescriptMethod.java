@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.model.typescript;
+package fr.zhykos.ymodel.business.models.typescript;
 
 import java.util.ArrayList;
 import java.util.List;

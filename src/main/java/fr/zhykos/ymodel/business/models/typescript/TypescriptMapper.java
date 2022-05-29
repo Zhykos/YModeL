@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.model.typescript;
+package fr.zhykos.ymodel.business.models.typescript;
 
 import org.mapstruct.Mapper;
 

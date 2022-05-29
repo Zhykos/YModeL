@@ -10,8 +10,8 @@ import com.github.mustachejava.MustacheFactory;
 
 import org.mapstruct.factory.Mappers;
 
-import fr.zhykos.ymodel.business.model.typescript.TypescriptClass;
-import fr.zhykos.ymodel.business.model.typescript.TypescriptMapper;
+import fr.zhykos.ymodel.business.models.typescript.TypescriptClass;
+import fr.zhykos.ymodel.business.models.typescript.TypescriptMapper;
 import fr.zhykos.ymodel.infra.Returns;
 import fr.zhykos.ymodel.infra.models.yml.YmlClass;
 import fr.zhykos.ymodel.infra.models.yml.YmlMetaModel;
