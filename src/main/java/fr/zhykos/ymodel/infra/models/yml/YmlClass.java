@@ -14,6 +14,7 @@ public class YmlClass {
     private String name;
 
     @Getter
+    @Setter
     private String inherits;
 
     @Getter
