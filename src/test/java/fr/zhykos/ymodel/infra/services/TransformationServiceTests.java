@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import fr.zhykos.ymodel.infra.models.yml.YmlClass;
@@ -17,6 +18,7 @@ import fr.zhykos.ymodel.infra.models.yml.YmlMethodParameter;
 class TransformationServiceTests {
 
     @Test
+    @DisplayName("Transform a YML metamodel into an EMF metamodel")
     void transform() {
         final YmlMetaModel ymlMetaModel = createMetaModel();
         final List<EClass> eClasses = new TransformationService().transform(ymlMetaModel);
