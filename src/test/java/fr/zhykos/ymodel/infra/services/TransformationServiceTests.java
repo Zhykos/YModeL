@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.services.impl;
+package fr.zhykos.ymodel.infra.services;
 
 import java.util.List;
 
