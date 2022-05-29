@@ -1,16 +1,14 @@
-package fr.zhykos.ymodel.business.service.impl;
+package fr.zhykos.ymodel.infra.services;
 
 import java.io.File;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.zhykos.ymodel.business.model.yml.YmlClass;
-import fr.zhykos.ymodel.business.model.yml.YmlMetaModel;
-import fr.zhykos.ymodel.business.model.yml.YmlMethod;
-import fr.zhykos.ymodel.business.model.yml.YmlMethodParameter;
-import fr.zhykos.ymodel.infra.services.ParsingException;
-import fr.zhykos.ymodel.infra.services.ParsingService;
+import fr.zhykos.ymodel.infra.models.yml.YmlClass;
+import fr.zhykos.ymodel.infra.models.yml.YmlMetaModel;
+import fr.zhykos.ymodel.infra.models.yml.YmlMethod;
+import fr.zhykos.ymodel.infra.models.yml.YmlMethodParameter;
 
 class ParsingServiceTests {
 

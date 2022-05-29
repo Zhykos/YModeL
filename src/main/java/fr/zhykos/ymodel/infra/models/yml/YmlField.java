@@ -1,9 +1,11 @@
-package fr.zhykos.ymodel.business.model.yml;
+package fr.zhykos.ymodel.infra.models.yml;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-public class YmlMethodParameter {
+@AllArgsConstructor
+public class YmlField {
 
     @Getter
     @Setter

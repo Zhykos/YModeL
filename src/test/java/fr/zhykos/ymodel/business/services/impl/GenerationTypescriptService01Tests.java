@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.service.impl;
+package fr.zhykos.ymodel.business.services.impl;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,21 +8,20 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.zhykos.ymodel.business.model.yml.YmlClass;
-import fr.zhykos.ymodel.business.model.yml.YmlMetaModel;
-import fr.zhykos.ymodel.business.model.yml.YmlMethod;
-import fr.zhykos.ymodel.business.model.yml.YmlMethodParameter;
-import fr.zhykos.ymodel.business.service.ETargetLanguage;
-import fr.zhykos.ymodel.business.service.Returns;
+import fr.zhykos.ymodel.infra.Returns;
+import fr.zhykos.ymodel.infra.models.yml.YmlClass;
+import fr.zhykos.ymodel.infra.models.yml.YmlMetaModel;
+import fr.zhykos.ymodel.infra.models.yml.YmlMethod;
+import fr.zhykos.ymodel.infra.models.yml.YmlMethodParameter;
 
-class TransformationServiceTypescript01Tests {
+class GenerationTypescriptService01Tests {
 
     @Test
     void transformIntoTypescript() throws IOException {
         final YmlMetaModel metaModel = createMetaModel();
 
-        final List<String> transformations = new TransformationService().transform(metaModel,
-                ETargetLanguage.TYPESCRIPT).stream().map(Returns::then).toList();
+        final List<String> transformations = new GenerationTypescriptService().generate(metaModel).stream()
+                .map(Returns::then).toList();
         Assertions.assertEquals(2, transformations.size());
 
         final String expectedTypescript01 = Files

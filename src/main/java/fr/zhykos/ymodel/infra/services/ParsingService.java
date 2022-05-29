@@ -5,8 +5,8 @@ import java.io.File;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
-import fr.zhykos.ymodel.business.model.yml.YmlMetaModel;
-import fr.zhykos.ymodel.infra.model.YmlFile;
+import fr.zhykos.ymodel.infra.models.yml.YmlFile;
+import fr.zhykos.ymodel.infra.models.yml.YmlMetaModel;
 
 public final class ParsingService {
 

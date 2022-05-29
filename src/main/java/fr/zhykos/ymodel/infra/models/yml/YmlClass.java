@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.model.yml;
+package fr.zhykos.ymodel.infra.models.yml;
 
 import java.util.ArrayList;
 import java.util.List;

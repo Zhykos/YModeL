@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.service.impl;
+package fr.zhykos.ymodel.business.services.impl;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -12,22 +12,14 @@ import org.mapstruct.factory.Mappers;
 
 import fr.zhykos.ymodel.business.model.typescript.TypescriptClass;
 import fr.zhykos.ymodel.business.model.typescript.TypescriptMapper;
-import fr.zhykos.ymodel.business.model.yml.YmlClass;
-import fr.zhykos.ymodel.business.model.yml.YmlMetaModel;
-import fr.zhykos.ymodel.business.service.ETargetLanguage;
-import fr.zhykos.ymodel.business.service.ITransformationService;
-import fr.zhykos.ymodel.business.service.Returns;
+import fr.zhykos.ymodel.infra.Returns;
+import fr.zhykos.ymodel.infra.models.yml.YmlClass;
+import fr.zhykos.ymodel.infra.models.yml.YmlMetaModel;
 
-public class TransformationService implements ITransformationService {
+public class GenerationTypescriptService {
 
-    @Override
-    public List<Returns<String, IOException>> transform(final YmlMetaModel metaModel,
-            final ETargetLanguage targetLanguage) {
-        return transformIntoTypescript(metaModel);
-    }
-
-    private static List<Returns<String, IOException>> transformIntoTypescript(final YmlMetaModel metaModel) {
-        return metaModel.getClasses().stream().map(TransformationService::transformIntoTypescript).toList();
+    public List<Returns<String, IOException>> generate(final YmlMetaModel metaModel) {
+        return metaModel.getClasses().stream().map(GenerationTypescriptService::transformIntoTypescript).toList();
     }
 
     private static Returns<String, IOException> transformIntoTypescript(final YmlClass classs) {
@@ -44,9 +36,9 @@ public class TransformationService implements ITransformationService {
         typescriptClass.getFields()
                 .forEach(field -> field.setType(mapTypescriptType(field.getType())));
         // if (classs.getInheritsClass() != null) {
-        //     typescriptClass.setInherits(classs.getInheritsClass().getName());
+        // typescriptClass.setInherits(classs.getInheritsClass().getName());
         // }
-        return executeTemplate(typescriptClass, ETargetLanguage.TYPESCRIPT.name().toLowerCase());
+        return executeTemplate(typescriptClass, "typescript");
     }
 
     private static String mapTypescriptType(final String type) {

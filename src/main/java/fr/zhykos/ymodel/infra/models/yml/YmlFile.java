@@ -1,6 +1,5 @@
-package fr.zhykos.ymodel.infra.model;
+package fr.zhykos.ymodel.infra.models.yml;
 
-import fr.zhykos.ymodel.business.model.yml.YmlMetaModel;
 import lombok.Getter;
 
 public class YmlFile {
