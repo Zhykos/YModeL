@@ -5,6 +5,7 @@
         "classs",
         "Classs",
         "Ecore",
+        "Jimfs",
         "metamodel",
         "Quarkus",
         "temurin"

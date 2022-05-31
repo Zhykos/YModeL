@@ -80,6 +80,8 @@
         <org.eclipse.emf.org.eclipse.emf.common.version>2.24.0</org.eclipse.emf.org.eclipse.emf.common.version>
         <!-- https://mvnrepository.com/artifact/org.eclipse.emf/org.eclipse.emf.ecore -->
         <org.eclipse.emf.org.eclipse.emf.ecore.version>2.26.0</org.eclipse.emf.org.eclipse.emf.ecore.version>
+        <!-- https://mvnrepository.com/artifact/com.google.jimfs/jimfs -->
+        <com.google.jimfs.jimfs.version>1.2</com.google.jimfs.jimfs.version>
     </properties>
 
     <dependencyManagement>
@@ -145,6 +147,12 @@
             <artifactId>org.eclipse.emf.ecore</artifactId>
             <version>${org.eclipse.emf.org.eclipse.emf.ecore.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.jimfs</groupId>
+            <artifactId>jimfs</artifactId>
+            <version>${com.google.jimfs.jimfs.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -190,7 +198,6 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
