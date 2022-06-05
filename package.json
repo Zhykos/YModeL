@@ -1,0 +1,22 @@
+{
+    "name": "ymodel",
+    "version": "1.0.0",
+    "description": "",
+    "private": true,
+    "scripts": {
+        "mvn:package-no-test": "./mvnw clean package license:format formatter:format -Dmaven.test.skip=true",
+        "mvn:verify": "./mvnw clean verify",
+        "mvn:site-no-tests": "./mvnw site -Dmaven.test.skip=true",
+        "mvn:download-maven-wrapper": "mvnw -N io.takari:maven:0.7.7:wrapper -Dmaven=3.8.5"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Zhykos/YModeL"
+    },
+    "author": "Thomas Cicognani",
+    "license": "AGPL3",
+    "bugs": {
+        "url": "https://github.com/Zhykos/YModeL/issues"
+    },
+    "homepage": "https://github.com/Zhykos/YModeL#readme"
+}
