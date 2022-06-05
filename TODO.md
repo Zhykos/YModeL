@@ -1,2 +1,4 @@
+- jacoco
 - api
-- checks avec maven (qualité, jacoco, etc.)
+- faire un module maven rien qu'avec le code métier (module infra / module business)
+- licence
