@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.services;
+package fr.zhykos.ymodel.business.services.typescript;
 
 import java.io.IOException;
 import java.nio.file.Files;
