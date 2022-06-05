@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.zhykos.ymodel.infra.models.GeneratedFile;
 
-class ZipResultTests {
+class ZipResultServiceTests {
 
     @Test
     @DisplayName("Zip some strings into a single file")
