@@ -40,10 +40,14 @@
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <bundle.coverage.ratio>0.7</bundle.coverage.ratio>
 
-        <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-arc -->
+        <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-bom -->
+        <!-- <io.quarkus.quarkus-bom.version>2.9.2.Final</io.quarkus.quarkus-bom.version> -->
+        <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-maven-plugin -->
+        <!-- <io.quarkus.quarkus-maven-plugin.version>2.9.2.Final</io.quarkus.quarkus-maven-plugin.version> -->
         <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-junit5 -->
-        <io.quarkus.platform.quarkus-bom.version>2.9.2.Final</io.quarkus.platform.quarkus-bom.version>
+        <io.quarkus.quarkus-junit5.version>2.9.2.Final</io.quarkus.quarkus-junit5.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
         <org.apache.maven.plugins.maven-surefire-plugin.version>3.0.0-M5</org.apache.maven.plugins.maven-surefire-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -54,68 +58,91 @@
         <com.fasterxml.jackson.core.jackson-databind.version>2.13.3</com.fasterxml.jackson.core.jackson-databind.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-checkstyle-plugin -->
         <org.apache.maven.plugins.maven-checkstyle-plugin.version>3.1.2</org.apache.maven.plugins.maven-checkstyle-plugin.version>
+        <!-- Fix Execution default-site of goal org.apache.maven.plugins:maven-site-plugin:3.3:site failed: A required class was missing while executing org.apache.maven.plugins:maven-site-plugin:3.3:site: org/apache/maven/doxia/siterenderer/DocumentContent -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-site-plugin -->
-        <!-- <org.apache.maven.plugins.maven-site-plugin.version>3.9.1</org.apache.maven.plugins.maven-site-plugin.version> -->
+        <org.apache.maven.plugins.maven-site-plugin.version>3.9.1</org.apache.maven.plugins.maven-site-plugin.version>
+        <!-- Fix Execution default-site of goal org.apache.maven.plugins:maven-site-plugin:3.3:site failed: A required class was missing while executing org.apache.maven.plugins:maven-site-plugin:3.3:site: org/apache/maven/doxia/siterenderer/DocumentContent -->
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-project-info-reports-plugin -->
-        <!-- <org.apache.maven.plugins.maven-project-info-reports-plugin.version>3.1.2</org.apache.maven.plugins.maven-project-info-reports-plugin.version> -->
+        <org.apache.maven.plugins.maven-project-info-reports-plugin.version>3.1.2</org.apache.maven.plugins.maven-project-info-reports-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.owasp/dependency-check-maven -->
         <org.owasp.dependency-check-maven.version>6.5.1</org.owasp.dependency-check-maven.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-pmd-plugin -->
-        <org.apache.maven.plugins.maven-pmd-plugin.version>3.15.0</org.apache.maven.plugins.maven-pmd-plugin.version>
+        <org.apache.maven.plugins.maven-pmd-plugin.version>3.17.0</org.apache.maven.plugins.maven-pmd-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.ow2.asm/asm -->
-        <org.ow2.asm.asm.version>9.2</org.ow2.asm.asm.version>
+        <org.ow2.asm.asm.version>9.3</org.ow2.asm.asm.version>
         <!-- https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs-maven-plugin -->
         <com.github.spotbugs.spotbugs-maven-plugin.version>4.5.2.0</com.github.spotbugs.spotbugs-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
         <org.jacoco.jacoco-maven-plugin.version>0.8.7</org.jacoco.jacoco-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/com.mycila/license-maven-plugin -->
-        <com.mycila.license-maven-plugin.version>4.1</com.mycila.license-maven-plugin.version>
+        <com.mycila.license-maven-plugin.version>4.2.rc2</com.mycila.license-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/net.revelc.code.formatter/formatter-maven-plugin -->
         <net.revelc.code.formatter.formatter-maven-plugin.version>2.17.1</net.revelc.code.formatter.formatter-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle -->
-        <com.puppycrawl.tools.checkstyle.version>9.3</com.puppycrawl.tools.checkstyle.version>
+        <com.puppycrawl.tools.checkstyle.version>10.3</com.puppycrawl.tools.checkstyle.version>
         <!-- https://mvnrepository.com/artifact/com.github.spullara.mustache.java/compiler -->
         <com.github.spullara.mustache.java.compiler.version>0.9.10</com.github.spullara.mustache.java.compiler.version>
         <!-- https://mvnrepository.com/artifact/org.eclipse.emf/org.eclipse.emf.common -->
-        <org.eclipse.emf.org.eclipse.emf.common.version>2.24.0</org.eclipse.emf.org.eclipse.emf.common.version>
+        <org.eclipse.emf.org.eclipse.emf.common.version>2.25.0</org.eclipse.emf.org.eclipse.emf.common.version>
         <!-- https://mvnrepository.com/artifact/org.eclipse.emf/org.eclipse.emf.ecore -->
-        <org.eclipse.emf.org.eclipse.emf.ecore.version>2.26.0</org.eclipse.emf.org.eclipse.emf.ecore.version>
+        <org.eclipse.emf.org.eclipse.emf.ecore.version>2.27.0</org.eclipse.emf.org.eclipse.emf.ecore.version>
         <!-- https://mvnrepository.com/artifact/com.google.jimfs/jimfs -->
         <com.google.jimfs.jimfs.version>1.2</com.google.jimfs.jimfs.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jxr-plugin -->
+        <org.apache.maven.plugins.maven-jxr-plugin.version>3.1.1</org.apache.maven.plugins.maven-jxr-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-report-plugin -->
+        <org.apache.maven.plugins.maven-surefire-report-plugin.version>3.0.0-M5</org.apache.maven.plugins.maven-surefire-report-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/versions-maven-plugin -->
+        <org.codehaus.mojo.versions-maven-plugin.version>2.8.1</org.codehaus.mojo.versions-maven-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/taglist-maven-plugin -->
+        <org.codehaus.mojo.taglist-maven-plugin.version>2.4</org.codehaus.mojo.taglist-maven-plugin.version>
     </properties>
 
-    <dependencyManagement>
+    <!-- <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>io.quarkus.platform</groupId>
                 <artifactId>quarkus-bom</artifactId>
-                <version>${io.quarkus.platform.quarkus-bom.version}</version>
+                <version>${io.quarkus.quarkus-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-codec-http</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+    </dependencyManagement> -->
 
     <dependencies>
-        <dependency>
+        <!-- https://mvnrepository.com/artifact/io.netty/netty-codec-http -->
+        <!-- <dependency>
+    <groupId>io.netty</groupId>
+    <artifactId>netty-codec-http</artifactId>
+    <version>4.1.77.Final</version>
+</dependency> -->
+        <!-- <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-reactive</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
+            <version>${io.quarkus.quarkus-junit5.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
-        <dependency>
+        <!-- <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -157,10 +184,10 @@
 
     <build>
         <plugins>
-            <plugin>
+            <!-- <plugin>
                 <groupId>io.quarkus.platform</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${io.quarkus.platform.quarkus-bom.version}</version>
+                <version>${io.quarkus.quarkus-maven-plugin.version}</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -171,7 +198,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
@@ -203,7 +230,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${org.apache.maven.plugins.maven-checkstyle-plugin.version}</version>
                 <configuration>
-                    <configLocation>resources/quality/checkstyle.xml</configLocation>
+                    <configLocation>src/main/resources/quality/checkstyle.xml</configLocation>
                 </configuration>
                 <executions>
                     <execution>
@@ -213,7 +240,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>${org.apache.maven.plugins.maven-site-plugin.version}</version>
@@ -222,7 +249,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>${org.apache.maven.plugins.maven-project-info-reports-plugin.version}</version>
-            </plugin> -->
+            </plugin>
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
@@ -266,7 +293,7 @@
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>${com.github.spotbugs.spotbugs-maven-plugin.version}</version>
                 <configuration>
-                    <excludeFilterFile>resources/quality/spotbugs-security-exclude.xml</excludeFilterFile>
+                    <excludeFilterFile>src/main/resources/quality/spotbugs-security-exclude.xml</excludeFilterFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -351,8 +378,41 @@
                 <artifactId>formatter-maven-plugin</artifactId>
                 <version>${net.revelc.code.formatter.formatter-maven-plugin.version}</version>
                 <configuration>
-                    <configFile>${project.basedir}/resources/quality/format-java.xml</configFile>
+                    <configFile>${project.basedir}/src/main/resources/quality/format-java.xml</configFile>
                 </configuration>
+            </plugin>
+
+            <!-- Below, no explicit use: just to upgrade the version -->
+
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-clean-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-deploy-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0-M2</version>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-install-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.0.0-M1</version>
             </plugin>
         </plugins>
 
@@ -369,6 +429,33 @@
                             <version>${com.puppycrawl.tools.checkstyle.version}</version>
                         </dependency>
                     </dependencies>
+                </plugin>
+
+                <!-- Below, no explicit use: just to upgrade the version -->
+
+                <plugin>
+                    <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-antrun-plugin -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-dependency-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>3.0.0-M5</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -418,7 +505,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${org.apache.maven.plugins.maven-checkstyle-plugin.version}</version>
                 <configuration>
-                    <configLocation>resources/quality/checkstyle.xml</configLocation>
+                    <configLocation>src/main/resources/quality/checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
             <plugin>
@@ -470,7 +557,7 @@
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>${com.github.spotbugs.spotbugs-maven-plugin.version}</version>
                 <configuration>
-                    <excludeFilterFile>resources/quality/spotbugs-security-exclude.xml</excludeFilterFile>
+                    <excludeFilterFile>src/main/resources/quality/spotbugs-security-exclude.xml</excludeFilterFile>
                 </configuration>
             </plugin>
             <plugin>

@@ -18,12 +18,29 @@ import fr.zhykos.ymodel.business.models.typescript.TypescriptMethod;
 import fr.zhykos.ymodel.business.models.typescript.TypescriptMethodParameter;
 import fr.zhykos.ymodel.infra.Returns;
 
-public class GenerationTypescriptService {
+/**
+ * Service to generate Typescript files
+ */
+public final class GenerationTypescriptService {
 
+    /**
+     * Generate all classes
+     *
+     * @param eClasses Classes to generate
+     * @return A list of Returns objects: a string with the generated Typescript
+     *         content ; or an IOException if an error occurred.
+     */
     public List<Returns<String, IOException>> generate(final List<EClass> eClasses) {
         return eClasses.stream().map(this::generate).toList();
     }
 
+    /**
+     * Generate a class
+     *
+     * @param classs The class to generate
+     * @return A Returns objects: a string with the generated Typescript
+     *         content ; or an IOException if an error occurred.
+     */
     public Returns<String, IOException> generate(final EClass classs) {
         final TypescriptClass typescriptClass = new TypescriptClass();
         typescriptClass.setName(classs.getName());
@@ -87,7 +104,7 @@ public class GenerationTypescriptService {
             final StringWriter stringWriter = new StringWriter();
             mustache.execute(stringWriter, templateModel).flush();
             return Returns.resolve(stringWriter.toString().replace("&#39;", "'"));
-        } catch (IOException exception) {
+        } catch (final IOException exception) {
             return Returns.reject(exception);
         }
     }

@@ -7,16 +7,29 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 
-public class TypescriptMethod {
+/**
+ * A method representing the Typescript to generate (used in the
+ * mustache template file)
+ */
+public final class TypescriptMethod {
 
+    /**
+     * Name
+     */
     @Getter
     @Setter
     private String name;
 
+    /**
+     * Returns type (number, string, etc.)
+     */
     @Getter
     @Setter
     private String returns;
 
+    /**
+     * Parameters
+     */
     @Getter
     private List<TypescriptMethodParameter> parameters = new ArrayList<>();
 

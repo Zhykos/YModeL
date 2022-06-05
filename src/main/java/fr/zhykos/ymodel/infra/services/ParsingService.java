@@ -10,14 +10,24 @@ import fr.zhykos.ymodel.infra.Returns;
 import fr.zhykos.ymodel.infra.models.yml.YmlFile;
 import fr.zhykos.ymodel.infra.models.yml.YmlMetaModel;
 
-public class ParsingService {
+/**
+ * Service which parse declaration YML metamodel file
+ */
+public final class ParsingService {
 
+    /**
+     * Parse a declaration metamodel file
+     *
+     * @param yamlFile File to parse
+     * @return Returns with: resolved metamodel ; Exception if an error occurred
+     *         while reading the file
+     */
     public Returns<YmlMetaModel, IOException> parse(final File yamlFile) {
         try {
             final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             final YmlFile file = mapper.readValue(yamlFile, YmlFile.class);
             return Returns.resolve(file.getMetamodel());
-        } catch (IOException e) {
+        } catch (final IOException e) {
             return Returns.reject(e);
         }
     }

@@ -34,7 +34,7 @@ class ZipResultTests {
         Files.createDirectory(junitPath);
         final Path zipPath = Files.createTempFile(junitPath, "result", ".zip");
         try (OutputStream outputStream = Files.newOutputStream(zipPath)) {
-            new ZipResult().zip(generatedFiles, outputStream);
+            new ZipResultService().zip(generatedFiles, outputStream);
         }
 
         Assertions.assertEquals(generatedFiles, unzip(zipPath));

@@ -3,12 +3,21 @@ package fr.zhykos.ymodel.infra.models.yml;
 import lombok.Getter;
 import lombok.Setter;
 
-public class YmlMethodParameter {
+/**
+ * Method parameter representing the metamodel description YML file
+ */
+public final class YmlMethodParameter {
 
+    /**
+     * Name
+     */
     @Getter
     @Setter
     private String name;
 
+    /**
+     * Type (number, string, etc.)
+     */
     @Getter
     @Setter
     private String type;

@@ -15,10 +15,16 @@ import fr.zhykos.ymodel.infra.models.yml.YmlClass;
 import fr.zhykos.ymodel.infra.models.yml.YmlMetaModel;
 
 /**
- * Transform the YAML metamodel into an EClass metamodel
+ * Transform the YAML metamodel into an EClass model
  */
-public class TransformationService {
+public final class TransformationService {
 
+    /**
+     * Transform the YAML metamodel into an EClass model
+     *
+     * @param ymlMetamodel The YAML metamodel
+     * @return List of EClasses represented by the YML metamodel
+     */
     public List<EClass> transform(final YmlMetaModel ymlMetamodel) {
         final List<EClass> eClasses = ymlMetamodel.getClasses().stream().map(TransformationService::transform).toList();
         final Map<String, EClass> classesIdentityMap = eClasses.stream()

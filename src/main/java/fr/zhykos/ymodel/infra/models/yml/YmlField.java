@@ -4,13 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * A field / attribute representing the metamodel description YML file
+ */
 @AllArgsConstructor
-public class YmlField {
+public final class YmlField {
 
+    /**
+     * Field name
+     */
     @Getter
     @Setter
     private String name;
 
+    /**
+     * Type (number, string, etc.)
+     */
     @Getter
     @Setter
     private String type;

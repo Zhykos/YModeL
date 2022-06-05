@@ -7,19 +7,34 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 
-public class YmlClass {
+/**
+ * A class representing the metamodel description YML file
+ */
+public final class YmlClass {
 
+    /**
+     * Class name
+     */
     @Getter
     @Setter
     private String name;
 
+    /**
+     * Inherited class name
+     */
     @Getter
     @Setter
     private String inherits;
 
+    /**
+     * Fields / Attributes
+     */
     @Getter
     private List<YmlField> fields = new ArrayList<>();
 
+    /**
+     * Methods
+     */
     @Getter
     private List<YmlMethod> methods = new ArrayList<>();
 
