@@ -41,6 +41,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <bundle.coverage.ratio>0.7</bundle.coverage.ratio>
+        <!-- <org.owasp.failBuildOnCVSS>1</org.owasp.failBuildOnCVSS> -->
 
         <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-bom -->
         <!-- <io.quarkus.quarkus-bom.version>2.9.2.Final</io.quarkus.quarkus-bom.version> -->
@@ -255,7 +256,8 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <version>${org.owasp.dependency-check-maven.version}</version>
                 <configuration>
-                    <failBuildOnCVSS>8</failBuildOnCVSS>
+                    <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
+                    <!-- <failBuildOnCVSS>${org.owasp.failBuildOnCVSS}</failBuildOnCVSS> -->
                 </configuration>
                 <executions>
                     <execution>
