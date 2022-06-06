@@ -48,12 +48,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <bundle.coverage.ratio>0.7</bundle.coverage.ratio>
-        <!-- <org.owasp.failBuildOnCVSS>1</org.owasp.failBuildOnCVSS> -->
 
-        <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-bom -->
-        <!-- <io.quarkus.quarkus-bom.version>2.9.2.Final</io.quarkus.quarkus-bom.version> -->
-        <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-maven-plugin -->
-        <!-- <io.quarkus.quarkus-maven-plugin.version>2.9.2.Final</io.quarkus.quarkus-maven-plugin.version> -->
         <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-junit5 -->
         <io.quarkus.quarkus-junit5.version>2.9.2.Final</io.quarkus.quarkus-junit5.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
@@ -106,51 +101,13 @@
         <org.codehaus.mojo.taglist-maven-plugin.version>2.4</org.codehaus.mojo.taglist-maven-plugin.version>
     </properties>
 
-    <!-- <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.quarkus.platform</groupId>
-                <artifactId>quarkus-bom</artifactId>
-                <version>${io.quarkus.quarkus-bom.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-codec-http</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-        </dependencies>
-    </dependencyManagement> -->
-
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/io.netty/netty-codec-http -->
-        <!-- <dependency>
-    <groupId>io.netty</groupId>
-    <artifactId>netty-codec-http</artifactId>
-    <version>4.1.77.Final</version>
-</dependency> -->
-        <!-- <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-arc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-reactive</artifactId>
-        </dependency> -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
             <version>${io.quarkus.quarkus-junit5.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
-        <!-- <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <scope>test</scope>
-        </dependency> -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -192,21 +149,6 @@
 
     <build>
         <plugins>
-            <!-- <plugin>
-                <groupId>io.quarkus.platform</groupId>
-                <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${io.quarkus.quarkus-maven-plugin.version}</version>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>build</goal>
-                            <goal>generate-code</goal>
-                            <goal>generate-code-tests</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin> -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
@@ -264,7 +206,6 @@
                 <version>${org.owasp.dependency-check-maven.version}</version>
                 <configuration>
                     <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
-                    <!-- <failBuildOnCVSS>${org.owasp.failBuildOnCVSS}</failBuildOnCVSS> -->
                 </configuration>
                 <executions>
                     <execution>
@@ -366,20 +307,6 @@
                         <owner>Thomas "Zhykos" Cicognani</owner>
                         <email>github@tomtom.email</email>
                     </properties>
-                    <!-- <licenseSets>
-						<licenseSet>
-							<header>com/mycila/maven/plugin/license/templates/AGPL-3.txt</header>
-							<excludes>
-								<exclude>**/README</exclude>
-								<exclude>src/test/resources/**</exclude>
-								<exclude>src/main/resources/**</exclude>
-								<exclude>resources/tests/**</exclude>
-								<exclude>pc-zhykos-env/**</exclude>
-								<exclude>working-dir-RxJava/**</exclude>
-								<exclude>src/site/resources/**</exclude>
-							</excludes>
-						</licenseSet>
-					</licenseSets> -->
                 </configuration>
             </plugin>
             <plugin>
@@ -646,7 +573,6 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>${org.apache.maven.plugins.maven-site-plugin.version}</version>
                 <configuration>
-                    <stagingDirectory>C:\temp\stage</stagingDirectory>
                     <reportPlugins>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
