@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd" name="SRC{Decaf}">
+    <skin>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.skins/maven-fluido-skin -->
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.10.0</version>
+    </skin>
+
+    <bannerLeft>
+        <name>YModeL</name>
+        <!-- <src>./images/decaf-logo.png</src> -->
+        <href>https://www.zhykos.fr/</href>
+    </bannerLeft>
+
+    <body>
+        <links>
+            <item name="Main website" href="https://www.zhykos.fr/" />
+            <item name="Hosted on GitHub" href="https://www.github.com/Zhykos/YModeL/" />
+        </links>
+
+        <menu name="ymodel">
+            <item name="Introduction" href="index.html" />
+            <item name="Release Notes" href="release-notes.html" />
+            <item name="General Information" href="about.html" />
+            <item name="Road Map" href="roadmap.html" />
+        </menu>
+
+        <menu ref="modules" />
+
+        <menu ref="reports" />
+
+    </body>
+</project>
