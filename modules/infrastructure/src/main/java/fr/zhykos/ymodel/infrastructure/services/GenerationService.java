@@ -1,6 +1,5 @@
 package fr.zhykos.ymodel.infrastructure.services;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
@@ -12,8 +11,8 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 
-import fr.zhykos.ymodel.commons.Returns;
 import fr.zhykos.ymodel.business.services.IGenerationService;
+import fr.zhykos.ymodel.commons.Returns;
 
 /**
  * Generic service to generate files
@@ -34,9 +33,9 @@ public final class GenerationService {
      * @param generationService Specific service to generate the classes: language
      *                          service target
      * @return A list of Returns objects: a string with the generated content ; or
-     *         an IOException if an error occurred.
+     *         an GenerationException if an error occurred.
      */
-    public static <C, M> List<Returns<String, IOException>> generate(final List<EClass> eClasses,
+    public static <C, M> List<Returns<String, GenerationException>> generate(final List<EClass> eClasses,
             final IGenerationService<C, M> generationService) {
         return eClasses.stream().map(eClass -> generate(eClass, generationService)).toList();
     }
@@ -51,9 +50,9 @@ public final class GenerationService {
      * @param generationService Specific service to generate the classes: language
      *                          service target
      * @return A Returns objects: a string with the generated content ; or an
-     *         IOException if an error occurred.
+     *         GenerationException if an error occurred.
      */
-    public static <C, M> Returns<String, IOException> generate(final EClass classs,
+    public static <C, M> Returns<String, GenerationException> generate(final EClass classs,
             final IGenerationService<C, M> generationService) {
         String inherits = null;
         if (!classs.getESuperTypes().isEmpty()) {
@@ -77,7 +76,7 @@ public final class GenerationService {
         return executeTemplate(generatedClass, generationService);
     }
 
-    private static <C, M> Returns<String, IOException> executeTemplate(final C templateClass,
+    private static <C, M> Returns<String, GenerationException> executeTemplate(final C templateClass,
             final IGenerationService<C, M> generationService) {
         try {
             final MustacheFactory mustacheFactory = new DefaultMustacheFactory();
@@ -86,8 +85,8 @@ public final class GenerationService {
             final StringWriter stringWriter = new StringWriter();
             mustache.execute(stringWriter, templateClass).flush();
             return Returns.resolve(stringWriter.toString().replace("&#39;", "'"));
-        } catch (final IOException exception) {
-            return Returns.reject(exception);
+        } catch (final Exception exception) {
+            return Returns.reject(new GenerationException(exception));
         }
     }
 

@@ -1,4 +1,3 @@
 - jacoco
 - api
-- faire un module maven rien qu'avec le code métier (module infra / module business)
 - licence

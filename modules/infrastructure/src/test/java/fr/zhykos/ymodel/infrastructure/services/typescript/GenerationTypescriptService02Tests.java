@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.zhykos.ymodel.business.services.typescript.GenerationTypescriptService;
 import fr.zhykos.ymodel.commons.Returns;
+import fr.zhykos.ymodel.infrastructure.services.GenerationException;
 import fr.zhykos.ymodel.infrastructure.services.GenerationService;
 
 class GenerationTypescriptService02Tests {
@@ -23,7 +24,7 @@ class GenerationTypescriptService02Tests {
     void generate() throws IOException {
         final EClass eClass = createEClass();
 
-        final Returns<String, IOException> generation = GenerationService.generate(eClass,
+        final Returns<String, GenerationException> generation = GenerationService.generate(eClass,
                 new GenerationTypescriptService());
 
         final String expectedTypescript = Files

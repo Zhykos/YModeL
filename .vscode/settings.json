@@ -9,6 +9,7 @@
         "Ecore",
         "Jimfs",
         "metamodel",
+        "Mockito",
         "mvnw",
         "Quarkus",
         "takari",
