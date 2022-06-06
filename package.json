@@ -6,7 +6,7 @@
     "scripts": {
         "mvn:package-no-test": "mvnw clean package license:format formatter:format -Dmaven.test.skip=true",
         "mvn:verify": "mvnw clean verify",
-        "mvn:site-no-tests": "mvnw site -Dmaven.test.skip=true",
+        "mvn:site-no-tests": "mvnw site site:stage -Dmaven.test.skip=true",
         "mvn:download-maven-wrapper": "mvnw -N io.takari:maven:0.7.7:wrapper -Dmaven=3.8.5"
     },
     "repository": {

@@ -13,6 +13,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
+    <name>YModeL infrastructure</name>
     <description>
 		Generate a metamodel base code from a YML file description. Infrastructure module: API, CLI, etc. are developed here.
 	</description>

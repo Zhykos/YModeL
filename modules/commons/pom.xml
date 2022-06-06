@@ -13,6 +13,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
+    <name>YModeL commons</name>
     <description>
 		Generate a metamodel base code from a YML file description. Commons module with utils.
 	</description>
