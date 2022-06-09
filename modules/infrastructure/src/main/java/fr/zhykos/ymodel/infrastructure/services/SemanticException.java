@@ -6,6 +6,11 @@ package fr.zhykos.ymodel.infrastructure.services;
  */
 public final class SemanticException extends Exception {
 
+    /**
+     * New SemanticException with a message.
+     *
+     * @param message The message of the exception
+     */
     public SemanticException(final String message) {
         super(message);
     }
