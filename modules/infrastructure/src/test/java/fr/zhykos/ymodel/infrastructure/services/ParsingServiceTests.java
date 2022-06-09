@@ -17,7 +17,7 @@ class ParsingServiceTests {
 
     @Test
     @DisplayName("Parse a YML metamodel declaration file")
-    void parse() {
+    void parse() throws IOException {
         final File yamlFile = new File("src/test/resources/metamodel01.yml");
         final Returns<YmlMetaModel, IOException> parseReturns = new ParsingService().parse(yamlFile);
         final YmlMetaModel metaModel = parseReturns.then();

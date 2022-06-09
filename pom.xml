@@ -111,6 +111,8 @@
         <org.mockito.mockito-core.version>4.6.1</org.mockito.mockito-core.version>
         <!-- https://mvnrepository.com/artifact/org.mockito/mockito-inline -->
         <org.mockito.mockito-inline.version>4.6.1</org.mockito.mockito-inline.version>
+        <!-- https://mvnrepository.com/artifact/one.util/streamex -->
+        <one.util.streamex.version>0.8.1</one.util.streamex.version>
     </properties>
 
     <dependencies>
@@ -168,6 +170,11 @@
             <artifactId>mockito-inline</artifactId>
             <version>${org.mockito.mockito-inline.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>one.util</groupId>
+            <artifactId>streamex</artifactId>
+            <version>${one.util.streamex.version}</version>
         </dependency>
     </dependencies>
 

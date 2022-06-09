@@ -16,7 +16,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import fr.zhykos.ymodel.business.services.typescript.GenerationTypescriptService;
-import fr.zhykos.ymodel.commons.Returns;
+import fr.zhykos.ymodel.infrastructure.services.GenerationException;
 import fr.zhykos.ymodel.infrastructure.services.GenerationService;
 
 class GenerationTypescriptService01Tests {
@@ -27,7 +27,13 @@ class GenerationTypescriptService01Tests {
         final List<EClass> eClasses = createEClasses();
 
         final List<String> generations = GenerationService.generate(eClasses, new GenerationTypescriptService())
-                .stream().map(Returns::then).toList();
+                .stream().map(generation -> {
+                    try {
+                        return generation.then();
+                    } catch (GenerationException e) {
+                        throw new IllegalStateException(e);
+                    }
+                }).toList();
         Assertions.assertEquals(2, generations.size());
 
         final String expectedTypescript01 = Files

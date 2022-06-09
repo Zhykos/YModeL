@@ -18,12 +18,14 @@ class TransformationService02Tests {
 
     @Test
     @DisplayName("Transform a YML metamodel into an EMF metamodel and check referenced types")
-    void transform() {
+    void transform() throws SemanticListException, IOException {
         final File yamlFile = new File("src/test/resources/metamodel02.yml");
         final Returns<YmlMetaModel, IOException> parseReturns = new ParsingService().parse(yamlFile);
         final YmlMetaModel ymlMetaModel = parseReturns.then();
 
-        final List<EClass> eClasses = new TransformationService().transform(ymlMetaModel);
+        final Returns<List<EClass>, SemanticListException> eClassesReturns = new TransformationService()
+                .transform(ymlMetaModel);
+        final List<EClass> eClasses = eClassesReturns.then();
         Assertions.assertEquals(2, eClasses.size());
 
         final EClass class01 = eClasses.get(0);

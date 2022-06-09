@@ -23,7 +23,7 @@ class GenerationTypescriptService03Tests {
 
     @Test
     @DisplayName("Generate a metamodel into Typescript then verify if fields and methods are generated")
-    void generate() throws IOException {
+    void generate() throws IOException, GenerationException {
         final EClass eClass = createEClass();
 
         final Returns<String, GenerationException> generation = GenerationService.generate(eClass,

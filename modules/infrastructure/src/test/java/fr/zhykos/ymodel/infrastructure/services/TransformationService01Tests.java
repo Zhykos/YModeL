@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import fr.zhykos.ymodel.commons.Returns;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlClass;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlField;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMetaModel;
@@ -19,9 +20,11 @@ class TransformationService01Tests {
 
     @Test
     @DisplayName("Transform a YML metamodel into an EMF metamodel")
-    void transform() {
+    void transform() throws SemanticListException {
         final YmlMetaModel ymlMetaModel = createMetaModel();
-        final List<EClass> eClasses = new TransformationService().transform(ymlMetaModel);
+        final Returns<List<EClass>, SemanticListException> eClassesReturns = new TransformationService()
+                .transform(ymlMetaModel);
+        final List<EClass> eClasses = eClassesReturns.then();
         Assertions.assertEquals(2, eClasses.size());
 
         final EClass class01 = eClasses.get(0);

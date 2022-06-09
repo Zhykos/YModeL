@@ -25,17 +25,21 @@ public final class Returns<O, E extends Exception> {
     private final Optional<E> exception;
 
     /**
-     * @return The result or throw a {@link NullPointerException}
+     * @return The result or throw an exception if it exists
+     * @throws E The Exception if it's present
      */
-    public O then() {
+    public O then() throws E {
+        catchh();
         return this.object.orElseThrow();
     }
 
     /**
-     * @throws E The Exception
+     * @throws E The Exception if it's present
      */
     public void catchh() throws E {
-        throw this.exception.orElseThrow();
+        if (this.exception.isPresent()) {
+            throw this.exception.orElseThrow();
+        }
     }
 
     /**

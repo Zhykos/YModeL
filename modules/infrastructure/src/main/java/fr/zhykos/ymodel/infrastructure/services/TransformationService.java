@@ -1,7 +1,10 @@
 package fr.zhykos.ymodel.infrastructure.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -11,8 +14,10 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcoreFactory;
 
+import fr.zhykos.ymodel.commons.Returns;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlClass;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMetaModel;
+import one.util.streamex.StreamEx;
 
 /**
  * Transform the YAML metamodel into an EClass model
@@ -23,14 +28,16 @@ public final class TransformationService {
      * Transform the YAML metamodel into an EClass model
      *
      * @param ymlMetamodel The YAML metamodel
-     * @return List of EClasses represented by the YML metamodel
+     * @return List of EClasses represented by the YML metamodel ; or Semantic
+     *         exception if the YML metamodel is not valid
      */
-    public List<EClass> transform(final YmlMetaModel ymlMetamodel) {
+    public Returns<List<EClass>, SemanticListException> transform(final YmlMetaModel ymlMetamodel) {
         final List<EClass> eClasses = ymlMetamodel.getClasses().stream().map(TransformationService::transform).toList();
         final Map<String, EClass> classesIdentityMap = eClasses.stream()
                 .collect(Collectors.toMap(EClass::getName, Function.identity()));
-        consolidateClassReferences(eClasses, classesIdentityMap);
-        return eClasses;
+        final List<SemanticException> exceptions = consolidateClassReferences(eClasses, classesIdentityMap);
+        return new Returns<>(Optional.of(eClasses),
+                exceptions.isEmpty() ? Optional.empty() : Optional.of(new SemanticListException(exceptions)));
     }
 
     private static EClass transform(final YmlClass ymlClass) {
@@ -83,39 +90,59 @@ public final class TransformationService {
         return type;
     }
 
-    private static void consolidateClassReferences(final List<EClass> eClasses,
+    private static List<SemanticException> consolidateClassReferences(final List<EClass> eClasses,
             final Map<String, EClass> classesIdentityMap) {
-        eClasses.forEach(eClass -> {
-            consolidateClassInherits(eClass.getESuperTypes(), classesIdentityMap);
-            consolidateClassReference(eClass.getEReferences(), classesIdentityMap);
-            consolidateClassReference(eClass.getEOperations(), classesIdentityMap);
-            consolidateClassReference(
-                    eClass.getEOperations().stream().flatMap(op -> op.getEParameters().stream()).toList(),
-                    classesIdentityMap);
-        });
+        return StreamEx
+                .of(eClasses.stream()
+                        .map(eClass -> consolidateClassInherits(eClass.getESuperTypes(), classesIdentityMap)))
+                .append(eClasses.stream()
+                        .map(eClass -> consolidateClassReference(eClass.getEReferences(), classesIdentityMap)))
+                .append(eClasses.stream()
+                        .map(eClass -> consolidateClassReference(eClass.getEOperations(), classesIdentityMap)))
+                .append(eClasses.stream().map(eClass -> consolidateClassReference(
+                        eClass.getEOperations().stream().flatMap(op -> op.getEParameters().stream()).toList(),
+                        classesIdentityMap)))
+                .toFlatList(x -> x);
     }
 
-    private static void consolidateClassInherits(final List<EClass> superTypes,
+    private static List<SemanticException> consolidateClassInherits(final List<EClass> superTypes,
             final Map<String, EClass> classesIdentityMap) {
+        final List<SemanticException> exceptions = new ArrayList<>();
         for (int index = 0; index < superTypes.size(); index++) {
             final EClass superType = superTypes.get(index);
             final String referenceNamed = superType.getName();
             final EClass mapping = classesIdentityMap.get(referenceNamed.replaceAll("^\\$(.+)$", "$1"));
-            if (mapping != null) {
+            if (mapping == null) {
+                exceptions.add(treatSemanticException("Unknown class reference for inheritance: " + referenceNamed,
+                        referenceNamed));
+            } else {
                 superTypes.set(index, mapping);
             }
         }
+        return exceptions.stream().filter(Objects::nonNull).toList();
     }
 
-    private static void consolidateClassReference(final List<? extends ETypedElement> typedElements,
+    private static List<SemanticException> consolidateClassReference(final List<? extends ETypedElement> typedElements,
             final Map<String, EClass> classesIdentityMap) {
-        typedElements.forEach(eTypedElement -> {
+        return typedElements.stream().map(eTypedElement -> {
             final String referenceNamed = eTypedElement.getEType().getName();
             final EClass mapping = classesIdentityMap.get(referenceNamed.replaceAll("^\\$(.+)$", "$1"));
-            if (mapping != null) {
-                eTypedElement.setEType(mapping);
+            if (mapping == null) {
+                return treatSemanticException(
+                        "Unknown class reference '%s' in element '%s'.".formatted(referenceNamed,
+                                eTypedElement.getName()),
+                        referenceNamed);
             }
-        });
+            eTypedElement.setEType(mapping);
+            return null;
+        }).filter(Objects::nonNull).toList();
+    }
+
+    private static SemanticException treatSemanticException(final String message, final String referenceNamed) {
+        return switch (referenceNamed) {
+            case "void", "float", "char", "int", "string" -> null;
+            default -> new SemanticException(message);
+        };
     }
 
 }
