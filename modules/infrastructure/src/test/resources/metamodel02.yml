@@ -1,0 +1,10 @@
+metamodel:
+  classes:
+    - name: Class01
+    - name: Class02
+      methods:
+        - name: method01
+          parameters:
+            - name: param01
+              type: $Class01
+          returns: $Class01

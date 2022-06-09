@@ -111,7 +111,7 @@ public final class TransformationService {
             final Map<String, EClass> classesIdentityMap) {
         typedElements.forEach(eTypedElement -> {
             final String referenceNamed = eTypedElement.getEType().getName();
-            final EClass mapping = classesIdentityMap.get('$' + referenceNamed);
+            final EClass mapping = classesIdentityMap.get(referenceNamed.replaceAll("^\\$(.+)$", "$1"));
             if (mapping != null) {
                 eTypedElement.setEType(mapping);
             }
