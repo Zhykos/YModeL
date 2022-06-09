@@ -15,7 +15,7 @@ import fr.zhykos.ymodel.infrastructure.models.yml.YmlMetaModel;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMethod;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMethodParameter;
 
-class TransformationServiceTests {
+class TransformationService01Tests {
 
     @Test
     @DisplayName("Transform a YML metamodel into an EMF metamodel")
