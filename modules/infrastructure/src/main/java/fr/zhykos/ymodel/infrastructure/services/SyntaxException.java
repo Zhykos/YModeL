@@ -6,4 +6,8 @@ public final class SyntaxException extends Exception {
         super(cause);
     }
 
+    public SyntaxException(final String message) {
+        super(message);
+    }
+
 }
