@@ -79,4 +79,20 @@ class ParsingServiceTests {
         Assertions.assertThrows(IOException.class, () -> parseReturns.catchh());
     }
 
+    @Test
+    @DisplayName("Transform an invalid YML metamodel with")
+    void transform() throws IOException {
+        final File yamlFile = new File("src/test/resources/metamodel04.yml");
+        final Returns<YmlMetaModel, IOException> parseReturns = new ParsingService().parse(yamlFile);
+        Assertions.assertThrows(IOException.class, () -> parseReturns.then());
+
+        try {
+            parseReturns.catchh();
+        } catch (IOException e) {
+            Assertions.assertEquals(
+                    "com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field \"error\" (class fr.zhykos.ymodel.infrastructure.models.yml.YmlClass), not marked as ignorable (4 known properties: \"inherits\", \"fields\", \"methods\", \"name\"])\n at [Source: (StringReader); line: 3, column: 21] (through reference chain: fr.zhykos.ymodel.infrastructure.models.yml.YmlFile[\"metamodel\"]->fr.zhykos.ymodel.infrastructure.models.yml.YmlMetaModel[\"classes\"]->java.util.ArrayList[0]->fr.zhykos.ymodel.infrastructure.models.yml.YmlClass[\"error\"])",
+                    e.getMessage());
+        }
+    }
+
 }
