@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import fr.zhykos.ymodel.business.services.typescript.GenerationTypescriptService;
+import fr.zhykos.ymodel.domain.services.typescript.GenerationTypescriptService;
 import fr.zhykos.ymodel.commons.Returns;
 
 class GenerationServiceTests {

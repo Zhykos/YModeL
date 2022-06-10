@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import fr.zhykos.ymodel.business.services.typescript.GenerationTypescriptService;
+import fr.zhykos.ymodel.domain.services.typescript.GenerationTypescriptService;
 import fr.zhykos.ymodel.commons.Returns;
 import fr.zhykos.ymodel.infrastructure.services.GenerationException;
 import fr.zhykos.ymodel.infrastructure.services.GenerationService;

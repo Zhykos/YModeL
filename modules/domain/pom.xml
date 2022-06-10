@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fr.zhykos</groupId>
-    <artifactId>ymodel.business</artifactId>
+    <artifactId>ymodel.domain</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <parent>
@@ -13,9 +13,9 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <name>YModeL business</name>
+    <name>YModeL domain</name>
     <description>
-		Generate a metamodel base code from a YML file description. Business module: functionalities are developed here.
+		Generate a metamodel base code from a YML file description. Domain module: functionalities are developed here.
 	</description>
 
     <dependencies>

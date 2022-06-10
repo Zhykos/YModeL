@@ -8,7 +8,7 @@
 
     <packaging>pom</packaging>
     <modules>
-        <module>./modules/business</module>
+        <module>./modules/domain</module>
         <module>./modules/infrastructure</module>
         <module>./modules/commons</module>
     </modules>

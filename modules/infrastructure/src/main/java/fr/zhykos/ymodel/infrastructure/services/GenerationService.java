@@ -11,7 +11,7 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 
-import fr.zhykos.ymodel.business.services.IGenerationService;
+import fr.zhykos.ymodel.domain.services.IGenerationService;
 import fr.zhykos.ymodel.commons.Returns;
 
 /**

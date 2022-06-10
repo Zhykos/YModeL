@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.services;
+package fr.zhykos.ymodel.domain.services;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -73,7 +73,7 @@ public interface IGenerationService<C, M> {
      */
     default String getTemplateContents() throws IOException {
         return Files.readString(
-                Path.of("../business/src/main/resources/templates/%s.mustache".formatted(getTemplateName())));
+                Path.of("../domain/src/main/resources/templates/%s.mustache".formatted(getTemplateName())));
     }
 
 }

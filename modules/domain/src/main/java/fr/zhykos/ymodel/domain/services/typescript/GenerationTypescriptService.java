@@ -1,14 +1,14 @@
-package fr.zhykos.ymodel.business.services.typescript;
+package fr.zhykos.ymodel.domain.services.typescript;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.SortedSet;
 
-import fr.zhykos.ymodel.business.models.typescript.TypescriptClass;
-import fr.zhykos.ymodel.business.models.typescript.TypescriptField;
-import fr.zhykos.ymodel.business.models.typescript.TypescriptMethod;
-import fr.zhykos.ymodel.business.models.typescript.TypescriptMethodParameter;
-import fr.zhykos.ymodel.business.services.IGenerationService;
+import fr.zhykos.ymodel.domain.models.typescript.TypescriptClass;
+import fr.zhykos.ymodel.domain.models.typescript.TypescriptField;
+import fr.zhykos.ymodel.domain.models.typescript.TypescriptMethod;
+import fr.zhykos.ymodel.domain.models.typescript.TypescriptMethodParameter;
+import fr.zhykos.ymodel.domain.services.IGenerationService;
 
 /**
  * Service to generate Typescript files

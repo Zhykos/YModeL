@@ -1,4 +1,4 @@
-package fr.zhykos.ymodel.business.models.typescript;
+package fr.zhykos.ymodel.domain.models.typescript;
 
 import lombok.Getter;
 import lombok.Setter;

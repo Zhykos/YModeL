@@ -2,19 +2,19 @@
 <FindBugsFilter xmlns="https://github.com/spotbugs/filter/3.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
 
     <Match>
-        <Class name="fr.zhykos.ymodel.business.models.typescript.TypescriptClass" />
+        <Class name="fr.zhykos.ymodel.domain.models.typescript.TypescriptClass" />
         <Method name="getFields" />
         <Bug pattern="EI_EXPOSE_REP" />
     </Match>
 
     <Match>
-        <Class name="fr.zhykos.ymodel.business.models.typescript.TypescriptClass" />
+        <Class name="fr.zhykos.ymodel.domain.models.typescript.TypescriptClass" />
         <Method name="getMethods" />
         <Bug pattern="EI_EXPOSE_REP" />
     </Match>
 
     <Match>
-        <Class name="fr.zhykos.ymodel.business.models.typescript.TypescriptMethod" />
+        <Class name="fr.zhykos.ymodel.domain.models.typescript.TypescriptMethod" />
         <Method name="getParameters" />
         <Bug pattern="EI_EXPOSE_REP" />
     </Match>
