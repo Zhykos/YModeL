@@ -1,4 +1,4 @@
+- jacoco domain + augmenter coverage dans le pom
 - améliorer les messages d'exception des SemanticException (ajouter type de l'objet en erreur + ajouter ligne si possible + message d'héritage avec la déclaration (+ un point à la fin du message))
-- tester modules domain et commons
 - api
 - licence
