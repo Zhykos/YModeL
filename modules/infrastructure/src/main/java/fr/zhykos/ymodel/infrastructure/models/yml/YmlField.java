@@ -2,11 +2,13 @@ package fr.zhykos.ymodel.infrastructure.models.yml;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
  * A field / attribute representing the metamodel description YML file
  */
+@NoArgsConstructor
 @AllArgsConstructor
 public final class YmlField {
 

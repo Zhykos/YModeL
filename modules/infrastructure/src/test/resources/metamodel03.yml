@@ -2,6 +2,9 @@ metamodel:
   classes:
     - name: Class02
       inherits: $Class01
+      fields:
+        - name: field01
+          type: $Class01
       methods:
         - name: method01
           parameters:

@@ -29,7 +29,7 @@ class TransformationService03Tests {
             eClasses.catchh();
         } catch (SemanticListException e) {
             Assertions.assertEquals(
-                    "Unknown class reference for inheritance: $Class01\nUnknown class reference '$Class01' in element 'method01'.\nUnknown class reference '$Class01' in element 'param01'.",
+                    "Unknown class reference for inheritance: $Class01\nUnknown class reference '$Class01' in element 'field01'.\nUnknown class reference '$Class01' in element 'method01'.\nUnknown class reference '$Class01' in element 'param01'.",
                     e.getMessage());
         }
     }
