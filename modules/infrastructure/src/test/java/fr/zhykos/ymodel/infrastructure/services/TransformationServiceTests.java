@@ -1,7 +1,6 @@
 package fr.zhykos.ymodel.infrastructure.services;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -117,9 +116,9 @@ class TransformationServiceTests {
 
     @Test
     @DisplayName("Transform a YML metamodel into an EMF metamodel and check unreferenced types")
-    void transformUnreferencedTypes() throws IOException {
+    void transformUnreferencedTypes() throws SyntaxException {
         final File yamlFile = new File("src/test/resources/metamodel03.yml");
-        final Returns<YmlMetaModel, IOException> parseReturns = new ParsingService().parse(yamlFile);
+        final Returns<YmlMetaModel, SyntaxException> parseReturns = new ParsingService().parse(yamlFile);
         final YmlMetaModel ymlMetaModel = parseReturns.then();
 
         final Returns<List<EClass>, SemanticListException> eClasses = new TransformationService()
@@ -137,9 +136,9 @@ class TransformationServiceTests {
 
     @Test
     @DisplayName("Transform a YML metamodel into an EMF metamodel and check referenced types")
-    void transformReferencedTypes() throws SemanticListException, IOException {
+    void transformReferencedTypes() throws SemanticListException, SyntaxException {
         final File yamlFile = new File("src/test/resources/metamodel02.yml");
-        final Returns<YmlMetaModel, IOException> parseReturns = new ParsingService().parse(yamlFile);
+        final Returns<YmlMetaModel, SyntaxException> parseReturns = new ParsingService().parse(yamlFile);
         final YmlMetaModel ymlMetaModel = parseReturns.then();
 
         final Returns<List<EClass>, SemanticListException> eClassesReturns = new TransformationService()

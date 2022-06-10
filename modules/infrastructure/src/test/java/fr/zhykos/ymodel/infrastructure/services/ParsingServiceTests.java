@@ -1,7 +1,6 @@
 package fr.zhykos.ymodel.infrastructure.services;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -18,9 +17,9 @@ class ParsingServiceTests {
 
     @Test
     @DisplayName("Parse a YML metamodel declaration file")
-    void parse() throws IOException {
+    void parse() throws SyntaxException {
         final File yamlFile = new File("src/test/resources/metamodel01.yml");
-        final Returns<YmlMetaModel, IOException> parseReturns = new ParsingService().parse(yamlFile);
+        final Returns<YmlMetaModel, SyntaxException> parseReturns = new ParsingService().parse(yamlFile);
         final YmlMetaModel metaModel = parseReturns.then();
 
         Assertions.assertEquals(2, metaModel.getClasses().size());
@@ -65,30 +64,30 @@ class ParsingServiceTests {
 
     @Test
     @DisplayName("Exception while reading the YML metamodel declaration file")
-    void errorReadFile() throws IOException {
+    void errorReadFile() {
         final File yamlFile = Mockito.mock(File.class);
         Mockito.when(yamlFile.toPath()).thenThrow(RuntimeException.class);
-        final Returns<YmlMetaModel, IOException> parseReturns = new ParsingService().parse(yamlFile);
-        Assertions.assertThrows(IOException.class, () -> parseReturns.catchh());
+        final Returns<YmlMetaModel, SyntaxException> parseReturns = new ParsingService().parse(yamlFile);
+        Assertions.assertThrows(SyntaxException.class, () -> parseReturns.catchh());
     }
 
     @Test
     @DisplayName("Exception while parsing the YML metamodel declaration file")
-    void errorParseFile() throws IOException {
-        final Returns<YmlMetaModel, IOException> parseReturns = new ParsingService().parse("");
-        Assertions.assertThrows(IOException.class, () -> parseReturns.catchh());
+    void errorParseFile() {
+        final Returns<YmlMetaModel, SyntaxException> parseReturns = new ParsingService().parse("");
+        Assertions.assertThrows(SyntaxException.class, () -> parseReturns.catchh());
     }
 
     @Test
     @DisplayName("Transform an invalid YML metamodel with")
-    void transform() throws IOException {
+    void transform() {
         final File yamlFile = new File("src/test/resources/metamodel04.yml");
-        final Returns<YmlMetaModel, IOException> parseReturns = new ParsingService().parse(yamlFile);
-        Assertions.assertThrows(IOException.class, () -> parseReturns.then());
+        final Returns<YmlMetaModel, SyntaxException> parseReturns = new ParsingService().parse(yamlFile);
+        Assertions.assertThrows(SyntaxException.class, () -> parseReturns.then());
 
         try {
             parseReturns.catchh();
-        } catch (IOException e) {
+        } catch (SyntaxException e) {
             Assertions.assertEquals(
                     "com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field \"error\" (class fr.zhykos.ymodel.infrastructure.models.yml.YmlClass), not marked as ignorable (4 known properties: \"inherits\", \"fields\", \"methods\", \"name\"])\n at [Source: (StringReader); line: 3, column: 21] (through reference chain: fr.zhykos.ymodel.infrastructure.models.yml.YmlFile[\"metamodel\"]->fr.zhykos.ymodel.infrastructure.models.yml.YmlMetaModel[\"classes\"]->java.util.ArrayList[0]->fr.zhykos.ymodel.infrastructure.models.yml.YmlClass[\"error\"])",
                     e.getMessage());

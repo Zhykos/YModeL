@@ -23,12 +23,12 @@ public final class ParsingService {
      * @return Returns with: resolved metamodel ; Exception if an error occurred
      *         while reading the file
      */
-    public Returns<YmlMetaModel, IOException> parse(final File yamlFile) {
+    public Returns<YmlMetaModel, SyntaxException> parse(final File yamlFile) {
         try {
             final String yaml = Files.readString(yamlFile.toPath());
             return parse(yaml);
         } catch (final Exception e) {
-            return Returns.reject(new IOException(e));
+            return Returns.reject(new SyntaxException(e));
         }
     }
 
@@ -39,13 +39,13 @@ public final class ParsingService {
      * @return Returns with: resolved metamodel ; Exception if an error occurred
      *         while reading the file
      */
-    public Returns<YmlMetaModel, IOException> parse(final String yaml) {
+    public Returns<YmlMetaModel, SyntaxException> parse(final String yaml) {
         try {
             final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             final YmlFile file = mapper.readValue(yaml, YmlFile.class);
             return Returns.resolve(file.getMetamodel());
         } catch (final Exception e) {
-            return Returns.reject(new IOException(e));
+            return Returns.reject(new SyntaxException(e));
         }
     }
 
