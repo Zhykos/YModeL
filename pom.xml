@@ -113,6 +113,8 @@
         <org.mockito.mockito-inline.version>4.6.1</org.mockito.mockito-inline.version>
         <!-- https://mvnrepository.com/artifact/one.util/streamex -->
         <one.util.streamex.version>0.8.1</one.util.streamex.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-antrun-plugin -->
+        <org.apache.maven.plugins.maven-antrun-plugin.version>3.1.0</org.apache.maven.plugins.maven-antrun-plugin.version>
     </properties>
 
     <dependencies>
@@ -317,11 +319,6 @@
                                             <value>COVEREDRATIO</value>
                                             <minimum>${bundle.coverage.ratio}</minimum>
                                         </limit>
-                                        <limit>
-                                            <counter>CLASS</counter>
-                                            <value>MISSEDCOUNT</value>
-                                            <maximum>0</maximum>
-                                        </limit>
                                     </limits>
                                 </rule>
                             </rules>
@@ -347,6 +344,28 @@
                 <configuration>
                     <configFile>${project.basedir}/modules/infrastructure/src/main/resources/quality/format-java.xml</configFile>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${org.apache.maven.plugins.maven-antrun-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>lombok-config</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <propertyfile file="lombok.config">
+                                    <entry key="config.stopBubbling" value="true" />
+                                    <entry key="lombok.addLombokGeneratedAnnotation" value="true" />
+                                </propertyfile>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Below, no explicit use: just to upgrade the version -->
@@ -400,12 +419,6 @@
 
                 <!-- Below, no explicit use: just to upgrade the version -->
 
-                <plugin>
-                    <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-antrun-plugin -->
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>3.1.0</version>
-                </plugin>
                 <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-assembly-plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
