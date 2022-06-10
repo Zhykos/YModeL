@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import fr.zhykos.ymodel.commons.Returns;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlClass;
@@ -60,6 +61,22 @@ class ParsingServiceTests {
         final YmlMethodParameter param03 = method03.getParameters().get(0);
         Assertions.assertEquals("param03", param03.getName());
         Assertions.assertEquals("int", param03.getType());
+    }
+
+    @Test
+    @DisplayName("Exception while reading the YML metamodel declaration file")
+    void errorReadFile() throws IOException {
+        final File yamlFile = Mockito.mock(File.class);
+        Mockito.when(yamlFile.toPath()).thenThrow(RuntimeException.class);
+        final Returns<YmlMetaModel, IOException> parseReturns = new ParsingService().parse(yamlFile);
+        Assertions.assertThrows(IOException.class, () -> parseReturns.catchh());
+    }
+
+    @Test
+    @DisplayName("Exception while parsing the YML metamodel declaration file")
+    void errorParseFile() throws IOException {
+        final Returns<YmlMetaModel, IOException> parseReturns = new ParsingService().parse("");
+        Assertions.assertThrows(IOException.class, () -> parseReturns.catchh());
     }
 
 }
