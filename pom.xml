@@ -55,7 +55,7 @@
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <bundle.coverage.ratio>0.5</bundle.coverage.ratio>
+        <bundle.coverage.ratio>1</bundle.coverage.ratio>
 
         <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-junit5 -->
         <io.quarkus.quarkus-junit5.version>2.9.2.Final</io.quarkus.quarkus-junit5.version>
