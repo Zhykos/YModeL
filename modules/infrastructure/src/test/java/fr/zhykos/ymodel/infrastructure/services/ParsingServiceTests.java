@@ -74,7 +74,7 @@ class ParsingServiceTests {
     @Test
     @DisplayName("Exception while parsing the YML metamodel declaration file")
     void errorParseFile() {
-        final Returns<YmlMetaModel, SyntaxException> parseReturns = new ParsingService().parse("", "foo");
+        final Returns<YmlMetaModel, SyntaxException> parseReturns = new ParsingService().parse("", new File("foo"));
         Assertions.assertThrows(SyntaxException.class, () -> parseReturns.catchh());
     }
 

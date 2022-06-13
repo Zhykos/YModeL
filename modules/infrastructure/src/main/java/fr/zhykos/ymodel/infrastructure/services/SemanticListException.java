@@ -1,5 +1,6 @@
 package fr.zhykos.ymodel.infrastructure.services;
 
+import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,25 +11,34 @@ import java.util.stream.Collectors;
 public final class SemanticListException extends Exception {
 
     /**
+     * Origin file of the error.
+     */
+    private final File originFile;
+
+    /**
      * List of exceptions.
      */
-    private final List<SemanticException> subExceptions;
+    private final List<String> subExceptions;
 
     /**
      * New exception with a list of specific exceptions.
      *
+     * @param file       Origin file of the error.
      * @param exceptions The list of exceptions
      */
-    public SemanticListException(final List<SemanticException> exceptions) {
+    public SemanticListException(final File file, final List<String> exceptions) {
         if (exceptions.isEmpty()) {
             throw new IllegalArgumentException("The list of exceptions cannot be empty");
         }
+        this.originFile = file;
         this.subExceptions = exceptions;
     }
 
     @Override
     public String getMessage() {
-        return this.subExceptions.stream().map(SemanticException::getMessage).collect(Collectors.joining("\n"));
+        return "Transformation error for file '%s':%n%s."
+                .formatted(this.originFile.getName(),
+                        this.subExceptions.stream().collect(Collectors.joining(System.lineSeparator())));
     }
 
 }

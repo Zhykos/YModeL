@@ -1,3 +1,2 @@
-- améliorer les messages d'exception des SemanticException (ajouter type de l'objet en erreur + ajouter ligne si possible + message d'héritage avec la déclaration (+ un point à la fin du message))
 - api
 - licence

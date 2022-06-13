@@ -35,9 +35,10 @@ public final class TransformationService {
         final List<EClass> eClasses = ymlMetamodel.getClasses().stream().map(TransformationService::transform).toList();
         final Map<String, EClass> classesIdentityMap = eClasses.stream()
                 .collect(Collectors.toMap(EClass::getName, Function.identity()));
-        final List<SemanticException> exceptions = consolidateClassReferences(eClasses, classesIdentityMap);
+        final List<String> exceptions = consolidateClassReferences(eClasses, classesIdentityMap);
         return new Returns<>(Optional.of(eClasses),
-                exceptions.isEmpty() ? Optional.empty() : Optional.of(new SemanticListException(exceptions)));
+                exceptions.isEmpty() ? Optional.empty()
+                        : Optional.of(new SemanticListException(ymlMetamodel.getOriginFile(), exceptions)));
     }
 
     private static EClass transform(final YmlClass ymlClass) {
@@ -90,7 +91,7 @@ public final class TransformationService {
         return type;
     }
 
-    private static List<SemanticException> consolidateClassReferences(final List<EClass> eClasses,
+    private static List<String> consolidateClassReferences(final List<EClass> eClasses,
             final Map<String, EClass> classesIdentityMap) {
         return StreamEx
                 .of(eClasses.stream()
@@ -105,15 +106,15 @@ public final class TransformationService {
                 .toFlatList(x -> x);
     }
 
-    private static List<SemanticException> consolidateClassInherits(final List<EClass> superTypes,
+    private static List<String> consolidateClassInherits(final List<EClass> superTypes,
             final Map<String, EClass> classesIdentityMap) {
-        final List<SemanticException> exceptions = new ArrayList<>();
+        final List<String> exceptions = new ArrayList<>();
         for (int index = 0; index < superTypes.size(); index++) {
             final EClass superType = superTypes.get(index);
             final String referenceNamed = superType.getName();
             final EClass mapping = classesIdentityMap.get(referenceNamed.replaceAll("^\\$(.+)$", "$1"));
             if (mapping == null) {
-                exceptions.add(treatSemanticException("Unknown class reference for inheritance: " + referenceNamed,
+                exceptions.add(treatSemanticException(" - Unknown class reference for inheritance: " + referenceNamed,
                         referenceNamed));
             } else {
                 superTypes.set(index, mapping);
@@ -122,14 +123,14 @@ public final class TransformationService {
         return exceptions.stream().filter(Objects::nonNull).toList();
     }
 
-    private static List<SemanticException> consolidateClassReference(final List<? extends ETypedElement> typedElements,
+    private static List<String> consolidateClassReference(final List<? extends ETypedElement> typedElements,
             final Map<String, EClass> classesIdentityMap) {
         return typedElements.stream().map(eTypedElement -> {
             final String referenceNamed = eTypedElement.getEType().getName();
             final EClass mapping = classesIdentityMap.get(referenceNamed.replaceAll("^\\$(.+)$", "$1"));
             if (mapping == null) {
                 return treatSemanticException(
-                        "Unknown class reference '%s' in element '%s'.".formatted(referenceNamed,
+                        " - Unknown class reference '%s' in element '%s'".formatted(referenceNamed,
                                 eTypedElement.getName()),
                         referenceNamed);
             }
@@ -138,10 +139,17 @@ public final class TransformationService {
         }).filter(Objects::nonNull).toList();
     }
 
-    private static SemanticException treatSemanticException(final String message, final String referenceNamed) {
+    /**
+     * Treat a semantic exception
+     *
+     * @param message        The message of the exception
+     * @param referenceNamed The name of the reference
+     * @return The semantic exception ; or null if no exception was raised
+     */
+    private static String treatSemanticException(final String message, final String referenceNamed) {
         return switch (referenceNamed) {
             case "void", "float", "char", "int", "string" -> null;
-            default -> new SemanticException(message);
+            default -> message;
         };
     }
 

@@ -11,10 +11,10 @@ class SemanticListExceptionTests {
 
     @Test
     @DisplayName("Mandate a list of exceptions")
-    void test() {
-        final List<SemanticException> emptyList = Collections.emptyList();
+    void mandatoryList() {
+        final List<String> emptyList = Collections.emptyList();
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> new SemanticListException(emptyList));
+                () -> new SemanticListException(null, emptyList));
     }
 
 }

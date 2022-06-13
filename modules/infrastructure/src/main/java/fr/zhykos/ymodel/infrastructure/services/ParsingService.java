@@ -26,7 +26,7 @@ public final class ParsingService {
     public Returns<YmlMetaModel, SyntaxException> parse(final File yamlFile) {
         try {
             final String yaml = Files.readString(yamlFile.toPath());
-            return parse(yaml, yamlFile.getName());
+            return parse(yaml, yamlFile);
         } catch (final Exception e) {
             return Returns.reject(new SyntaxException(e));
         }
@@ -36,19 +36,21 @@ public final class ParsingService {
      * Parse a declaration metamodel
      *
      * @param yaml     Content to parse
-     * @param filename Name of the file to parse (used for error messages)
+     * @param yamlFile File to parse
      * @return Returns with: resolved metamodel ; Exception if an error occurred
      *         while reading the file
      */
-    public Returns<YmlMetaModel, SyntaxException> parse(final String yaml, final String filename) {
+    public Returns<YmlMetaModel, SyntaxException> parse(final String yaml, final File yamlFile) {
         try {
             final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             final YmlFile file = mapper.readValue(yaml, YmlFile.class);
-            return Returns.resolve(file.getMetamodel());
+            final YmlMetaModel metamodel = file.getMetamodel();
+            metamodel.setOriginFile(yamlFile);
+            return Returns.resolve(metamodel);
         } catch (final UnrecognizedPropertyException e) {
             final String message = "Unrecognized property '%s' line %d and column %d from file '%s'."
                     .formatted(e.getPropertyName(), e.getLocation().getLineNr(), e.getLocation().getColumnNr(),
-                            filename);
+                            yamlFile.getName());
             return Returns.reject(new SyntaxException(message));
         } catch (final Exception e) {
             return Returns.reject(new SyntaxException(e));

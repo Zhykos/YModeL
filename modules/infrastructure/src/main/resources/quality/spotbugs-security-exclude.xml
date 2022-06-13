@@ -20,14 +20,27 @@
     </Match>
 
     <Match>
-        <Class name="fr.zhykos.ymodel.infrastructure.models.yml.YmlClass" />
-        <Method name="getFields" />
+        <Class name="fr.zhykos.ymodel.infrastructure.services.SemanticListException" />
+        <Method name="&lt;init&gt;" />
+        <Bug pattern="EI_EXPOSE_REP2" />
+        <Field name="subExceptions" />
+    </Match>
+
+    <Match>
+        <Class name="fr.zhykos.ymodel.infrastructure.models.yml.YmlFile" />
+        <Method name="getMetamodel" />
         <Bug pattern="EI_EXPOSE_REP" />
     </Match>
 
     <Match>
         <Class name="fr.zhykos.ymodel.infrastructure.models.yml.YmlClass" />
         <Method name="getMethods" />
+        <Bug pattern="EI_EXPOSE_REP" />
+    </Match>
+
+    <Match>
+        <Class name="fr.zhykos.ymodel.infrastructure.models.yml.YmlClass" />
+        <Method name="getFields" />
         <Bug pattern="EI_EXPOSE_REP" />
     </Match>
 

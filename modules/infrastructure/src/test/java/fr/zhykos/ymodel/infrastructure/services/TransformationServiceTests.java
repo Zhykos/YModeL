@@ -129,7 +129,8 @@ class TransformationServiceTests {
             eClasses.catchh();
         } catch (SemanticListException e) {
             Assertions.assertEquals(
-                    "Unknown class reference for inheritance: $Class01\nUnknown class reference '$Class01' in element 'field01'.\nUnknown class reference '$Class01' in element 'method01'.\nUnknown class reference '$Class01' in element 'param01'.",
+                    "Transformation error for file '%s':%n - Unknown class reference for inheritance: $Class01%n - Unknown class reference '$Class01' in element 'field01'%n - Unknown class reference '$Class01' in element 'method01'%n - Unknown class reference '$Class01' in element 'param01'."
+                            .formatted(yamlFile.getName()),
                     e.getMessage());
         }
     }
