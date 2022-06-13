@@ -49,11 +49,13 @@ public interface IGenerationService<C, M> {
     M generateMethod(C containingClass, String methodName, String methodReturnsType);
 
     /**
-     * Execute some code after creating a method
+     * Execute some code after creating a method. Do nothing by default.
      *
      * @param createdMethod The created method
      */
-    void postMethodGeneration(M createdMethod);
+    default void postMethodGeneration(M createdMethod) {
+        // Do nothing
+    }
 
     /**
      * Generate a method parameter model
