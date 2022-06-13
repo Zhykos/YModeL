@@ -30,9 +30,4 @@ public final class TypescriptMethodParameter {
     @Setter
     private boolean last;
 
-    @Override
-    public String toString() {
-        return "{ name: '%s', type: '%s', last: %s }".formatted(this.name, this.type, this.last);
-    }
-
 }

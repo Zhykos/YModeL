@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -46,15 +45,6 @@ public final class TypescriptClass {
      */
     @Getter
     private List<TypescriptMethod> methods = new ArrayList<>();
-
-    @Override
-    public String toString() {
-        return "{ name: '%s', inherits: '%s', imports: [%s], fields: [%s], methods: [%s]".formatted(this.name,
-                this.inherits,
-                this.imports.stream().map(Object::toString).collect(Collectors.joining(", ")),
-                this.fields.stream().map(Object::toString).collect(Collectors.joining(", ")),
-                this.methods.stream().map(Object::toString).collect(Collectors.joining(", ")));
-    }
 
     /**
      * @return <code>true</code> if the class has imports
