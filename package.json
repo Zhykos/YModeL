@@ -13,8 +13,8 @@
         "type": "git",
         "url": "git+https://github.com/Zhykos/YModeL"
     },
-    "author": "Thomas Cicognani",
-    "license": "AGPL3",
+    "author": "Thomas 'Zhykos' Cicognani",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/Zhykos/YModeL/issues"
     },
