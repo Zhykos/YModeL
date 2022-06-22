@@ -65,16 +65,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <bundle.coverage.ratio>1</bundle.coverage.ratio>
 
-        <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-junit5 -->
-        <io.quarkus.quarkus-junit5.version>2.9.2.Final</io.quarkus.quarkus-junit5.version>
+        <!-- DEPENDENCIES VERSIONS -->
+
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
         <org.apache.maven.plugins.maven-surefire-plugin.version>3.0.0-M5</org.apache.maven.plugins.maven-surefire-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <org.projectlombok.lombok.version>1.18.24</org.projectlombok.lombok.version>
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
         <com.fasterxml.jackson.dataformat.jackson-dataformat-yaml.version>2.13.3</com.fasterxml.jackson.dataformat.jackson-dataformat-yaml.version>
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <com.fasterxml.jackson.core.jackson-databind.version>2.13.3</com.fasterxml.jackson.core.jackson-databind.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-checkstyle-plugin -->
         <org.apache.maven.plugins.maven-checkstyle-plugin.version>3.1.2</org.apache.maven.plugins.maven-checkstyle-plugin.version>
         <!-- Fix Execution default-site of goal org.apache.maven.plugins:maven-site-plugin:3.3:site failed: A required class was missing while executing org.apache.maven.plugins:maven-site-plugin:3.3:site: org/apache/maven/doxia/siterenderer/DocumentContent -->
@@ -101,8 +99,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <com.puppycrawl.tools.checkstyle.version>10.3</com.puppycrawl.tools.checkstyle.version>
         <!-- https://mvnrepository.com/artifact/com.github.spullara.mustache.java/compiler -->
         <com.github.spullara.mustache.java.compiler.version>0.9.10</com.github.spullara.mustache.java.compiler.version>
-        <!-- https://mvnrepository.com/artifact/org.eclipse.emf/org.eclipse.emf.common -->
-        <org.eclipse.emf.org.eclipse.emf.common.version>2.25.0</org.eclipse.emf.org.eclipse.emf.common.version>
         <!-- https://mvnrepository.com/artifact/org.eclipse.emf/org.eclipse.emf.ecore -->
         <org.eclipse.emf.org.eclipse.emf.ecore.version>2.27.0</org.eclipse.emf.org.eclipse.emf.ecore.version>
         <!-- https://mvnrepository.com/artifact/com.google.jimfs/jimfs -->
@@ -115,78 +111,69 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <org.codehaus.mojo.versions-maven-plugin.version>2.8.1</org.codehaus.mojo.versions-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/taglist-maven-plugin -->
         <org.codehaus.mojo.taglist-maven-plugin.version>2.4</org.codehaus.mojo.taglist-maven-plugin.version>
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
-        <org.mockito.mockito-core.version>4.6.1</org.mockito.mockito-core.version>
         <!-- https://mvnrepository.com/artifact/org.mockito/mockito-inline -->
         <org.mockito.mockito-inline.version>4.6.1</org.mockito.mockito-inline.version>
         <!-- https://mvnrepository.com/artifact/one.util/streamex -->
         <one.util.streamex.version>0.8.1</one.util.streamex.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-antrun-plugin -->
         <org.apache.maven.plugins.maven-antrun-plugin.version>3.1.0</org.apache.maven.plugins.maven-antrun-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+        <org.junit.jupiter.junit-jupiter-engine.version>5.9.0-M1</org.junit.jupiter.junit-jupiter-engine.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5</artifactId>
-            <version>${io.quarkus.quarkus-junit5.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${org.projectlombok.lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-yaml</artifactId>
-            <version>${com.fasterxml.jackson.dataformat.jackson-dataformat-yaml.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${com.fasterxml.jackson.core.jackson-databind.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.spullara.mustache.java</groupId>
-            <artifactId>compiler</artifactId>
-            <version>${com.github.spullara.mustache.java.compiler.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.emf</groupId>
-            <artifactId>org.eclipse.emf.common</artifactId>
-            <version>${org.eclipse.emf.org.eclipse.emf.common.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.emf</groupId>
-            <artifactId>org.eclipse.emf.ecore</artifactId>
-            <version>${org.eclipse.emf.org.eclipse.emf.ecore.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.jimfs</groupId>
-            <artifactId>jimfs</artifactId>
-            <version>${com.google.jimfs.jimfs.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${org.mockito.mockito-core.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-inline</artifactId>
-            <version>${org.mockito.mockito-inline.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>one.util</groupId>
-            <artifactId>streamex</artifactId>
-            <version>${one.util.streamex.version}</version>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <!-- EXTERNAL -->
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${org.projectlombok.lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-yaml</artifactId>
+                <version>${com.fasterxml.jackson.dataformat.jackson-dataformat-yaml.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.spullara.mustache.java</groupId>
+                <artifactId>compiler</artifactId>
+                <version>${com.github.spullara.mustache.java.compiler.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.emf</groupId>
+                <artifactId>org.eclipse.emf.ecore</artifactId>
+                <version>${org.eclipse.emf.org.eclipse.emf.ecore.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>one.util</groupId>
+                <artifactId>streamex</artifactId>
+                <version>${one.util.streamex.version}</version>
+            </dependency>
+
+            <!-- TESTS -->
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${org.junit.jupiter.junit-jupiter-engine.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-inline</artifactId>
+                <version>${org.mockito.mockito-inline.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.jimfs</groupId>
+                <artifactId>jimfs</artifactId>
+                <version>${com.google.jimfs.jimfs.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
@@ -209,12 +196,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${org.apache.maven.plugins.maven-surefire-plugin.version}</version>
-                <configuration>
-                    <systemPropertyVariables>
-                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        <maven.home>${maven.home}</maven.home>
-                    </systemPropertyVariables>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -448,43 +429,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             </plugins>
         </pluginManagement>
     </build>
-
-    <profiles>
-        <profile>
-            <id>native</id>
-            <activation>
-                <property>
-                    <name>native</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${org.apache.maven.plugins.maven-surefire-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                                <configuration>
-                                    <systemPropertyVariables>
-                                        <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-                                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                                        <maven.home>${maven.home}</maven.home>
-                                    </systemPropertyVariables>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <properties>
-                <quarkus.package.type>native</quarkus.package.type>
-            </properties>
-        </profile>
-    </profiles>
 
     <reporting>
         <plugins>
