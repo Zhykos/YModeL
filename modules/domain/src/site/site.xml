@@ -30,7 +30,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <menu name="ymodel">
             <item name="Introduction" href="index.html" />
             <item name="General Information" href="about.html" />
-            <item name="Parent Module" href="../../index.html" />
+            <item name="Parent Module" href="../index.html" />
         </menu>
 
         <menu ref="reports" />

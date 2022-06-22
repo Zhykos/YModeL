@@ -19,12 +19,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <groupId>fr.zhykos</groupId>
         <artifactId>ymodel</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <name>YModeL commons</name>
     <description>
 		Generate a metamodel base code from a YML file description. Commons module with utils.
 	</description>
+
+    <distributionManagement>
+        <site>
+            <id>www.zhykos.fr</id>
+            <url>scp://www.zhykos.fr/projects/ymodel/commons</url>
+        </site>
+    </distributionManagement>
 
 </project>

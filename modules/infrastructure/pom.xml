@@ -19,7 +19,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <groupId>fr.zhykos</groupId>
         <artifactId>ymodel</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <name>YModeL infrastructure</name>
@@ -39,5 +39,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <site>
+            <id>www.zhykos.fr</id>
+            <url>scp://www.zhykos.fr/projects/ymodel/infrastructure</url>
+        </site>
+    </distributionManagement>
 
 </project>

@@ -17,16 +17,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     <packaging>pom</packaging>
     <modules>
-        <module>./modules/domain</module>
-        <module>./modules/infrastructure</module>
-        <module>./modules/commons</module>
+        <module>../domain</module>
+        <module>../infrastructure</module>
+        <module>../commons</module>
     </modules>
 
     <distributionManagement>
         <site>
-            <id>site</id>
-            <name>site</name>
-            <url>https://www.zhykos.fr</url>
+            <id>www.zhykos.fr</id>
+            <url>scp://www.zhykos.fr/projects/ymodel</url>
         </site>
     </distributionManagement>
 
@@ -222,7 +221,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${org.apache.maven.plugins.maven-checkstyle-plugin.version}</version>
                 <configuration>
-                    <configLocation>modules/infrastructure/src/main/resources/quality/checkstyle.xml</configLocation>
+                    <configLocation>${project.basedir}/../parent/src/main/resources/quality/checkstyle.xml</configLocation>
                 </configuration>
                 <executions>
                     <execution>
@@ -285,7 +284,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>${com.github.spotbugs.spotbugs-maven-plugin.version}</version>
                 <configuration>
-                    <excludeFilterFile>modules/infrastructure/src/main/resources/quality/spotbugs-security-exclude.xml</excludeFilterFile>
+                    <excludeFilterFile>${project.basedir}/../parent/src/main/resources/quality/spotbugs-security-exclude.xml</excludeFilterFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -351,7 +350,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <artifactId>formatter-maven-plugin</artifactId>
                 <version>${net.revelc.code.formatter.formatter-maven-plugin.version}</version>
                 <configuration>
-                    <configFile>${project.basedir}/modules/infrastructure/src/main/resources/quality/format-java.xml</configFile>
+                    <configFile>${project.basedir}/../parent/src/main/resources/quality/format-java.xml</configFile>
                 </configuration>
             </plugin>
             <plugin>
@@ -494,7 +493,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${org.apache.maven.plugins.maven-checkstyle-plugin.version}</version>
                 <configuration>
-                    <configLocation>modules/infrastructure/src/main/resources/quality/checkstyle.xml</configLocation>
+                    <configLocation>${project.basedir}/../parent/src/main/resources/quality/checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
             <plugin>
@@ -555,7 +554,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>${com.github.spotbugs.spotbugs-maven-plugin.version}</version>
                 <configuration>
-                    <excludeFilterFile>modules/infrastructure/src/main/resources/quality/spotbugs-security-exclude.xml</excludeFilterFile>
+                    <excludeFilterFile>${project.basedir}/../parent/src/main/resources/quality/spotbugs-security-exclude.xml</excludeFilterFile>
                 </configuration>
             </plugin>
             <plugin>
