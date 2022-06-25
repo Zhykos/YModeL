@@ -55,6 +55,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+
+
+        <dependency>
+            <groupId>io.quarkiverse.openapi.generator</groupId>
+            <artifactId>quarkus-openapi-generator</artifactId>
+            <version>0.7.0</version>
+        </dependency>
     </dependencies>
 
     <distributionManagement>
@@ -80,6 +87,26 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     </execution>
                 </executions>
             </plugin>
+            <!-- <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>6.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/META-INF/openapi.yml</inputSpec>
+                            <generatorName>jaxrs-jersey</generatorName>
+                            <configOptions>
+                                <sourceFolder>src/java/main</sourceFolder>
+                                <implFolder>src/java/main</implFolder>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin> -->
             <!-- <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.0.0-M7</version>
