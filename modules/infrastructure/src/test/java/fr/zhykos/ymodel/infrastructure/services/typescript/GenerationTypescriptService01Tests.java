@@ -29,6 +29,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import fr.zhykos.ymodel.domain.services.typescript.GenerationTypescriptService;
+import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 import fr.zhykos.ymodel.infrastructure.services.GenerationException;
 import fr.zhykos.ymodel.infrastructure.services.GenerationService;
 
@@ -39,7 +40,7 @@ class GenerationTypescriptService01Tests {
     void generate() throws IOException {
         final List<EClass> eClasses = createEClasses();
 
-        final List<String> generations = GenerationService.generate(eClasses, new GenerationTypescriptService())
+        final List<GeneratedFile> generations = GenerationService.generate(eClasses, new GenerationTypescriptService())
                 .stream().map(generation -> {
                     try {
                         return generation.then();
@@ -54,8 +55,8 @@ class GenerationTypescriptService01Tests {
         final String expectedTypescript02 = Files
                 .readString(Path.of("src/test/resources/expected-typescript/Class02.ts"));
 
-        final String generation01 = generations.get(0);
-        final String generation02 = generations.get(1);
+        final String generation01 = generations.get(0).getContents();
+        final String generation02 = generations.get(1).getContents();
         Assertions.assertNotEquals("", generation01);
         Assertions.assertNotEquals("", generation02);
         Assertions.assertEquals(expectedTypescript01.replace("\r", "").replace("\n", ""),

@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import fr.zhykos.ymodel.domain.models.ITemplateClass;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +26,7 @@ import lombok.Setter;
  * A class representing the Typescript to generate (used in the
  * mustache template file)
  */
-public final class TypescriptClass {
+public final class TypescriptClass implements ITemplateClass {
 
     /**
      * Class name
@@ -59,11 +60,14 @@ public final class TypescriptClass {
     @Getter
     private List<TypescriptMethod> methods = new ArrayList<>();
 
-    /**
-     * @return <code>true</code> if the class has imports
-     */
+    @Override
     public boolean hasImports() {
         return !this.imports.isEmpty();
+    }
+
+    @Override
+    public String getFileClassName() {
+        return this.name + ".ts";
     }
 
 }

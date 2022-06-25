@@ -123,6 +123,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <io.quarkus.quarkus-junit5.version>2.10.0.Final</io.quarkus.quarkus-junit5.version>
         <!-- https://mvnrepository.com/artifact/io.quarkus.platform/quarkus-maven-plugin -->
         <io.quarkus.platform.quarkus-maven-plugin.version>2.10.0.Final</io.quarkus.platform.quarkus-maven-plugin.version>
+        <!-- https://mvnrepository.com/artifact/io.quarkiverse.openapi.generator/quarkus-openapi-generator -->
+        <io.quarkiverse.openapi.generator.quarkus-openapi-generator.version>0.7.0</io.quarkiverse.openapi.generator.quarkus-openapi-generator.version>
+        <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-bom -->
+        <io.quarkus.platform.quarkus-bom.version>2.10.0.Final</io.quarkus.platform.quarkus-bom.version>
     </properties>
 
     <dependencyManagement>
@@ -156,9 +160,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             <dependency>
                 <groupId>io.quarkus.platform</groupId>
                 <artifactId>quarkus-bom</artifactId>
-                <version>2.10.0.Final</version>
+                <version>${io.quarkus.platform.quarkus-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.jimfs</groupId>
+                <artifactId>jimfs</artifactId>
+                <version>${com.google.jimfs.jimfs.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.openapi.generator</groupId>
+                <artifactId>quarkus-openapi-generator</artifactId>
+                <version>${io.quarkiverse.openapi.generator.quarkus-openapi-generator.version}</version>
             </dependency>
 
             <!-- TESTS -->
@@ -173,12 +187,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-inline</artifactId>
                 <version>${org.mockito.mockito-inline.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.google.jimfs</groupId>
-                <artifactId>jimfs</artifactId>
-                <version>${com.google.jimfs.jimfs.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

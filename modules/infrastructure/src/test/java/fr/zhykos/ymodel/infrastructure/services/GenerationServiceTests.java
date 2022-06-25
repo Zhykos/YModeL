@@ -19,8 +19,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import fr.zhykos.ymodel.domain.services.typescript.GenerationTypescriptService;
 import fr.zhykos.ymodel.commons.Returns;
+import fr.zhykos.ymodel.domain.services.typescript.GenerationTypescriptService;
+import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 
 class GenerationServiceTests {
 
@@ -30,7 +31,7 @@ class GenerationServiceTests {
         final GenerationTypescriptService mockGenerationService = Mockito.mock(GenerationTypescriptService.class);
         Mockito.doThrow(new RuntimeException()).when(mockGenerationService).getTemplateContents();
 
-        final Returns<String, GenerationException> generation = GenerationService.generate(
+        final Returns<GeneratedFile, GenerationException> generation = GenerationService.generate(
                 EcoreFactory.eINSTANCE.createEClass(), mockGenerationService);
         Assertions.assertThrows(GenerationException.class, () -> generation.catchh());
     }

@@ -24,8 +24,10 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 
-import fr.zhykos.ymodel.domain.services.IGenerationService;
 import fr.zhykos.ymodel.commons.Returns;
+import fr.zhykos.ymodel.domain.models.ITemplateClass;
+import fr.zhykos.ymodel.domain.services.IGenerationService;
+import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 
 /**
  * Generic service to generate files
@@ -39,34 +41,36 @@ public final class GenerationService {
     /**
      * Generate all classes
      *
-     * @param <C>               C: the type of the generated class
+     * @param <C>               C: the type of the generated class. Must implements
+     *                          {@link ITemplateClass}
      * @param <M>               M: the type of the generated method
      *
      * @param eClasses          Classes to generate
      * @param generationService Specific service to generate the classes: language
      *                          service target
-     * @return A list of Returns objects: a string with the generated content ; or
-     *         an GenerationException if an error occurred.
+     * @return A list of Returns objects: a {@link GeneratedFile} with the generated
+     *         content ; or an GenerationException if an error occurred.
      */
-    public static <C, M> List<Returns<String, GenerationException>> generate(final List<EClass> eClasses,
-            final IGenerationService<C, M> generationService) {
+    public static <C extends ITemplateClass, M> List<Returns<GeneratedFile, GenerationException>> generate(
+            final List<EClass> eClasses, final IGenerationService<C, M> generationService) {
         return eClasses.stream().map(eClass -> generate(eClass, generationService)).toList();
     }
 
     /**
      * Generate a class
      *
-     * @param <C>               C: the type of the generated class
+     * @param <C>               C: the type of the generated class. Must implements
+     *                          {@link ITemplateClass}
      * @param <M>               M: the type of the generated method
      *
      * @param classs            The class to generate
      * @param generationService Specific service to generate the classes: language
      *                          service target
-     * @return A Returns objects: a string with the generated content ; or an
-     *         GenerationException if an error occurred.
+     * @return A Returns objects: a {@link GeneratedFile} with the generated content
+     *         ; or an GenerationException if an error occurred.
      */
-    public static <C, M> Returns<String, GenerationException> generate(final EClass classs,
-            final IGenerationService<C, M> generationService) {
+    public static <C extends ITemplateClass, M> Returns<GeneratedFile, GenerationException> generate(
+            final EClass classs, final IGenerationService<C, M> generationService) {
         String inherits = null;
         if (!classs.getESuperTypes().isEmpty()) {
             inherits = classs.getESuperTypes().get(0).getName();
@@ -89,15 +93,17 @@ public final class GenerationService {
         return executeTemplate(generatedClass, generationService);
     }
 
-    private static <C, M> Returns<String, GenerationException> executeTemplate(final C templateClass,
-            final IGenerationService<C, M> generationService) {
+    private static <C extends ITemplateClass, M> Returns<GeneratedFile, GenerationException> executeTemplate(
+            final C templateClass, final IGenerationService<C, M> generationService) {
         try {
             final MustacheFactory mustacheFactory = new DefaultMustacheFactory();
             final Mustache mustache = mustacheFactory.compile(new StringReader(generationService.getTemplateContents()),
                     generationService.getTemplateName());
             final StringWriter stringWriter = new StringWriter();
             mustache.execute(stringWriter, templateClass).flush();
-            return Returns.resolve(stringWriter.toString().replace("&#39;", "'"));
+            final GeneratedFile generatedFile = new GeneratedFile(templateClass.getFileClassName(),
+                    stringWriter.toString().replace("&#39;", "'"));
+            return Returns.resolve(generatedFile);
         } catch (final Exception exception) {
             return Returns.reject(new GenerationException(exception));
         }

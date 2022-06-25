@@ -1,3 +1,4 @@
 - api
 - cli
 - validator (online ? extension ? xsd-like ?)
+- metamodel or metaModel ?

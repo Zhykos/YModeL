@@ -19,6 +19,8 @@
         "Ecore",
         "Jimfs",
         "metamodel",
+        "metamodeling",
+        "metamodels",
         "Mockito",
         "mvnw",
         "openapi",

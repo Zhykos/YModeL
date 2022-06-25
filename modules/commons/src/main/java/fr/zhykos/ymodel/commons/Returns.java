@@ -39,7 +39,8 @@ public final class Returns<O, E extends Exception> {
 
     /**
      * @return The result or throw an exception if it exists
-     * @throws E The Exception if it's present
+     * @throws E                    The Exception if it's present
+     * @throws NullPointerException if there is no internal object nor exception
      */
     public O then() throws E {
         catchh();
@@ -51,9 +52,26 @@ public final class Returns<O, E extends Exception> {
      */
     public void catchh() throws E {
         if (this.exception.isPresent()) {
-            throw this.exception.orElseThrow();
+            throw this.exception.get();
         }
     }
+
+    // /**
+    //  * Dispatch consumer according to the internal result or exception
+    //  *
+    //  * @param thenConsumer  The consumer to execute if a result is present
+    //  * @param catchConsumer The consumer to execute if an exception is present
+    //  * @throws IllegalStateException if no consumer can be executed
+    //  */
+    // public void dispatch(final Consumer<O> thenConsumer, final Consumer<E> catchConsumer) {
+    //     if (this.object.isPresent()) {
+    //         thenConsumer.accept(this.object.get());
+    //     } else if (this.exception.isPresent()) {
+    //         catchConsumer.accept(this.exception.get());
+    //     } else {
+    //         throw new IllegalStateException("A Returns object must contains either a resolved object or an exception");
+    //     }
+    // }
 
     /**
      * Create a Returns with a Result

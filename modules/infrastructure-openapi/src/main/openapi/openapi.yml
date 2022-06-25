@@ -1,79 +1,45 @@
-openapi: "3.0.0"
+openapi: "3.0.3"
 info:
   version: 1.0.0
-  title: Swagger Petstore
+  title: YModeL OpenAPI
   license:
     name: MIT
-# servers:
-#   - url: http://petstore.swagger.io/v1
-#   - url: http://localhost:8080/v1
+servers:
+  - url: http://localhost:8080/
+tags:
+- name: metamodel
+  description: All services to manipulate metamodels
+  externalDocs:
+    description: Definition of metamodeling
+    url: https://en.wikipedia.org/wiki/Metamodeling
 paths:
-  /pets:
-    get:
-      summary: List all pets
-      operationId: listPets
+  /metamodel/generate:
+    post:
+      summary: Generate metamodel
+      description: Generate a metamodel from a file into a selected language
+      operationId: generateMetamodel
       tags:
-        - pets
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time (max 100)
-          required: false
-          schema:
-            type: integer
-            format: int32
+        - metamodel
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                language:
+                  $ref: "#/components/schemas/Language"
+                file:
+                  type: string
+                  description: metamodel yaml declaration file to upload
+                  format: binary
       responses:
         '200':
-          description: A paged array of pets
-          headers:
-            x-next:
-              description: A link to the next page of responses
+          description: A zip file containing the generated metamodel
+          content:
+            application/zip:    
               schema:
                 type: string
-          content:
-            application/json:    
-              schema:
-                $ref: "#/components/schemas/Pets"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    post:
-      summary: Create a pet
-      operationId: createPets
-      tags:
-        - pets
-      responses:
-        '201':
-          description: Null response
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-  /pets/{petId}:
-    get:
-      summary: Info for a specific pet
-      operationId: showPetById
-      tags:
-        - pets
-      parameters:
-        - name: petId
-          in: path
-          required: true
-          description: The id of the pet to retrieve
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Expected response to a valid request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Pet"
+                format: binary
         default:
           description: unexpected error
           content:
@@ -82,25 +48,20 @@ paths:
                 $ref: "#/components/schemas/Error"
 components:
   schemas:
-    Pet:
+    Language:
       type: object
+      description: Target language
       required:
-        - id
         - name
       properties:
-        id:
-          type: integer
-          format: int64
         name:
           type: string
-        tag:
-          type: string
-    Pets:
-      type: array
-      items:
-        $ref: "#/components/schemas/Pet"
+          description: Name of the language
+          enum:
+            - typescript
     Error:
       type: object
+      description: API error
       required:
         - code
         - message

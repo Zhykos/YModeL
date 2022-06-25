@@ -28,6 +28,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	</description>
 
     <dependencies>
+        <!-- INTERNAL -->
+
+        <dependency>
+            <groupId>fr.zhykos</groupId>
+            <artifactId>ymodel.infrastructure</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!-- EXTERNAL -->
 
         <dependency>
@@ -40,7 +48,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-reactive-jackson</artifactId>
+            <artifactId>quarkus-resteasy-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.jimfs</groupId>
+            <artifactId>jimfs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.openapi.generator</groupId>
+            <artifactId>quarkus-openapi-generator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-multipart</artifactId>
         </dependency>
 
         <!-- TESTS -->
@@ -48,19 +68,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
-        </dependency>
-
-
-        <dependency>
-            <groupId>io.quarkiverse.openapi.generator</groupId>
-            <artifactId>quarkus-openapi-generator</artifactId>
-            <version>0.7.0</version>
         </dependency>
     </dependencies>
 
@@ -87,26 +99,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     </execution>
                 </executions>
             </plugin>
-            <!-- <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>6.0.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/META-INF/openapi.yml</inputSpec>
-                            <generatorName>jaxrs-jersey</generatorName>
-                            <configOptions>
-                                <sourceFolder>src/java/main</sourceFolder>
-                                <implFolder>src/java/main</implFolder>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin> -->
             <!-- <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.0.0-M7</version>
