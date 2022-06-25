@@ -24,7 +24,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     <name>YModeL infrastructure</name>
     <description>
-		Generate a metamodel base code from a YML file description. Infrastructure module: API, CLI, etc. are developed here.
+		Generate a metamodel base code from a YML file description. Infrastructure module: CLI, etc. are developed here.
 	</description>
 
     <dependencies>
@@ -69,8 +69,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <!-- TESTS -->
 
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>

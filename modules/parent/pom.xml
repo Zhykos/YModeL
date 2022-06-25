@@ -17,9 +17,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     <packaging>pom</packaging>
     <modules>
+        <module>../commons</module>
         <module>../domain</module>
         <module>../infrastructure</module>
-        <module>../commons</module>
+        <module>../infrastructure-openapi</module>
     </modules>
 
     <distributionManagement>
@@ -64,11 +65,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <bundle.coverage.ratio>1</bundle.coverage.ratio>
+        <skipITs>true</skipITs>
 
         <!-- DEPENDENCIES VERSIONS -->
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
-        <org.apache.maven.plugins.maven-surefire-plugin.version>3.0.0-M5</org.apache.maven.plugins.maven-surefire-plugin.version>
+        <org.apache.maven.plugins.maven-surefire-plugin.version>3.0.0-M7</org.apache.maven.plugins.maven-surefire-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <org.projectlombok.lombok.version>1.18.24</org.projectlombok.lombok.version>
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
@@ -117,14 +119,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <one.util.streamex.version>0.8.1</one.util.streamex.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-antrun-plugin -->
         <org.apache.maven.plugins.maven-antrun-plugin.version>3.1.0</org.apache.maven.plugins.maven-antrun-plugin.version>
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
-        <org.junit.jupiter.junit-jupiter-engine.version>5.9.0-M1</org.junit.jupiter.junit-jupiter-engine.version>
+        <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-junit5 -->
+        <io.quarkus.quarkus-junit5.version>2.10.0.Final</io.quarkus.quarkus-junit5.version>
+        <!-- https://mvnrepository.com/artifact/io.quarkus.platform/quarkus-maven-plugin -->
+        <io.quarkus.platform.quarkus-maven-plugin.version>2.10.0.Final</io.quarkus.platform.quarkus-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- EXTERNAL -->
-
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
@@ -151,14 +153,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <artifactId>streamex</artifactId>
                 <version>${one.util.streamex.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.quarkus.platform</groupId>
+                <artifactId>quarkus-bom</artifactId>
+                <version>2.10.0.Final</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <!-- TESTS -->
 
             <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
-                <version>${org.junit.jupiter.junit-jupiter-engine.version}</version>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-junit5</artifactId>
                 <scope>test</scope>
+                <version>${io.quarkus.quarkus-junit5.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
@@ -179,7 +188,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${compiler-plugin.version}</version>
                 <configuration>
                     <compilerArgs>
                         <arg>-parameters</arg>
@@ -196,6 +204,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${org.apache.maven.plugins.maven-surefire-plugin.version}</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                        <maven.home>${maven.home}</maven.home>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -404,6 +418,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                             <version>${com.puppycrawl.tools.checkstyle.version}</version>
                         </dependency>
                     </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>io.quarkus.platform</groupId>
+                    <artifactId>quarkus-maven-plugin</artifactId>
+                    <version>${io.quarkus.platform.quarkus-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${compiler-plugin.version}</version>
                 </plugin>
 
                 <!-- Below, no explicit use: just to upgrade the version -->

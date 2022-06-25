@@ -21,6 +21,8 @@
         "metamodel",
         "Mockito",
         "mvnw",
+        "openapi",
+        "quarkus",
         "Quarkus",
         "takari",
         "temurin",

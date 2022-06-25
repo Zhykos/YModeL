@@ -1,3 +1,3 @@
 - api
 - cli
-- validator (online ? extension ? xsi-like ?)
+- validator (online ? extension ? xsd-like ?)
