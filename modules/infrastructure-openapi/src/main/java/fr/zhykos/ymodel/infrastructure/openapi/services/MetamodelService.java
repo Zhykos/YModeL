@@ -31,7 +31,8 @@ public final class MetamodelService implements MetamodelApi {
 
     @Override
     public InlineResponse200 generateMetamodel(final GenerateMetamodelMultipartForm multipartForm) {
-        final ELanguage targetLanguage = ELanguage.valueOf(multipartForm.language.getName().value());
+        // TODO check for null values in query
+        final ELanguage targetLanguage = ELanguage.valueOf(multipartForm.language.toUpperCase());
         try {
             final byte[] zipResult = new YmodelService().generateMetamodel(multipartForm._file, targetLanguage);
             final byte[] zipBase64 = Base64.getEncoder().encode(zipResult);

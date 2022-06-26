@@ -35,7 +35,8 @@ paths:
               type: object
               properties:
                 language:
-                  $ref: "#/components/schemas/Language"
+                  type: string
+                  description: Target language
                 file:
                   type: string
                   description: metamodel yaml declaration file to upload
@@ -60,17 +61,6 @@ paths:
                 $ref: "#/components/schemas/Error"
 components:
   schemas:
-    Language:
-      type: object
-      description: Target language
-      required:
-        - name
-      properties:
-        name:
-          type: string
-          description: Name of the language
-          enum:
-            - typescript
     Error:
       type: object
       description: API error

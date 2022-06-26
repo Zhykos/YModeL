@@ -15,7 +15,6 @@ package fr.zhykos.ymodel.infrastructure.openapi.services;
 
 import java.io.File;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -27,23 +26,12 @@ class MetamodelServiceTest {
     @Test
     void generate() {
         final File ymlFile = new File("src/test/resources/metamodel01.yml");
-
-        // RestAssured.given()
-        // .when()
-        // .contentType("multipart/form-data")
-        // .multiPart("file", ymlFile, "multipart/form-data")
-        // .formParam("language", "typescript")
-        // .post("/metamodel/generate")
-        // .then()
-        // .statusCode(200);
-        // .body(CoreMatchers.is("Hello Spring"));
-
         RestAssured
                 .given()
                 .contentType("multipart/form-data")
                 .multiPart("file", ymlFile, "multipart/form-data")
                 .formParam("language", "typescript")
-                .expect().body("zip", CoreMatchers.is("OK"))
+                .expect().statusCode(200)
                 .when().post("/metamodel/generate");
     }
 }
