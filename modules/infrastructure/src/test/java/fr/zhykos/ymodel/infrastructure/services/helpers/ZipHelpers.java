@@ -11,43 +11,42 @@
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package fr.zhykos.ymodel.infrastructure.services;
+package fr.zhykos.ymodel.infrastructure.services.helpers;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import com.google.common.jimfs.Configuration;
-import com.google.common.jimfs.Jimfs;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
-import fr.zhykos.ymodel.infrastructure.services.helpers.ZipHelpers;
 
-class ZipResultServiceTests {
+public final class ZipHelpers {
 
-    @Test
-    @DisplayName("Zip some strings into a single file")
-    void zip() throws IOException {
-        final FileSystem fileSystem = Jimfs.newFileSystem(Configuration.unix());
+    private ZipHelpers() {
+        // Helper class: do nothing and must not be called
+    }
 
-        final List<GeneratedFile> generatedFiles = List.of(new GeneratedFile("file01.txt", "foo"),
-                new GeneratedFile("file02.txt", "hello there"));
-
-        final Path junitPath = fileSystem.getPath("junit");
-        Files.createDirectory(junitPath);
-        final Path zipPath = Files.createTempFile(junitPath, "result", ".zip");
-        try (OutputStream outputStream = Files.newOutputStream(zipPath)) {
-            new ZipResultService().zip(generatedFiles, outputStream);
+    public static List<GeneratedFile> unzip(final Path zipPath) throws IOException {
+        final List<GeneratedFile> zipFiles = new ArrayList<>();
+        final byte[] buffer = new byte[1024];
+        try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipPath))) {
+            ZipEntry zipEntry = zipInputStream.getNextEntry();
+            while (zipEntry != null) {
+                final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                int len;
+                while ((len = zipInputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, len);
+                }
+                zipFiles.add(new GeneratedFile(zipEntry.getName(), outputStream.toString()));
+                zipEntry = zipInputStream.getNextEntry();
+            }
+            zipInputStream.closeEntry();
         }
-
-        Assertions.assertEquals(generatedFiles, ZipHelpers.unzip(zipPath));
+        return zipFiles.stream().sorted((gen1, gen2) -> gen1.getFilename().compareTo(gen2.getFilename())).toList();
     }
 
 }

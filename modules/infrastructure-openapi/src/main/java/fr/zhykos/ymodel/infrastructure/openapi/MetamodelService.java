@@ -14,9 +14,16 @@
 package fr.zhykos.ymodel.infrastructure.openapi;
 
 import java.io.File;
+import java.io.IOException;
+
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import fr.zhykos.ymodel.infrastructure.models.ELanguage;
 import fr.zhykos.ymodel.infrastructure.openapi.api.MetamodelApi;
+import fr.zhykos.ymodel.infrastructure.services.GenerationException;
+import fr.zhykos.ymodel.infrastructure.services.SemanticListException;
+import fr.zhykos.ymodel.infrastructure.services.SyntaxException;
 import fr.zhykos.ymodel.infrastructure.services.YmodelService;
 
 public class MetamodelService implements MetamodelApi {
@@ -24,10 +31,14 @@ public class MetamodelService implements MetamodelApi {
     @Override
     public File generateMetamodel(final GenerateMetamodelMultipartForm multipartForm) {
         final ELanguage targetLanguage = ELanguage.valueOf(multipartForm.language.getName().value());
-        new YmodelService().generateMetamodel(multipartForm._file, targetLanguage);
-        return null; // TODO
-        // throw new WebApplicationException("Cannot generate metamodel", e,
-        // Response.Status.INTERNAL_SERVER_ERROR);
+        try {
+            new YmodelService().generateMetamodel(multipartForm._file, targetLanguage);
+            return null; // TODO
+        } catch (GenerationException | IOException | SemanticListException | SyntaxException e) {
+            // XXX Finer exceptions!
+            throw new WebApplicationException("Cannot generate metamodel", e,
+                    Response.Status.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

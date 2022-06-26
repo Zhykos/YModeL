@@ -11,43 +11,33 @@
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package fr.zhykos.ymodel.infrastructure.services;
+package fr.zhykos.ymodel.infrastructure.services.helpers;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
-import com.google.common.jimfs.Configuration;
-import com.google.common.jimfs.Jimfs;
+public final class GenerationHelpers {
 
-import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
-import fr.zhykos.ymodel.infrastructure.services.helpers.ZipHelpers;
+    private GenerationHelpers() {
+        // Helper class: do nothing and must not be called
+    }
 
-class ZipResultServiceTests {
-
-    @Test
-    @DisplayName("Zip some strings into a single file")
-    void zip() throws IOException {
-        final FileSystem fileSystem = Jimfs.newFileSystem(Configuration.unix());
-
-        final List<GeneratedFile> generatedFiles = List.of(new GeneratedFile("file01.txt", "foo"),
-                new GeneratedFile("file02.txt", "hello there"));
-
-        final Path junitPath = fileSystem.getPath("junit");
-        Files.createDirectory(junitPath);
-        final Path zipPath = Files.createTempFile(junitPath, "result", ".zip");
-        try (OutputStream outputStream = Files.newOutputStream(zipPath)) {
-            new ZipResultService().zip(generatedFiles, outputStream);
+    public static void assertStringEqualsFileContentsAsExcepted(final String actualString,
+            final String expectedContentsFilepath) {
+        try {
+            final String expectedContents = Files.readString(Path.of(expectedContentsFilepath));
+            Assertions.assertNotEquals("", actualString);
+            Assertions.assertEquals(removeLineBreaks(expectedContents), removeLineBreaks(actualString));
+        } catch (IOException e) {
+            Assertions.fail(e);
         }
+    }
 
-        Assertions.assertEquals(generatedFiles, ZipHelpers.unzip(zipPath));
+    private static String removeLineBreaks(final String string) {
+        return string.replace("\r", "").replace("\n", "");
     }
 
 }

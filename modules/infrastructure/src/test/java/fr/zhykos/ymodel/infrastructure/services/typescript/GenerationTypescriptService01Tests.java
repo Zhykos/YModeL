@@ -14,8 +14,6 @@
 package fr.zhykos.ymodel.infrastructure.services.typescript;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +30,7 @@ import fr.zhykos.ymodel.domain.services.typescript.GenerationTypescriptService;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 import fr.zhykos.ymodel.infrastructure.services.GenerationException;
 import fr.zhykos.ymodel.infrastructure.services.GenerationService;
+import fr.zhykos.ymodel.infrastructure.services.helpers.GenerationHelpers;
 
 class GenerationTypescriptService01Tests {
 
@@ -50,19 +49,10 @@ class GenerationTypescriptService01Tests {
                 }).toList();
         Assertions.assertEquals(2, generations.size());
 
-        final String expectedTypescript01 = Files
-                .readString(Path.of("src/test/resources/expected-typescript/Class01.ts"));
-        final String expectedTypescript02 = Files
-                .readString(Path.of("src/test/resources/expected-typescript/Class02.ts"));
-
-        final String generation01 = generations.get(0).getContents();
-        final String generation02 = generations.get(1).getContents();
-        Assertions.assertNotEquals("", generation01);
-        Assertions.assertNotEquals("", generation02);
-        Assertions.assertEquals(expectedTypescript01.replace("\r", "").replace("\n", ""),
-                generation01.replace("\r", "").replace("\n", ""));
-        Assertions.assertEquals(expectedTypescript02.replace("\r", "").replace("\n", ""),
-                generation02.replace("\r", "").replace("\n", ""));
+        GenerationHelpers.assertStringEqualsFileContentsAsExcepted(generations.get(0).getContents(),
+                "src/test/resources/expected-typescript/Class01.ts");
+        GenerationHelpers.assertStringEqualsFileContentsAsExcepted(generations.get(1).getContents(),
+                "src/test/resources/expected-typescript/Class02.ts");
     }
 
     private static List<EClass> createEClasses() {

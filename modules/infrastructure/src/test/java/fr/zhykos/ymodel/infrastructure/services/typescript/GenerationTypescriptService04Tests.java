@@ -14,15 +14,12 @@
 package fr.zhykos.ymodel.infrastructure.services.typescript;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -31,6 +28,7 @@ import fr.zhykos.ymodel.domain.services.typescript.GenerationTypescriptService;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 import fr.zhykos.ymodel.infrastructure.services.GenerationException;
 import fr.zhykos.ymodel.infrastructure.services.GenerationService;
+import fr.zhykos.ymodel.infrastructure.services.helpers.GenerationHelpers;
 
 class GenerationTypescriptService04Tests {
 
@@ -42,13 +40,8 @@ class GenerationTypescriptService04Tests {
         final Returns<GeneratedFile, GenerationException> generation = GenerationService.generate(eClass,
                 new GenerationTypescriptService());
 
-        final String expectedTypescript = Files
-                .readString(Path.of("src/test/resources/expected-typescript/Class05.ts"));
-
-        final String typescript = generation.then().getContents();
-        Assertions.assertNotEquals("", typescript);
-        Assertions.assertEquals(expectedTypescript.replace("\r", "").replace("\n", ""),
-                typescript.replace("\r", "").replace("\n", ""));
+        GenerationHelpers.assertStringEqualsFileContentsAsExcepted(generation.then().getContents(),
+                "src/test/resources/expected-typescript/Class05.ts");
     }
 
     private static EClass createEClass() {

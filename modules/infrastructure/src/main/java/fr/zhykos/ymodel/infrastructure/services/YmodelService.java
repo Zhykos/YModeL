@@ -37,24 +37,20 @@ import fr.zhykos.ymodel.infrastructure.models.yml.YmlMetaModel;
 
 public class YmodelService {
 
-    public void generateMetamodel(final File ymlFile, final ELanguage targetLanguage) {
+    public byte[] generateMetamodel(final File ymlFile, final ELanguage targetLanguage)
+            throws GenerationException, IOException, SemanticListException, SyntaxException {
         final Returns<YmlMetaModel, SyntaxException> parsingResult = new ParsingService().parse(ymlFile);
-        try {
-            final Path memoryZipPath = transformMetaModel(parsingResult.then(), targetLanguage);
-        } catch (GenerationException | IOException | SemanticListException | SyntaxException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        return transformMetaModel(parsingResult.then(), targetLanguage);
     }
 
-    private static Path transformMetaModel(final YmlMetaModel ymlMetamodel, final ELanguage targetLanguage)
+    private static byte[] transformMetaModel(final YmlMetaModel ymlMetamodel, final ELanguage targetLanguage)
             throws GenerationException, IOException, SemanticListException {
         final Returns<List<EClass>, SemanticListException> transformationResult = new TransformationService()
                 .transform(ymlMetamodel);
         return generateEClasses(transformationResult.then(), targetLanguage);
     }
 
-    private static Path generateEClasses(final List<EClass> eClasses, final ELanguage targetLanguage)
+    private static byte[] generateEClasses(final List<EClass> eClasses, final ELanguage targetLanguage)
             throws GenerationException, IOException {
         // final IGenerationService<?, ?> generationService = switch
         // (targetLanguage.getName()) {
@@ -70,7 +66,7 @@ public class YmodelService {
         return zipResults(generatedFiles);
     }
 
-    private static Path zipResults(final List<GeneratedFile> generatedFiles) throws IOException {
+    private static byte[] zipResults(final List<GeneratedFile> generatedFiles) throws IOException {
         try (FileSystem fileSystem = Jimfs.newFileSystem(Configuration.unix())) {
             final Path directoryZipPath = fileSystem.getPath("zip");
             Files.createDirectory(directoryZipPath);
@@ -78,7 +74,7 @@ public class YmodelService {
             try (OutputStream outputStream = Files.newOutputStream(memoryZipPath)) {
                 new ZipResultService().zip(generatedFiles, outputStream);
             }
-            return memoryZipPath;
+            return Files.readAllBytes(memoryZipPath);
         }
     }
 
