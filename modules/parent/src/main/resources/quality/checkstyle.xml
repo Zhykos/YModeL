@@ -58,8 +58,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
     <module name="SuppressionFilter">
-        <property name="file" value="resources/quality/checkstyle-suppressions.xml" />
-        <property name="optional" value="true" />
+        <property name="file" value="./modules/parent/src/main/resources/quality/checkstyle-suppressions.xml" />
+        <property name="optional" value="false" />
     </module>
 
     <!-- Checks that a package-info.java file exists for each package.     -->

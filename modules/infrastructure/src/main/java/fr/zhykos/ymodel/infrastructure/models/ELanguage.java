@@ -13,6 +13,10 @@
  */
 package fr.zhykos.ymodel.infrastructure.models;
 
+/**
+ * Target language for generation
+ */
 public enum ELanguage {
+    /** Typescript generation */
     TYPESCRIPT;
 }

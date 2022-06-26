@@ -35,22 +35,36 @@ import fr.zhykos.ymodel.infrastructure.models.ELanguage;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMetaModel;
 
-public class YmodelService {
+public final class YmodelService {
 
+    /**
+     * Generate a metamodel from a declaration file
+     *
+     * @param ymlFile        YML metamodel declaration file
+     * @param targetLanguage Target language
+     * @return Base64 encoded zip file containing generated files
+     * @throws GenerationException   Error while generating files
+     * @throws IOException           Error while creating the zip file
+     * @throws SemanticListException Semantic exception while reading the metamodel
+     *                               declaration file
+     * @throws SyntaxException       Syntax exception while parsing the metamodel
+     *                               declaration file
+     */
+    @SuppressWarnings("PMD.UnusedFormalParameter")
     public byte[] generateMetamodel(final File ymlFile, final ELanguage targetLanguage)
             throws GenerationException, IOException, SemanticListException, SyntaxException {
         final Returns<YmlMetaModel, SyntaxException> parsingResult = new ParsingService().parse(ymlFile);
-        return transformMetaModel(parsingResult.then(), targetLanguage);
+        return transformMetaModel(parsingResult.then());
     }
 
-    private static byte[] transformMetaModel(final YmlMetaModel ymlMetamodel, final ELanguage targetLanguage)
+    private static byte[] transformMetaModel(final YmlMetaModel ymlMetamodel)
             throws GenerationException, IOException, SemanticListException {
         final Returns<List<EClass>, SemanticListException> transformationResult = new TransformationService()
                 .transform(ymlMetamodel);
-        return generateEClasses(transformationResult.then(), targetLanguage);
+        return generateEClasses(transformationResult.then());
     }
 
-    private static byte[] generateEClasses(final List<EClass> eClasses, final ELanguage targetLanguage)
+    private static byte[] generateEClasses(final List<EClass> eClasses)
             throws GenerationException, IOException {
         // final IGenerationService<?, ?> generationService = switch
         // (targetLanguage.getName()) {

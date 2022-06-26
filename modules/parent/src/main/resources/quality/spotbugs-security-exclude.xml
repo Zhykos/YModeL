@@ -72,4 +72,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <Field name="subExceptions" />
     </Match>
 
+    <!-- GENERATED CODE -->
+
+    <Match>
+        <Class name="fr.zhykos.ymodel.infrastructure.openapi.model.InlineObject" />
+    </Match>
+    <Match>
+        <Class name="fr.zhykos.ymodel.infrastructure.openapi.model.InlineResponse200" />
+    </Match>
+
 </FindBugsFilter>

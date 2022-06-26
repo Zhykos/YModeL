@@ -27,7 +27,7 @@ import fr.zhykos.ymodel.infrastructure.services.SemanticListException;
 import fr.zhykos.ymodel.infrastructure.services.SyntaxException;
 import fr.zhykos.ymodel.infrastructure.services.YmodelService;
 
-public class MetamodelService implements MetamodelApi {
+public final class MetamodelService implements MetamodelApi {
 
     @Override
     public InlineResponse200 generateMetamodel(final GenerateMetamodelMultipartForm multipartForm) {
@@ -36,7 +36,7 @@ public class MetamodelService implements MetamodelApi {
             final byte[] zipResult = new YmodelService().generateMetamodel(multipartForm._file, targetLanguage);
             final byte[] zipBase64 = Base64.getEncoder().encode(zipResult);
             return new InlineResponse200().zip(zipBase64);
-        } catch (GenerationException | IOException | SemanticListException | SyntaxException e) {
+        } catch (final GenerationException | IOException | SemanticListException | SyntaxException e) {
             // XXX Finer exceptions!
             throw new WebApplicationException("Cannot generate metamodel", e,
                     Response.Status.INTERNAL_SERVER_ERROR);
