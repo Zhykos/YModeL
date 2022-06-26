@@ -39,4 +39,12 @@ class TypescriptClassTests {
         Assertions.assertTrue(typescriptClass.hasImports());
     }
 
+    @Test
+    @DisplayName("Class has imports")
+    void getFileClassName() {
+        final TypescriptClass typescriptClass = new TypescriptClass();
+        typescriptClass.setName("foo");
+        Assertions.assertEquals("foo.ts", typescriptClass.getFileClassName());
+    }
+
 }

@@ -11,12 +11,11 @@
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package fr.zhykos.ymodel.infrastructure.openapi;
+package fr.zhykos.ymodel.infrastructure.openapi.services;
 
 import java.io.File;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -25,7 +24,6 @@ import io.restassured.RestAssured;
 @QuarkusTest
 class MetamodelServiceTest {
 
-    @Disabled
     @Test
     void generate() {
         final File ymlFile = new File("src/test/resources/metamodel01.yml");
