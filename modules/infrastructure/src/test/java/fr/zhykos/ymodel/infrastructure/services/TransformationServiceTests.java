@@ -29,6 +29,8 @@ import fr.zhykos.ymodel.infrastructure.models.yml.YmlField;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMetaModel;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMethod;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMethodParameter;
+import fr.zhykos.ymodel.infrastructure.services.ParsingService.SyntaxException;
+import fr.zhykos.ymodel.infrastructure.services.TransformationService.SemanticListException;
 
 class TransformationServiceTests {
 

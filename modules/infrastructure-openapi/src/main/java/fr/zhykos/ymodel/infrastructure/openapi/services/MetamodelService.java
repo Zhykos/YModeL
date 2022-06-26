@@ -22,9 +22,9 @@ import javax.ws.rs.core.Response;
 import fr.zhykos.ymodel.infrastructure.models.ELanguage;
 import fr.zhykos.ymodel.infrastructure.openapi.api.MetamodelApi;
 import fr.zhykos.ymodel.infrastructure.openapi.model.InlineResponse200;
-import fr.zhykos.ymodel.infrastructure.services.GenerationException;
-import fr.zhykos.ymodel.infrastructure.services.SemanticListException;
-import fr.zhykos.ymodel.infrastructure.services.SyntaxException;
+import fr.zhykos.ymodel.infrastructure.services.GenerationService.GenerationException;
+import fr.zhykos.ymodel.infrastructure.services.ParsingService.SyntaxException;
+import fr.zhykos.ymodel.infrastructure.services.TransformationService.SemanticListException;
 import fr.zhykos.ymodel.infrastructure.services.YmodelService;
 import fr.zhykos.ymodel.infrastructure.services.ZipResultService.ZipException;
 

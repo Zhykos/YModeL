@@ -70,4 +70,29 @@ public final class ParsingService {
         }
     }
 
+    /**
+     * Syntax exception thrown when a syntax error is detected in a YML file
+     */
+    public static final class SyntaxException extends Exception {
+
+        /**
+         * Constructor
+         *
+         * @param cause Cause of the exception
+         */
+        private SyntaxException(final Throwable cause) {
+            super(cause);
+        }
+
+        /**
+         * Constructor
+         *
+         * @param message Message of the exception
+         */
+        private SyntaxException(final String message) {
+            super(message);
+        }
+
+    }
+
 }

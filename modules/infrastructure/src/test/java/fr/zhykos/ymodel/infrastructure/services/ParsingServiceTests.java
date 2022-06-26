@@ -25,6 +25,7 @@ import fr.zhykos.ymodel.infrastructure.models.yml.YmlClass;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMetaModel;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMethod;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMethodParameter;
+import fr.zhykos.ymodel.infrastructure.services.ParsingService.SyntaxException;
 
 class ParsingServiceTests {
 

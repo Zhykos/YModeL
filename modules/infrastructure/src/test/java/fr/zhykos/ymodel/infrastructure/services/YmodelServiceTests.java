@@ -28,6 +28,9 @@ import com.google.common.jimfs.Jimfs;
 
 import fr.zhykos.ymodel.infrastructure.models.ELanguage;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
+import fr.zhykos.ymodel.infrastructure.services.GenerationService.GenerationException;
+import fr.zhykos.ymodel.infrastructure.services.ParsingService.SyntaxException;
+import fr.zhykos.ymodel.infrastructure.services.TransformationService.SemanticListException;
 import fr.zhykos.ymodel.infrastructure.services.ZipResultService.ZipException;
 import fr.zhykos.ymodel.infrastructure.services.helpers.GenerationHelpers;
 import fr.zhykos.ymodel.infrastructure.services.helpers.ZipHelpers;

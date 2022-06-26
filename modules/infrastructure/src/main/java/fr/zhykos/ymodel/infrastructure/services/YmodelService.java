@@ -34,6 +34,9 @@ import fr.zhykos.ymodel.domain.services.typescript.GenerationTypescriptService;
 import fr.zhykos.ymodel.infrastructure.models.ELanguage;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMetaModel;
+import fr.zhykos.ymodel.infrastructure.services.GenerationService.GenerationException;
+import fr.zhykos.ymodel.infrastructure.services.ParsingService.SyntaxException;
+import fr.zhykos.ymodel.infrastructure.services.TransformationService.SemanticListException;
 import fr.zhykos.ymodel.infrastructure.services.ZipResultService.ZipException;
 
 public final class YmodelService {

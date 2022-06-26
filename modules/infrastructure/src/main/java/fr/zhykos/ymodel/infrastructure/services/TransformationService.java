@@ -13,6 +13,7 @@
  */
 package fr.zhykos.ymodel.infrastructure.services;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -164,6 +165,42 @@ public final class TransformationService {
             case "void", "float", "char", "int", "string" -> null;
             default -> message;
         };
+    }
+
+    /**
+     * SemanticException is thrown when a semantic error is detected.
+     * That means that the model is not valid.
+     */
+    public static final class SemanticListException extends Exception {
+
+        /**
+         * Origin file of the error.
+         */
+        private final File originFile;
+
+        /**
+         * List of exceptions.
+         */
+        private final List<String> subExceptions;
+
+        /**
+         * New exception with a list of specific exceptions.
+         *
+         * @param file       Origin file of the error.
+         * @param exceptions The list of exceptions
+         */
+        private SemanticListException(final File file, final List<String> exceptions) {
+            this.originFile = file;
+            this.subExceptions = exceptions;
+        }
+
+        @Override
+        public String getMessage() {
+            return "Transformation error for file '%s':%n%s."
+                    .formatted(this.originFile.getName(),
+                            this.subExceptions.stream().collect(Collectors.joining(System.lineSeparator())));
+        }
+
     }
 
 }

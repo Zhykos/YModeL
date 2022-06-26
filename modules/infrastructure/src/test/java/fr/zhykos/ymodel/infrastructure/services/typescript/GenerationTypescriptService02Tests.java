@@ -25,8 +25,8 @@ import org.junit.jupiter.api.Test;
 import fr.zhykos.ymodel.commons.Returns;
 import fr.zhykos.ymodel.domain.services.typescript.GenerationTypescriptService;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
-import fr.zhykos.ymodel.infrastructure.services.GenerationException;
 import fr.zhykos.ymodel.infrastructure.services.GenerationService;
+import fr.zhykos.ymodel.infrastructure.services.GenerationService.GenerationException;
 import fr.zhykos.ymodel.infrastructure.services.helpers.GenerationHelpers;
 
 class GenerationTypescriptService02Tests {

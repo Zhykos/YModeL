@@ -109,4 +109,20 @@ public final class GenerationService {
         }
     }
 
+    /**
+     * Exception while generating a new Class
+     */
+    public static final class GenerationException extends Exception {
+
+        /**
+         * New Exception caused by...
+         *
+         * @param cause The cause
+         */
+        private GenerationException(final Throwable cause) {
+            super(cause);
+        }
+
+    }
+
 }
