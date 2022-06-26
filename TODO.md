@@ -2,3 +2,5 @@
 - cli
 - validator (online ? extension ? xsd-like ?)
 - metamodel or metaModel ?
+- YmodelService: gérer la sélection de langage
+- reactive api?

@@ -11,23 +11,8 @@
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package fr.zhykos.ymodel.infrastructure.openapi;
+package fr.zhykos.ymodel.infrastructure.models;
 
-import java.io.File;
-
-import fr.zhykos.ymodel.infrastructure.models.ELanguage;
-import fr.zhykos.ymodel.infrastructure.openapi.api.MetamodelApi;
-import fr.zhykos.ymodel.infrastructure.services.YmodelService;
-
-public class MetamodelService implements MetamodelApi {
-
-    @Override
-    public File generateMetamodel(final GenerateMetamodelMultipartForm multipartForm) {
-        final ELanguage targetLanguage = ELanguage.valueOf(multipartForm.language.getName().value());
-        new YmodelService().generateMetamodel(multipartForm._file, targetLanguage);
-        return null; // TODO
-        // throw new WebApplicationException("Cannot generate metamodel", e,
-        // Response.Status.INTERNAL_SERVER_ERROR);
-    }
-
+public enum ELanguage {
+    TYPESCRIPT;
 }
