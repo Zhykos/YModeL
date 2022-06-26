@@ -13,14 +13,15 @@
  */
 package fr.zhykos.ymodel.infrastructure.openapi;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import fr.zhykos.ymodel.infrastructure.models.ELanguage;
 import fr.zhykos.ymodel.infrastructure.openapi.api.MetamodelApi;
+import fr.zhykos.ymodel.infrastructure.openapi.model.InlineResponse200;
 import fr.zhykos.ymodel.infrastructure.services.GenerationException;
 import fr.zhykos.ymodel.infrastructure.services.SemanticListException;
 import fr.zhykos.ymodel.infrastructure.services.SyntaxException;
@@ -29,11 +30,12 @@ import fr.zhykos.ymodel.infrastructure.services.YmodelService;
 public class MetamodelService implements MetamodelApi {
 
     @Override
-    public File generateMetamodel(final GenerateMetamodelMultipartForm multipartForm) {
+    public InlineResponse200 generateMetamodel(final GenerateMetamodelMultipartForm multipartForm) {
         final ELanguage targetLanguage = ELanguage.valueOf(multipartForm.language.getName().value());
         try {
-            new YmodelService().generateMetamodel(multipartForm._file, targetLanguage);
-            return null; // TODO
+            final byte[] zipResult = new YmodelService().generateMetamodel(multipartForm._file, targetLanguage);
+            final byte[] zipBase64 = Base64.getEncoder().encode(zipResult);
+            return new InlineResponse200().zip(zipBase64);
         } catch (GenerationException | IOException | SemanticListException | SyntaxException e) {
             // XXX Finer exceptions!
             throw new WebApplicationException("Cannot generate metamodel", e,

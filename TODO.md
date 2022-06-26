@@ -4,3 +4,5 @@
 - metamodel or metaModel ?
 - YmodelService: gérer la sélection de langage
 - reactive api?
+- zip service: create specific exception
+- check TODOs, XXXs and FIXMEs

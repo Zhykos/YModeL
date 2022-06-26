@@ -42,12 +42,16 @@ paths:
                   format: binary
       responses:
         '200':
-          description: A zip file containing the generated metamodel
+          description: A zip file containing the generated metamodel (in a base64-encoded binary string)
           content:
-            application/zip:    
+            application/json:
               schema:
-                type: string
-                format: binary
+                type: object
+                properties:
+                  zip:
+                    type: string
+                    format: byte
+                    description: Base64-encoded contents of the zip file containing the generated classes
         default:
           description: unexpected error
           content:
