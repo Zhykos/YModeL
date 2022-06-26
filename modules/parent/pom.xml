@@ -64,7 +64,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <bundle.coverage.ratio>0</bundle.coverage.ratio>
+        <bundle.coverage.ratio>1</bundle.coverage.ratio>
         <skipITs>true</skipITs>
 
         <!-- DEPENDENCIES VERSIONS -->
@@ -304,6 +304,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${org.jacoco.jacoco-maven-plugin.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/infrastructure/openapi/**</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>coverage-initialize</id>

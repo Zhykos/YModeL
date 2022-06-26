@@ -1,8 +1,9 @@
-- api
 - cli
 - validator (online ? extension ? xsd-like ?)
 - metamodel or metaModel ?
-- YmodelService: gérer la sélection de langage
-- reactive api?
+- YmodelService: gérer la sélection de langage (code dynamique : soit osgi, soit introspection)
+- reactive api? (n'est pas possible avec la version actuelle du générateur)
 - zip service: create specific exception
 - check TODOs, XXXs and FIXMEs
+- cannot coverage infra openapi module (always zero%) https://quarkus.io/guides/tests-with-coverage
+- reactivate <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability> (parent pom)
