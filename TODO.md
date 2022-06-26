@@ -1,5 +1,5 @@
 - cli
-- validator (online ? extension ? xsd-like ?)
+- validator (online ? extension ? xsd-like ?) https://www.codethink.co.uk/articles/2016/validating-schemas-yaml/#:~:text=A%20schema%20validator%20takes%20two,tool%20which%20validates%20YAML%20schemas.&text=We%20could%20check%20this%20if%20we%20run%20pwkwalify%20-s%20schema.
 - metamodel or metaModel ?
 - YmodelService: gérer la sélection de langage (code dynamique : soit osgi, soit introspection)
 - reactive api? (n'est pas possible avec la version actuelle du générateur)

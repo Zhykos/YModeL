@@ -23,18 +23,20 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
+import fr.zhykos.ymodel.infrastructure.services.ZipResultService.ZipException;
 import fr.zhykos.ymodel.infrastructure.services.helpers.ZipHelpers;
 
 class ZipResultServiceTests {
 
     @Test
     @DisplayName("Zip some strings into a single file")
-    void zip() throws IOException {
+    void zip() throws IOException, ZipException {
         final FileSystem fileSystem = Jimfs.newFileSystem(Configuration.unix());
 
         final List<GeneratedFile> generatedFiles = List.of(new GeneratedFile("file01.txt", "foo"),
@@ -48,6 +50,17 @@ class ZipResultServiceTests {
         }
 
         Assertions.assertEquals(generatedFiles, ZipHelpers.unzip(zipPath));
+    }
+
+    @Test
+    @DisplayName("Zip exception")
+    void zipException() throws IOException {
+        final List<GeneratedFile> generatedFiles = List.of(new GeneratedFile("file01.txt", "foo"));
+        try (OutputStream outputStream = Mockito.mock(OutputStream.class)) {
+            Mockito.doThrow(IOException.class).when(outputStream).write(Mockito.anyInt());
+            Assertions.assertThrows(ZipException.class,
+                    () -> new ZipResultService().zip(generatedFiles, outputStream));
+        }
     }
 
 }

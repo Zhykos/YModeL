@@ -25,7 +25,7 @@ import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 /**
  * Service to create a zip file with the generated files in it
  */
-public class ZipResultService {
+public final class ZipResultService {
 
     /**
      * Create a zip file with the generated files in it
@@ -34,14 +34,24 @@ public class ZipResultService {
      * @param outputStream   Stream in which the zip file is created
      * @throws IOException Error while creating the zip
      */
-    public void zip(final List<GeneratedFile> generatedFiles, final OutputStream outputStream) throws IOException {
+    public void zip(final List<GeneratedFile> generatedFiles, final OutputStream outputStream) throws ZipException {
         try (ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream)) {
             for (final GeneratedFile generatedFile : generatedFiles) {
                 final ZipEntry zipEntry = new ZipEntry(generatedFile.getFilename());
                 zipOutputStream.putNextEntry(zipEntry);
                 zipOutputStream.write(generatedFile.getContents().getBytes(StandardCharsets.UTF_8));
             }
+        } catch (final IOException e) {
+            throw new ZipException(e);
         }
+    }
+
+    public static final class ZipException extends Exception {
+
+        private ZipException(final Throwable cause) {
+            super(cause);
+        }
+
     }
 
 }

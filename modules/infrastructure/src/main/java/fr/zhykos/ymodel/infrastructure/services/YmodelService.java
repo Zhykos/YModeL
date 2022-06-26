@@ -34,6 +34,7 @@ import fr.zhykos.ymodel.domain.services.typescript.GenerationTypescriptService;
 import fr.zhykos.ymodel.infrastructure.models.ELanguage;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMetaModel;
+import fr.zhykos.ymodel.infrastructure.services.ZipResultService.ZipException;
 
 public final class YmodelService {
 
@@ -44,28 +45,29 @@ public final class YmodelService {
      * @param targetLanguage Target language
      * @return Base64 encoded zip file containing generated files
      * @throws GenerationException   Error while generating files
-     * @throws IOException           Error while creating the zip file
+     * @throws IOException           Error while saving the zip file into the system
      * @throws SemanticListException Semantic exception while reading the metamodel
      *                               declaration file
      * @throws SyntaxException       Syntax exception while parsing the metamodel
      *                               declaration file
+     * @throws ZipException          Error while create the zip file
      */
     @SuppressWarnings("PMD.UnusedFormalParameter")
     public byte[] generateMetamodel(final File ymlFile, final ELanguage targetLanguage)
-            throws GenerationException, IOException, SemanticListException, SyntaxException {
+            throws GenerationException, IOException, SemanticListException, SyntaxException, ZipException {
         final Returns<YmlMetaModel, SyntaxException> parsingResult = new ParsingService().parse(ymlFile);
         return transformMetaModel(parsingResult.then());
     }
 
     private static byte[] transformMetaModel(final YmlMetaModel ymlMetamodel)
-            throws GenerationException, IOException, SemanticListException {
+            throws GenerationException, IOException, SemanticListException, ZipException {
         final Returns<List<EClass>, SemanticListException> transformationResult = new TransformationService()
                 .transform(ymlMetamodel);
         return generateEClasses(transformationResult.then());
     }
 
     private static byte[] generateEClasses(final List<EClass> eClasses)
-            throws GenerationException, IOException {
+            throws GenerationException, IOException, ZipException {
         // final IGenerationService<?, ?> generationService = switch
         // (targetLanguage.getName()) {
         // case TYPESCRIPT -> new GenerationTypescriptService();
@@ -80,7 +82,7 @@ public final class YmodelService {
         return zipResults(generatedFiles);
     }
 
-    private static byte[] zipResults(final List<GeneratedFile> generatedFiles) throws IOException {
+    private static byte[] zipResults(final List<GeneratedFile> generatedFiles) throws ZipException, IOException {
         try (FileSystem fileSystem = Jimfs.newFileSystem(Configuration.unix())) {
             final Path directoryZipPath = fileSystem.getPath("zip");
             Files.createDirectory(directoryZipPath);
