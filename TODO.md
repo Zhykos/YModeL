@@ -8,3 +8,5 @@
 - reactivate <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability> (parent pom)
 - CPD test helpers (how to share test helpers?)
 - lib fichier mémoire surement à repasser en scope test
+- ajouter tests API (différents code retour)
+- vérifier versions dépendance
