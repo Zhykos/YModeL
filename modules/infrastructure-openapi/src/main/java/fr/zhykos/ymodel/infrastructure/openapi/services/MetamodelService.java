@@ -13,7 +13,7 @@
  */
 package fr.zhykos.ymodel.infrastructure.openapi.services;
 
-import java.io.IOException;
+import java.io.ByteArrayOutputStream;
 import java.util.Base64;
 
 import javax.ws.rs.WebApplicationException;
@@ -33,12 +33,15 @@ public final class MetamodelService implements MetamodelApi {
     @Override
     public InlineResponse200 generateMetamodel(final GenerateMetamodelMultipartForm multipartForm) {
         // TODO check for null values in query
+        // TODO delete ELanguage and check dynamicaly
         final ELanguage targetLanguage = ELanguage.valueOf(multipartForm.language.toUpperCase());
         try {
-            final byte[] zipResult = new YmodelService().generateMetamodel(multipartForm._file, targetLanguage);
+            final ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+            new YmodelService().generateMetamodel(multipartForm._file, targetLanguage, byteStream);
+            final byte[] zipResult = byteStream.toByteArray();
             final byte[] zipBase64 = Base64.getEncoder().encode(zipResult);
             return new InlineResponse200().zip(zipBase64);
-        } catch (final GenerationException | IOException | SemanticListException | SyntaxException | ZipException e) {
+        } catch (final GenerationException | SemanticListException | SyntaxException | ZipException e) {
             // XXX Finer exceptions!
             throw new WebApplicationException("Cannot generate metamodel", e,
                     Response.Status.INTERNAL_SERVER_ERROR);

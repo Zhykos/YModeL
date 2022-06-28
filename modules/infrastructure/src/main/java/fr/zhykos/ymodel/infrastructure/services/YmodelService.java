@@ -14,18 +14,11 @@
 package fr.zhykos.ymodel.infrastructure.services;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.FileSystem;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
-
-import com.google.common.jimfs.Configuration;
-import com.google.common.jimfs.Jimfs;
 
 import fr.zhykos.ymodel.commons.Returns;
 import fr.zhykos.ymodel.domain.models.ITemplateClass;
@@ -48,29 +41,28 @@ public final class YmodelService {
      * @param targetLanguage Target language
      * @return Base64 encoded zip file containing generated files
      * @throws GenerationException   Error while generating files
-     * @throws IOException           Error while saving the zip file into the system
      * @throws SemanticListException Semantic exception while reading the metamodel
      *                               declaration file
      * @throws SyntaxException       Syntax exception while parsing the metamodel
      *                               declaration file
      * @throws ZipException          Error while create the zip file
      */
-    @SuppressWarnings("PMD.UnusedFormalParameter")
-    public byte[] generateMetamodel(final File ymlFile, final ELanguage targetLanguage)
-            throws GenerationException, IOException, SemanticListException, SyntaxException, ZipException {
+    @SuppressWarnings("PMD.UnusedFormalParameter") // XXX
+    public void generateMetamodel(final File ymlFile, final ELanguage targetLanguage, final OutputStream outputStream)
+            throws GenerationException, SemanticListException, SyntaxException, ZipException {
         final Returns<YmlMetaModel, SyntaxException> parsingResult = new ParsingService().parse(ymlFile);
-        return transformMetaModel(parsingResult.then());
+        transformMetaModel(parsingResult.then(), outputStream);
     }
 
-    private static byte[] transformMetaModel(final YmlMetaModel ymlMetamodel)
-            throws GenerationException, IOException, SemanticListException, ZipException {
+    private static void transformMetaModel(final YmlMetaModel ymlMetamodel, final OutputStream outputStream)
+            throws GenerationException, SemanticListException, ZipException {
         final Returns<List<EClass>, SemanticListException> transformationResult = new TransformationService()
                 .transform(ymlMetamodel);
-        return generateEClasses(transformationResult.then());
+        generateEClasses(transformationResult.then(), outputStream);
     }
 
-    private static byte[] generateEClasses(final List<EClass> eClasses)
-            throws GenerationException, IOException, ZipException {
+    private static void generateEClasses(final List<EClass> eClasses, final OutputStream outputStream)
+            throws GenerationException, ZipException {
         // final IGenerationService<?, ?> generationService = switch
         // (targetLanguage.getName()) {
         // case TYPESCRIPT -> new GenerationTypescriptService();
@@ -82,19 +74,22 @@ public final class YmodelService {
         for (final Returns<GeneratedFile, GenerationException> returns : generationResult) {
             generatedFiles.add(returns.then());
         }
-        return zipResults(generatedFiles);
+        zipResults(generatedFiles, outputStream);
     }
 
-    private static byte[] zipResults(final List<GeneratedFile> generatedFiles) throws ZipException, IOException {
-        try (FileSystem fileSystem = Jimfs.newFileSystem(Configuration.unix())) {
-            final Path directoryZipPath = fileSystem.getPath("zip");
-            Files.createDirectory(directoryZipPath);
-            final Path memoryZipPath = Files.createTempFile(directoryZipPath, "result", ".zip");
-            try (OutputStream outputStream = Files.newOutputStream(memoryZipPath)) {
-                new ZipResultService().zip(generatedFiles, outputStream);
-            }
-            return Files.readAllBytes(memoryZipPath);
-        }
+    private static void zipResults(final List<GeneratedFile> generatedFiles, final OutputStream outputStream)
+            throws ZipException {
+        new ZipResultService().zip(generatedFiles, outputStream);
+        // try (FileSystem fileSystem = Jimfs.newFileSystem(Configuration.unix())) {
+        // final Path directoryZipPath = fileSystem.getPath("zip");
+        // Files.createDirectory(directoryZipPath);
+        // final Path memoryZipPath = Files.createTempFile(directoryZipPath, "result",
+        // ".zip");
+        // try (OutputStream outputStream = Files.newOutputStream(memoryZipPath)) {
+        // new ZipResultService().zip(generatedFiles, outputStream);
+        // }
+        // return Files.readAllBytes(memoryZipPath);
+        // }
     }
 
 }

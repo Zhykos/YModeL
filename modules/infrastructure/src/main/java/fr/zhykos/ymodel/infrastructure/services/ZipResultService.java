@@ -32,7 +32,7 @@ public final class ZipResultService {
      *
      * @param generatedFiles Generated files to zip
      * @param outputStream   Stream in which the zip file is created
-     * @throws IOException Error while creating the zip
+     * @throws ZipException Error while creating the zip
      */
     public void zip(final List<GeneratedFile> generatedFiles, final OutputStream outputStream) throws ZipException {
         try (ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream)) {

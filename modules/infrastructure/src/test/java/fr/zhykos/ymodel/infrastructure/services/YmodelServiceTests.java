@@ -13,6 +13,7 @@
  */
 package fr.zhykos.ymodel.infrastructure.services;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystem;
@@ -43,7 +44,9 @@ class YmodelServiceTests {
         final File ymlFile = new File("src/test/resources/metamodel01.yml");
 
         // Where
-        final byte[] zipResult = new YmodelService().generateMetamodel(ymlFile, ELanguage.TYPESCRIPT);
+        final ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        new YmodelService().generateMetamodel(ymlFile, ELanguage.TYPESCRIPT, byteStream);
+        final byte[] zipResult = byteStream.toByteArray();
 
         final FileSystem fileSystem = Jimfs.newFileSystem(Configuration.unix());
         final Path directoryZipPath = fileSystem.getPath("zip");
