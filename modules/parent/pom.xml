@@ -20,6 +20,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <module>../commons</module>
         <module>../domain</module>
         <module>../infrastructure</module>
+        <module>../infrastructure-cli</module>
         <module>../infrastructure-openapi</module>
     </modules>
 
