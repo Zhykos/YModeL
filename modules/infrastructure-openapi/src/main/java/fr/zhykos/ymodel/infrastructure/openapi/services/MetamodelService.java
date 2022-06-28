@@ -14,19 +14,13 @@
 package fr.zhykos.ymodel.infrastructure.openapi.services;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Base64;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
-import fr.zhykos.ymodel.infrastructure.models.ELanguage;
 import fr.zhykos.ymodel.infrastructure.openapi.api.MetamodelApi;
 import fr.zhykos.ymodel.infrastructure.openapi.model.InlineResponse200;
-import fr.zhykos.ymodel.infrastructure.services.GenerationService.GenerationException;
-import fr.zhykos.ymodel.infrastructure.services.ParsingService.SyntaxException;
-import fr.zhykos.ymodel.infrastructure.services.TransformationService.SemanticListException;
 import fr.zhykos.ymodel.infrastructure.services.YmodelService;
-import fr.zhykos.ymodel.infrastructure.services.ZipResultService.ZipException;
 
 public final class MetamodelService implements MetamodelApi {
 
@@ -34,14 +28,14 @@ public final class MetamodelService implements MetamodelApi {
     public InlineResponse200 generateMetamodel(final GenerateMetamodelMultipartForm multipartForm) {
         // TODO check for null values in query
         // TODO delete ELanguage and check dynamicaly
-        final ELanguage targetLanguage = ELanguage.valueOf(multipartForm.language.toUpperCase());
+        // final ELanguage targetLanguage =
+        // ELanguage.valueOf(multipartForm.language.toUpperCase());
         try {
             final ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-            new YmodelService().generateMetamodel(multipartForm._file, targetLanguage, byteStream);
+            new YmodelService().generateMetamodel(multipartForm._file, multipartForm.language, byteStream);
             final byte[] zipResult = byteStream.toByteArray();
-            final byte[] zipBase64 = Base64.getEncoder().encode(zipResult);
-            return new InlineResponse200().zip(zipBase64);
-        } catch (final GenerationException | SemanticListException | SyntaxException | ZipException e) {
+            return new InlineResponse200().zip(zipResult);
+        } catch (final Exception e) {
             // XXX Finer exceptions!
             throw new WebApplicationException("Cannot generate metamodel", e,
                     Response.Status.INTERNAL_SERVER_ERROR);

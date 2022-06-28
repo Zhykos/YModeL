@@ -14,9 +14,16 @@
 package fr.zhykos.ymodel.infrastructure.openapi.services;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
+import fr.zhykos.ymodel.infrastructure.openapi.helpers.GenerationHelpers;
+import fr.zhykos.ymodel.infrastructure.openapi.helpers.ZipHelpers;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 
@@ -24,15 +31,30 @@ import io.restassured.RestAssured;
 class MetamodelServiceTest {
 
     @Test
-    void generate() {
+    void generate() throws IOException {
         final File ymlFile = new File("src/test/resources/metamodel01.yml");
-        RestAssured
+        final String response = RestAssured
                 .given()
                 .contentType("multipart/form-data")
                 .multiPart("file", ymlFile, "multipart/form-data")
                 .formParam("language", "typescript")
                 .expect().statusCode(200)
-                .when().post("/metamodel/generate");
+                .when().post("/metamodel/generate")
+                .andReturn().body().jsonPath().get("zip");
+
+        final List<GeneratedFile> generatedFiles = ZipHelpers.unzip(Base64.getDecoder().decode(response));
+
+        Assertions.assertEquals(2, generatedFiles.size());
+
+        final GeneratedFile generatedFile01 = generatedFiles.get(0);
+        Assertions.assertEquals("Class01.ts", generatedFile01.getFilename());
+        GenerationHelpers.assertStringEqualsFileContentsAsExcepted(generatedFile01.getContents(),
+                "src/test/resources/expected-typescript/Class01.ts");
+
+        final GeneratedFile generatedFile02 = generatedFiles.get(1);
+        Assertions.assertEquals("Class02.ts", generatedFile02.getFilename());
+        GenerationHelpers.assertStringEqualsFileContentsAsExcepted(generatedFile02.getContents(),
+                "src/test/resources/expected-typescript/Class02.ts");
     }
 }
 

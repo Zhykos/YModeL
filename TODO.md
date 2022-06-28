@@ -6,3 +6,5 @@
 - check TODOs, XXXs and FIXMEs
 - cannot coverage infra openapi module (always zero%) https://quarkus.io/guides/tests-with-coverage
 - reactivate <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability> (parent pom)
+- CPD test helpers (how to share test helpers?)
+- lib fichier mémoire surement à repasser en scope test

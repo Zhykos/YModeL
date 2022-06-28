@@ -24,7 +24,6 @@ import fr.zhykos.ymodel.commons.Returns;
 import fr.zhykos.ymodel.domain.models.ITemplateClass;
 import fr.zhykos.ymodel.domain.services.IGenerationService;
 import fr.zhykos.ymodel.domain.services.typescript.GenerationTypescriptService;
-import fr.zhykos.ymodel.infrastructure.models.ELanguage;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 import fr.zhykos.ymodel.infrastructure.models.yml.YmlMetaModel;
 import fr.zhykos.ymodel.infrastructure.services.GenerationService.GenerationException;
@@ -39,7 +38,8 @@ public final class YmodelService {
      *
      * @param ymlFile        YML metamodel declaration file
      * @param targetLanguage Target language
-     * @return Base64 encoded zip file containing generated files
+     * @param outputStream   Stream in which zip file containing generated files is
+     *                       written
      * @throws GenerationException   Error while generating files
      * @throws SemanticListException Semantic exception while reading the metamodel
      *                               declaration file
@@ -48,7 +48,7 @@ public final class YmodelService {
      * @throws ZipException          Error while create the zip file
      */
     @SuppressWarnings("PMD.UnusedFormalParameter") // XXX
-    public void generateMetamodel(final File ymlFile, final ELanguage targetLanguage, final OutputStream outputStream)
+    public void generateMetamodel(final File ymlFile, final String targetLanguage, final OutputStream outputStream)
             throws GenerationException, SemanticListException, SyntaxException, ZipException {
         final Returns<YmlMetaModel, SyntaxException> parsingResult = new ParsingService().parse(ymlFile);
         transformMetaModel(parsingResult.then(), outputStream);

@@ -11,13 +11,12 @@
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package fr.zhykos.ymodel.infrastructure.services.helpers;
+package fr.zhykos.ymodel.infrastructure.openapi.helpers;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -31,8 +30,8 @@ public final class ZipHelpers {
         // Helper class: do nothing and must not be called
     }
 
-    public static List<GeneratedFile> unzip(final Path zipPath) throws IOException {
-        return unzip(Files.newInputStream(zipPath));
+    public static List<GeneratedFile> unzip(final byte[] zipContents) throws IOException {
+        return unzip(new ByteArrayInputStream(zipContents));
     }
 
     private static List<GeneratedFile> unzip(final InputStream inputStream) throws IOException {

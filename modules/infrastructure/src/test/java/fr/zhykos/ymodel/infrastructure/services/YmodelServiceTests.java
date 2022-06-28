@@ -27,7 +27,6 @@ import org.junit.jupiter.api.Test;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 
-import fr.zhykos.ymodel.infrastructure.models.ELanguage;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 import fr.zhykos.ymodel.infrastructure.services.GenerationService.GenerationException;
 import fr.zhykos.ymodel.infrastructure.services.ParsingService.SyntaxException;
@@ -45,7 +44,7 @@ class YmodelServiceTests {
 
         // Where
         final ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-        new YmodelService().generateMetamodel(ymlFile, ELanguage.TYPESCRIPT, byteStream);
+        new YmodelService().generateMetamodel(ymlFile, "typescript", byteStream);
         final byte[] zipResult = byteStream.toByteArray();
 
         final FileSystem fileSystem = Jimfs.newFileSystem(Configuration.unix());
