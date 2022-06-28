@@ -56,6 +56,15 @@ class MetamodelServiceTest {
         GenerationHelpers.assertStringEqualsFileContentsAsExcepted(generatedFile02.getContents(),
                 "src/test/resources/expected-typescript/Class02.ts");
     }
+
+    @Test
+    void notFoundPage() {
+        RestAssured
+                .given()
+                .expect().statusCode(404)
+                .when().post("/metamodel/generating");
+    }
+
 }
 
 /*
