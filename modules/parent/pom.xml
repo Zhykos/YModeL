@@ -93,7 +93,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <!-- https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs-maven-plugin -->
         <com.github.spotbugs.spotbugs-maven-plugin.version>4.5.2.0</com.github.spotbugs.spotbugs-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
-        <org.jacoco.jacoco-maven-plugin.version>0.8.7</org.jacoco.jacoco-maven-plugin.version>
+        <org.jacoco.jacoco-maven-plugin.version>0.8.8</org.jacoco.jacoco-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/com.mycila/license-maven-plugin -->
         <com.mycila.license-maven-plugin.version>4.2.rc2</com.mycila.license-maven-plugin.version>
         <!-- https://mvnrepository.com/artifact/net.revelc.code.formatter/formatter-maven-plugin -->
@@ -127,7 +127,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <!-- https://mvnrepository.com/artifact/io.quarkiverse.openapi.generator/quarkus-openapi-generator -->
         <io.quarkiverse.openapi.generator.quarkus-openapi-generator.version>0.7.0</io.quarkiverse.openapi.generator.quarkus-openapi-generator.version>
         <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-bom -->
-        <io.quarkus.platform.quarkus-bom.version>2.10.0.Final</io.quarkus.platform.quarkus-bom.version>
+        <io.quarkus.platform.quarkus-bom.version>2.10.1.Final</io.quarkus.platform.quarkus-bom.version>
     </properties>
 
     <dependencyManagement>
