@@ -127,7 +127,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <!-- https://mvnrepository.com/artifact/io.quarkiverse.openapi.generator/quarkus-openapi-generator -->
         <io.quarkiverse.openapi.generator.quarkus-openapi-generator.version>0.7.0</io.quarkiverse.openapi.generator.quarkus-openapi-generator.version>
         <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-bom -->
-        <io.quarkus.platform.quarkus-bom.version>2.10.0.Final</io.quarkus.platform.quarkus-bom.version>
+        <io.quarkus.platform.quarkus-bom.version>2.10.1.Final</io.quarkus.platform.quarkus-bom.version>
     </properties>
 
     <dependencyManagement>
