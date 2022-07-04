@@ -13,18 +13,12 @@
  */
 package fr.zhykos.ymodel.infrastructure.openapi.services;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -89,33 +83,6 @@ class MetamodelServiceTest {
     private static String removeLineBreaks(final String string) {
         return string.replace("\r", "").replace("\n", "");
     }
-
-    // public static List<GeneratedFile> unzip(final byte[] zipContents) throws
-    // IOException {
-    // return unzip(new ByteArrayInputStream(zipContents));
-    // }
-
-    // private static List<GeneratedFile> unzip(final InputStream inputStream)
-    // throws IOException {
-    // final List<GeneratedFile> zipFiles = new ArrayList<>();
-    // final byte[] buffer = new byte[1024];
-    // try (ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
-    // ZipEntry zipEntry = zipInputStream.getNextEntry();
-    // while (zipEntry != null) {
-    // final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    // int len;
-    // while ((len = zipInputStream.read(buffer)) > 0) {
-    // outputStream.write(buffer, 0, len);
-    // }
-    // zipFiles.add(new GeneratedFile(zipEntry.getName(), outputStream.toString()));
-    // zipEntry = zipInputStream.getNextEntry();
-    // }
-    // zipInputStream.closeEntry();
-    // }
-    // return zipFiles.stream().sorted((gen1, gen2) ->
-    // gen1.getFilename().compareTo(gen2.getFilename()))
-    // .toList();
-    // }
 
 }
 
