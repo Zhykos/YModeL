@@ -11,28 +11,33 @@
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package fr.zhykos.ymodel.infrastructure.openapi.helpers;
+package fr.zhykos.ymodel.commons;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import org.junit.jupiter.api.Assertions;
+import fr.zhykos.ymodel.commons.models.comparison.ComparisonOK;
+import fr.zhykos.ymodel.commons.models.comparison.Fail;
+import fr.zhykos.ymodel.commons.models.comparison.IComparisonResult;
+import fr.zhykos.ymodel.commons.models.comparison.NotEqual;
 
-public final class GenerationHelpers {
+public final class ComparisonHelper {
 
-    private GenerationHelpers() {
+    private ComparisonHelper() {
         // Helper class: do nothing and must not be called
     }
 
-    public static void assertStringEqualsFileContentsAsExcepted(final String actualString,
-            final String expectedContentsFilepath) {
+    public static IComparisonResult compareStringEqualsFileContentsAsExcepted(final String actualString,
+            final Path expectedContentsFilepath) {
         try {
-            final String expectedContents = Files.readString(Path.of(expectedContentsFilepath));
-            Assertions.assertNotEquals("", actualString);
-            Assertions.assertEquals(removeLineBreaks(expectedContents), removeLineBreaks(actualString));
+            final String expectedContents = Files.readString(expectedContentsFilepath);
+            if (removeLineBreaks(expectedContents).equals(removeLineBreaks(actualString))) {
+                return new ComparisonOK();
+            }
+            return new NotEqual(actualString, expectedContents);
         } catch (IOException e) {
-            Assertions.fail(e);
+            return new Fail().setCause(e);
         }
     }
 

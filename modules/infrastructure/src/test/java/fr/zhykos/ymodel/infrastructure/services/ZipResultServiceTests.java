@@ -28,9 +28,9 @@ import org.mockito.Mockito;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 
+import fr.zhykos.ymodel.commons.ZipHelper;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 import fr.zhykos.ymodel.infrastructure.services.ZipResultService.ZipException;
-import fr.zhykos.ymodel.infrastructure.services.helpers.ZipHelpers;
 
 class ZipResultServiceTests {
 
@@ -49,7 +49,8 @@ class ZipResultServiceTests {
             new ZipResultService().zip(generatedFiles, outputStream);
         }
 
-        Assertions.assertEquals(generatedFiles, ZipHelpers.unzip(zipPath));
+        Assertions.assertEquals(generatedFiles, ZipHelper.unzip(zipPath).stream()
+                .map(zip -> new GeneratedFile(zip.getFilename(), zip.getContents())).toList());
     }
 
     @Test

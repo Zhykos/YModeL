@@ -21,19 +21,24 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 
+import fr.zhykos.ymodel.commons.ComparisonHelper;
+import fr.zhykos.ymodel.commons.ZipHelper;
+import fr.zhykos.ymodel.commons.models.ZipFile;
+import fr.zhykos.ymodel.commons.models.comparison.ComparisonOK;
+import fr.zhykos.ymodel.commons.models.comparison.IComparisonResult;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 import fr.zhykos.ymodel.infrastructure.services.GenerationService.GenerationException;
 import fr.zhykos.ymodel.infrastructure.services.ParsingService.SyntaxException;
 import fr.zhykos.ymodel.infrastructure.services.TransformationService.SemanticListException;
 import fr.zhykos.ymodel.infrastructure.services.ZipResultService.ZipException;
-import fr.zhykos.ymodel.infrastructure.services.helpers.GenerationHelpers;
-import fr.zhykos.ymodel.infrastructure.services.helpers.ZipHelpers;
 
 class YmodelServiceTests {
 
@@ -52,20 +57,28 @@ class YmodelServiceTests {
         Files.createDirectory(directoryZipPath);
         final Path zipResultPath = Files.createTempFile(directoryZipPath, "result", ".zip");
         Files.write(zipResultPath, zipResult);
-        final List<GeneratedFile> generatedFiles = ZipHelpers.unzip(zipResultPath);
+        final List<ZipFile> zipFiles = ZipHelper.unzip(zipResultPath);
+        final List<GeneratedFile> generatedFiles = zipFiles.stream()
+                .map(zip -> new GeneratedFile(zip.getFilename(), zip.getContents())).toList();
 
         // Then
         Assertions.assertEquals(2, generatedFiles.size());
 
         final GeneratedFile generatedFile01 = generatedFiles.get(0);
         Assertions.assertEquals("Class01.ts", generatedFile01.getFilename());
-        GenerationHelpers.assertStringEqualsFileContentsAsExcepted(generatedFile01.getContents(),
-                "src/test/resources/expected-typescript/Class01.ts");
+
+        final IComparisonResult comparisonResult1 = ComparisonHelper.compareStringEqualsFileContentsAsExcepted(
+                generatedFile01.getContents(), Path.of("src/test/resources/expected-typescript/Class01.ts"));
+
+        MatcherAssert.assertThat(comparisonResult1, Matchers.instanceOf(ComparisonOK.class));
 
         final GeneratedFile generatedFile02 = generatedFiles.get(1);
         Assertions.assertEquals("Class02.ts", generatedFile02.getFilename());
-        GenerationHelpers.assertStringEqualsFileContentsAsExcepted(generatedFile02.getContents(),
-                "src/test/resources/expected-typescript/Class02.ts");
+
+        final IComparisonResult comparisonResult2 = ComparisonHelper.compareStringEqualsFileContentsAsExcepted(
+                generatedFile02.getContents(), Path.of("src/test/resources/expected-typescript/Class02.ts"));
+
+        MatcherAssert.assertThat(comparisonResult2, Matchers.instanceOf(ComparisonOK.class));
     }
 
 }

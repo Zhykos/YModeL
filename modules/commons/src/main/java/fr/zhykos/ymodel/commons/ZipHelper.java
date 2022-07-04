@@ -11,31 +11,37 @@
  * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package fr.zhykos.ymodel.infrastructure.openapi.helpers;
+package fr.zhykos.ymodel.commons;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
+import fr.zhykos.ymodel.commons.models.ZipFile;
 
-public final class ZipHelpers {
+public final class ZipHelper {
 
-    private ZipHelpers() {
+    private ZipHelper() {
         // Helper class: do nothing and must not be called
     }
 
-    public static List<GeneratedFile> unzip(final byte[] zipContents) throws IOException {
+    public static List<ZipFile> unzip(final Path zipPath) throws IOException {
+        return unzip(Files.newInputStream(zipPath));
+    }
+
+    public static List<ZipFile> unzip(final byte[] zipContents) throws IOException {
         return unzip(new ByteArrayInputStream(zipContents));
     }
 
-    private static List<GeneratedFile> unzip(final InputStream inputStream) throws IOException {
-        final List<GeneratedFile> zipFiles = new ArrayList<>();
+    private static List<ZipFile> unzip(final InputStream inputStream) throws IOException {
+        final List<ZipFile> zipFiles = new ArrayList<>();
         final byte[] buffer = new byte[1024];
         try (ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
             ZipEntry zipEntry = zipInputStream.getNextEntry();
@@ -45,7 +51,7 @@ public final class ZipHelpers {
                 while ((len = zipInputStream.read(buffer)) > 0) {
                     outputStream.write(buffer, 0, len);
                 }
-                zipFiles.add(new GeneratedFile(zipEntry.getName(), outputStream.toString()));
+                zipFiles.add(new ZipFile(zipEntry.getName(), outputStream.toString()));
                 zipEntry = zipInputStream.getNextEntry();
             }
             zipInputStream.closeEntry();

@@ -13,17 +13,25 @@
  */
 package fr.zhykos.ymodel.infrastructure.openapi.services;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import fr.zhykos.ymodel.commons.ZipHelper;
+import fr.zhykos.ymodel.commons.models.ZipFile;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
-import fr.zhykos.ymodel.infrastructure.openapi.helpers.GenerationHelpers;
-import fr.zhykos.ymodel.infrastructure.openapi.helpers.ZipHelpers;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 
@@ -42,18 +50,20 @@ class MetamodelServiceTest {
                 .when().post("/metamodel/generate")
                 .andReturn().body().jsonPath().get("zip");
 
-        final List<GeneratedFile> generatedFiles = ZipHelpers.unzip(Base64.getDecoder().decode(response));
+        final List<ZipFile> zipFiles = ZipHelper.unzip(Base64.getDecoder().decode(response));
+        final List<GeneratedFile> generatedFiles = zipFiles.stream()
+                .map(zip -> new GeneratedFile(zip.getFilename(), zip.getContents())).toList();
 
         Assertions.assertEquals(2, generatedFiles.size());
 
         final GeneratedFile generatedFile01 = generatedFiles.get(0);
         Assertions.assertEquals("Class01.ts", generatedFile01.getFilename());
-        GenerationHelpers.assertStringEqualsFileContentsAsExcepted(generatedFile01.getContents(),
+        assertStringEqualsFileContentsAsExcepted(generatedFile01.getContents(),
                 "src/test/resources/expected-typescript/Class01.ts");
 
         final GeneratedFile generatedFile02 = generatedFiles.get(1);
         Assertions.assertEquals("Class02.ts", generatedFile02.getFilename());
-        GenerationHelpers.assertStringEqualsFileContentsAsExcepted(generatedFile02.getContents(),
+        assertStringEqualsFileContentsAsExcepted(generatedFile02.getContents(),
                 "src/test/resources/expected-typescript/Class02.ts");
     }
 
@@ -64,6 +74,48 @@ class MetamodelServiceTest {
                 .expect().statusCode(404)
                 .when().post("/metamodel/generating");
     }
+
+    public static void assertStringEqualsFileContentsAsExcepted(final String actualString,
+            final String expectedContentsFilepath) {
+        try {
+            final String expectedContents = Files.readString(Path.of(expectedContentsFilepath));
+            Assertions.assertNotEquals("", actualString);
+            Assertions.assertEquals(removeLineBreaks(expectedContents), removeLineBreaks(actualString));
+        } catch (IOException e) {
+            Assertions.fail(e);
+        }
+    }
+
+    private static String removeLineBreaks(final String string) {
+        return string.replace("\r", "").replace("\n", "");
+    }
+
+    // public static List<GeneratedFile> unzip(final byte[] zipContents) throws
+    // IOException {
+    // return unzip(new ByteArrayInputStream(zipContents));
+    // }
+
+    // private static List<GeneratedFile> unzip(final InputStream inputStream)
+    // throws IOException {
+    // final List<GeneratedFile> zipFiles = new ArrayList<>();
+    // final byte[] buffer = new byte[1024];
+    // try (ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
+    // ZipEntry zipEntry = zipInputStream.getNextEntry();
+    // while (zipEntry != null) {
+    // final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    // int len;
+    // while ((len = zipInputStream.read(buffer)) > 0) {
+    // outputStream.write(buffer, 0, len);
+    // }
+    // zipFiles.add(new GeneratedFile(zipEntry.getName(), outputStream.toString()));
+    // zipEntry = zipInputStream.getNextEntry();
+    // }
+    // zipInputStream.closeEntry();
+    // }
+    // return zipFiles.stream().sorted((gen1, gen2) ->
+    // gen1.getFilename().compareTo(gen2.getFilename()))
+    // .toList();
+    // }
 
 }
 
