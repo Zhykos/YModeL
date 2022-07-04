@@ -14,6 +14,7 @@
 package fr.zhykos.ymodel.infrastructure.services.typescript;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -21,15 +22,19 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EcoreFactory;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import fr.zhykos.ymodel.commons.ComparisonHelper;
 import fr.zhykos.ymodel.commons.Returns;
+import fr.zhykos.ymodel.commons.models.comparison.ComparisonOK;
+import fr.zhykos.ymodel.commons.models.comparison.IComparisonResult;
 import fr.zhykos.ymodel.domain.services.typescript.GenerationTypescriptService;
 import fr.zhykos.ymodel.infrastructure.models.GeneratedFile;
 import fr.zhykos.ymodel.infrastructure.services.GenerationService;
 import fr.zhykos.ymodel.infrastructure.services.GenerationService.GenerationException;
-import fr.zhykos.ymodel.infrastructure.services.helpers.GenerationHelpers;
 
 class GenerationTypescriptService03Tests {
 
@@ -41,8 +46,10 @@ class GenerationTypescriptService03Tests {
         final Returns<GeneratedFile, GenerationException> generation = GenerationService.generate(eClass,
                 new GenerationTypescriptService());
 
-        GenerationHelpers.assertStringEqualsFileContentsAsExcepted(generation.then().getContents(),
-                "src/test/resources/expected-typescript/Class04.ts");
+        final IComparisonResult comparisonResult = ComparisonHelper.compareStringEqualsFileContentsAsExcepted(
+                generation.then().getContents(), Path.of("src/test/resources/expected-typescript/Class04.ts"));
+
+        MatcherAssert.assertThat(comparisonResult, Matchers.instanceOf(ComparisonOK.class));
     }
 
     private static EClass createEClass() {
