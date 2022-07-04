@@ -17,6 +17,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -26,23 +27,45 @@ import java.util.zip.ZipInputStream;
 
 import fr.zhykos.ymodel.commons.models.ZipFile;
 
+/**
+ * Helper for zip files
+ */
 public final class ZipHelper {
+
+    /**
+     * Buffer size for reading the stream
+     */
+    private static final int BUFFER_SIZE = 1024;
 
     private ZipHelper() {
         // Helper class: do nothing and must not be called
     }
 
+    /**
+     * Unzip a file
+     *
+     * @param zipPath The path representing the file to unzip
+     * @return Objects representing the unzipped files
+     * @throws IOException
+     */
     public static List<ZipFile> unzip(final Path zipPath) throws IOException {
         return unzip(Files.newInputStream(zipPath));
     }
 
+    /**
+     * Unzip a stream representing a file to unzip
+     *
+     * @param zipContents The stream (the file to unzip) as a byte array
+     * @return O
+     * @throws IOException
+     */
     public static List<ZipFile> unzip(final byte[] zipContents) throws IOException {
         return unzip(new ByteArrayInputStream(zipContents));
     }
 
     private static List<ZipFile> unzip(final InputStream inputStream) throws IOException {
         final List<ZipFile> zipFiles = new ArrayList<>();
-        final byte[] buffer = new byte[1024];
+        final byte[] buffer = new byte[BUFFER_SIZE];
         try (ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
             ZipEntry zipEntry = zipInputStream.getNextEntry();
             while (zipEntry != null) {
@@ -51,7 +74,7 @@ public final class ZipHelper {
                 while ((len = zipInputStream.read(buffer)) > 0) {
                     outputStream.write(buffer, 0, len);
                 }
-                zipFiles.add(new ZipFile(zipEntry.getName(), outputStream.toString()));
+                zipFiles.add(new ZipFile(zipEntry.getName(), outputStream.toString(StandardCharsets.UTF_8)));
                 zipEntry = zipInputStream.getNextEntry();
             }
             zipInputStream.closeEntry();
