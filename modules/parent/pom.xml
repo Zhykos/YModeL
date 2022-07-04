@@ -128,6 +128,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <io.quarkiverse.openapi.generator.quarkus-openapi-generator.version>0.7.0</io.quarkiverse.openapi.generator.quarkus-openapi-generator.version>
         <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-bom -->
         <io.quarkus.platform.quarkus-bom.version>2.10.1.Final</io.quarkus.platform.quarkus-bom.version>
+        <org.hamcrest.hamcrest.version>2.2</org.hamcrest.hamcrest.version>
     </properties>
 
     <dependencyManagement>
@@ -188,6 +189,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-inline</artifactId>
                 <version>${org.mockito.mockito-inline.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest</artifactId>
+                <version>${org.hamcrest.hamcrest.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
