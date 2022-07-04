@@ -233,6 +233,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <version>${org.apache.maven.plugins.maven-checkstyle-plugin.version}</version>
                 <configuration>
                     <configLocation>${project.basedir}/../parent/src/main/resources/quality/checkstyle.xml</configLocation>
+                    <headerLocation>${project.basedir}/../parent/src/main/resources/quality/headers.java.txt</headerLocation>
                 </configuration>
                 <executions>
                     <execution>
