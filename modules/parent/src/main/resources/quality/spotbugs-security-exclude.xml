@@ -72,6 +72,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <Field name="subExceptions" />
     </Match>
 
+    <Match>
+        <Class name="fr.zhykos.ymodel.commons.models.comparison.Fail" />
+        <Method name="setCause" />
+        <Bug pattern="EI_EXPOSE_REP2" />
+    </Match>
+
     <!-- GENERATED CODE -->
 
     <Match>

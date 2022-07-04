@@ -28,6 +28,14 @@ public final class ComparisonHelper {
         // Helper class: do nothing and must not be called
     }
 
+    /**
+     * Compare a string with a file content
+     *
+     * @param actualString             The string to compare
+     * @param expectedContentsFilepath The expected file containing the other string
+     *                                 to compare
+     * @return An object typed with the comparison result
+     */
     public static IComparisonResult compareStringEqualsFileContentsAsExcepted(final String actualString,
             final Path expectedContentsFilepath) {
         try {
@@ -36,7 +44,7 @@ public final class ComparisonHelper {
                 return new ComparisonOK();
             }
             return new NotEqual(actualString, expectedContents);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             return new Fail().setCause(e);
         }
     }
