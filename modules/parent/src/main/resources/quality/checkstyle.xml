@@ -97,10 +97,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     <!-- Checks for Headers                                -->
     <!-- See https://checkstyle.org/config_header.html   -->
-    <!-- <module name="Header"> -->
-    <!--   <property name="headerFile" value="${checkstyle.header.file}"/> -->
-    <!--   <property name="fileExtensions" value="java"/> -->
-    <!-- </module> -->
+    <module name="Header">
+        <property name="headerFile" value="${checkstyle.header.file}" />
+        <property name="fileExtensions" value="java" />
+    </module>
 
     <module name="TreeWalker">
 
