@@ -365,28 +365,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     <configFile>${project.basedir}/../parent/src/main/resources/quality/format-java.xml</configFile>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>${org.apache.maven.plugins.maven-antrun-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>lombok-config</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <propertyfile file="lombok.config">
-                                    <entry key="config.stopBubbling" value="true" />
-                                    <entry key="lombok.addLombokGeneratedAnnotation" value="true" />
-                                </propertyfile>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 
             <!-- Below, no explicit use: just to upgrade the version -->
 
@@ -444,6 +422,28 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${compiler-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${org.apache.maven.plugins.maven-antrun-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>lombok-config</id>
+                            <phase>initialize</phase>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                            <configuration>
+                                <target>
+                                    <propertyfile file="lombok.config">
+                                        <entry key="config.stopBubbling" value="true" />
+                                        <entry key="lombok.addLombokGeneratedAnnotation" value="true" />
+                                    </propertyfile>
+                                </target>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <!-- Below, no explicit use: just to upgrade the version -->
