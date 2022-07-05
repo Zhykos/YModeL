@@ -10,6 +10,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # YModeL
 
+Project has moved to: https://gitlab.com/fr.zhykos/YModeL
+
 Work in progress!
 
 Generate a metamodel base code from a YML declaration
